@@ -77,11 +77,7 @@
                 </v-card-actions>
             </v-card>
         </v-col>
+        <Nuxt />
+        <DevisForm />
     </v-row>
 </template>
-
-<script>
-export default {
-    name: 'IndexPage'
-}
-</script>

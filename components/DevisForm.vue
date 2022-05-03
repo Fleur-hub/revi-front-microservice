@@ -4,11 +4,10 @@
             <validation-provider
                 v-slot="{ errors }"
                 name="Name"
-                rules="required|max:10"
+                rules="required"
             >
                 <v-text-field
                     v-model="name"
-                    :counter="10"
                     :error-messages="errors"
                     label="Name"
                     required
@@ -19,13 +18,12 @@
                 name="phoneNumber"
                 :rules="{
                     required: true,
-                    digits: 7,
-                    regex: '^(71|72|74|76|81|82|84|85|86|87|88|89)\\d{5}$'
+                    digits: 10
                 }"
             >
                 <v-text-field
                     v-model="phoneNumber"
-                    :counter="7"
+                    :counter="10"
                     :error-messages="errors"
                     label="Phone Number"
                     required
@@ -76,6 +74,79 @@
                 submit
             </v-btn>
             <v-btn @click="clear"> clear </v-btn>
+            <v-text-field color="success" loading disabled></v-text-field>
         </form>
     </validation-observer>
 </template>
+
+<script>
+import {
+    required,
+    digits,
+    email,
+    max,
+    regex
+} from 'vee-validate/dist/rules.umd'
+import {
+    extend,
+    ValidationObserver,
+    ValidationProvider,
+    setInteractionMode
+} from 'vee-validate'
+
+setInteractionMode('eager')
+extend('digits', {
+    ...digits,
+    message: '{_field_} needs to be {length} digits. ({_value_})'
+})
+extend('required', {
+    ...required,
+    message: '{_field_} can not be empty'
+})
+extend('max', {
+    ...max,
+    message: '{_field_} may not be greater than {length} characters'
+})
+extend('regex', {
+    ...regex,
+    message: '{_field_} {_value_} does not match {regex}'
+})
+extend('email', {
+    ...email,
+    message: 'Email must be valid'
+})
+
+export default {
+    components: {
+        ValidationProvider,
+        ValidationObserver
+    },
+    data: () => ({
+        name: '',
+        phoneNumber: '',
+        email: '',
+        select: null,
+        items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+        checkbox: null
+    }),
+    methods: {
+        submit() {
+            this.$refs.observer.validate()
+        },
+        clear() {
+            this.name = ''
+            this.phoneNumber = ''
+            this.email = ''
+            this.select = null
+            this.checkbox = null
+            this.$refs.observer.reset()
+        }
+    }
+}
+</script>
+
+<codepen-resources lang="json">
+{
+    "js": ["https://cdn.jsdelivr.net/npm/vee-validate@3.x/dist/vee-validate.js"]
+}
+</codepen-resources>
