@@ -130,6 +130,9 @@ export default {
         checkbox: null
     }),
     methods: {
+        isValid() {
+            return this.$refs.observer.valid()
+        },
         submit() {
             this.$refs.observer.validate()
         },
