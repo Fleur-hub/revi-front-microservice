@@ -60,14 +60,59 @@ export default {
             dark: true,
             themes: {
                 dark: {
-                    background: '#8c1212',
-                    primary: '#78579a',
-                    secondary: '#9c27b0',
-                    accent: '#3f51b5',
-                    error: '#f44336',
-                    warning: '#ffc107',
-                    info: '#03abf6',
-                    success: '#4bb150'
+                    background: '#f9f9fb',
+
+                    /* Primary */
+                    primaryBorder: '#bbb0f5',
+                    primaryFocus: '#ac9ff0',
+                    primaryHoover: '#3817d8',
+                    primaryPressed: '#210f7f',
+                    primarySecondary: '#f7f4ff',
+                    primaryMain: '#5a3fe1',
+
+                    /* Info */
+                    infoBorder: '#aab6f4',
+                    infoFocus: '#e2e6ff',
+                    infoHoover: '#001db8',
+                    infoPressed: '#001793',
+                    infoSecondary: '#ccd3f8',
+                    infoMain: '#0023dd',
+
+                    /* Gray */
+                    grayScale10: '#ffffff',
+                    grayScale20: '#f5f5f5',
+                    grayScale30: '#ededed',
+                    grayScale40: '#e0e0e0',
+                    grayScale50: '#c2c2c2',
+                    grayScale60: '#9e9e9e',
+                    grayScale70: '#757575',
+                    grayScale80: '#616161',
+                    grayScale90: '#424242',
+                    grayScale100: '#0a0a0a',
+
+                    /* Success */
+                    successBorder: '#b5d0c9',
+                    successFocus: '#c7eae1',
+                    successHoover: '#1b5f4e',
+                    successPressed: '#164c3f',
+                    successSecondary: '#d2e2de',
+                    successMain: '#21725e',
+
+                    /* Warning */
+                    warningBorder: '#ffc107',
+                    warningFocus: '#f5efb9',
+                    warningHoover: '#fcf8ce',
+                    warningPressed: '#baab24',
+                    warningSecondary: '#f9f5d5',
+                    warningMain: '#e0ce2c',
+
+                    /* Danger */
+                    dangerBorder: '#e2b6b6',
+                    dangerFocus: '#ffdfdf',
+                    dangerHoover: '#8c1f1f',
+                    dangerPressed: '#541212',
+                    dangerSecondary: '#eed3d3',
+                    dangerMain: '#a82525'
                 }
             }
         },
