@@ -25,13 +25,7 @@
                 <v-btn
                     ref="step1Button"
                     color="primary"
-                    @click="
-                        validate(
-                            $refs.step1Form,
-                            $refs.step1Button,
-                            2
-                        )
-                    "
+                    @click="validate($refs.step1Form, $refs.step1Button, 2)"
                 >
                     Continue
                 </v-btn>
