@@ -1,81 +1,66 @@
 <template>
-    <validation-observer ref="observer" v-slot="{ invalid }">
-        <form @submit.prevent="submit">
-            <validation-provider
-                v-slot="{ errors }"
-                name="Name"
-                rules="required"
-            >
-                <v-text-field
-                    v-model="name"
-                    :error-messages="errors"
-                    label="Name"
-                    required
-                ></v-text-field>
-            </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                name="phoneNumber"
-                :rules="{
-                    required: true,
-                    digits: 10
-                }"
-            >
-                <v-text-field
-                    v-model="phoneNumber"
-                    :counter="10"
-                    :error-messages="errors"
-                    label="Phone Number"
-                    required
-                ></v-text-field>
-            </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                name="email"
-                rules="required|email"
-            >
-                <v-text-field
-                    v-model="email"
-                    :error-messages="errors"
-                    label="E-mail"
-                    required
-                ></v-text-field>
-            </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                name="select"
-                rules="required"
-            >
-                <v-select
-                    v-model="select"
-                    :items="items"
-                    :error-messages="errors"
-                    label="Select"
-                    data-vv-name="select"
-                    required
-                ></v-select>
-            </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                rules="required"
-                name="checkbox"
-            >
-                <v-checkbox
-                    v-model="checkbox"
-                    :error-messages="errors"
-                    value="1"
-                    label="Option"
-                    type="checkbox"
-                    required
-                ></v-checkbox>
-            </validation-provider>
-
-            <v-btn class="mr-4" type="submit" :disabled="invalid">
-                submit
-            </v-btn>
-            <v-btn @click="clear"> clear </v-btn>
-            <v-text-field color="success" loading disabled></v-text-field>
-        </form>
+    <validation-observer ref="observer">
+        <validation-provider v-slot="{ errors }" name="Name" rules="required">
+            <v-text-field
+                v-model="name"
+                :error-messages="errors"
+                label="Name"
+                required
+            ></v-text-field>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            name="phoneNumber"
+            :rules="{
+                required: true,
+                digits: 10
+            }"
+        >
+            <v-text-field
+                v-model="phoneNumber"
+                :counter="10"
+                :error-messages="errors"
+                label="Phone Number"
+                required
+            ></v-text-field>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            name="email"
+            rules="required|email"
+        >
+            <v-text-field
+                v-model="email"
+                :error-messages="errors"
+                label="E-mail"
+                required
+            ></v-text-field>
+        </validation-provider>
+        <validation-provider v-slot="{ errors }" name="select" rules="required">
+            <v-select
+                v-model="select"
+                :items="items"
+                :error-messages="errors"
+                label="Select"
+                data-vv-name="select"
+                required
+            ></v-select>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            rules="required"
+            name="checkbox"
+        >
+            <v-checkbox
+                v-model="checkbox"
+                :error-messages="errors"
+                value="1"
+                label="Option"
+                type="checkbox"
+                required
+            ></v-checkbox>
+        </validation-provider>
+        <v-btn @click="clear"> clear </v-btn>
     </validation-observer>
 </template>
 
@@ -131,10 +116,7 @@ export default {
     }),
     methods: {
         isValid() {
-            return this.$refs.observer.valid()
-        },
-        submit() {
-            this.$refs.observer.validate()
+            return this.$refs.observer.validate()
         },
         clear() {
             this.name = ''
