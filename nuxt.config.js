@@ -60,7 +60,7 @@ export default {
             dark: true,
             themes: {
                 dark: {
-                    background: '#f9f9fb',
+                    background: '#E5E5E5',
 
                     /* Primary */
                     primaryBorder: '#bbb0f5',

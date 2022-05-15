@@ -94,8 +94,13 @@ export default {
                 },
                 {
                     icon: 'mdi-apps',
-                    title: 'Designed Form',
-                    to: '/'
+                    title: 'Mes travaux V1',
+                    to: '/form'
+                },
+                {
+                    icon: 'mdi-apps',
+                    title: 'Mes travaux V2',
+                    to: '/formWithStep'
                 }
             ],
             miniVariant: false,

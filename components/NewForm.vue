@@ -1,120 +1,87 @@
 <template>
-    <validation-observer ref="observer" v-slot="{ invalid }">
+    <validation-observer ref="observer">
         <form @submit.prevent="submit">
-            <validation-provider
-                v-slot="{ errors }"
-                name="Name"
-                rules="required"
-            >
+            <validation-provider name="adresse">
                 <v-text-field
-                    v-model="name"
-                    :error-messages="errors"
-                    label="Name"
+                    v-model="adresse"
+                    :rules="rulesAdresse"
+                    label="Adresse de votre logement"
+                    placeholder="123 rue de la paix 75009 Paris"
                     required
                 ></v-text-field>
             </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                name="phoneNumber"
-                :rules="{
-                    required: true,
-                    digits: 10
-                }"
-            >
-                <v-text-field
-                    v-model="phoneNumber"
-                    :counter="10"
-                    :error-messages="errors"
-                    label="Phone Number"
-                    required
-                ></v-text-field>
+            <validation-provider name="type-logement">
+                <v-radio-group v-model="logement">
+                    <v-radio
+                        v-for="(typeLogement, i) in typeLogement"
+                        :key="i"
+                        :label="typeLogement"
+                        :value="typeLogement"
+                    >
+                    </v-radio>
+                </v-radio-group>
             </validation-provider>
             <validation-provider
                 v-slot="{ errors }"
-                name="email"
-                rules="required|email"
-            >
-                <v-text-field
-                    v-model="email"
-                    :error-messages="errors"
-                    label="E-mail"
-                    required
-                ></v-text-field>
-            </validation-provider>
-            <validation-provider
-                v-slot="{ errors }"
-                name="select"
+                name="copropriete"
                 rules="required"
             >
                 <v-select
-                    v-model="select"
+                    v-model="copropriete"
                     :items="items"
                     :error-messages="errors"
-                    label="Select"
+                    label="Etes-vous dans une copropriété ?"
                     data-vv-name="select"
                     required
                 ></v-select>
             </validation-provider>
             <validation-provider
                 v-slot="{ errors }"
-                rules="required"
-                name="checkbox"
+                name="superficie"
+                :rules="{
+                    required: true,
+                    digits: true
+                }"
             >
-                <v-checkbox
-                    v-model="checkbox"
+                <v-text-field
+                    v-model="superficie"
                     :error-messages="errors"
-                    value="1"
-                    label="Option"
-                    type="checkbox"
+                    label="Quelle est la superficie du bien ?"
+                    placeholder="Superficie m²"
                     required
-                ></v-checkbox>
+                ></v-text-field>
             </validation-provider>
-
-            <v-btn class="mr-4" type="submit" :disabled="invalid">
-                submit
-            </v-btn>
-            <v-btn @click="clear"> clear </v-btn>
-            <v-text-field color="success" loading disabled></v-text-field>
+            <validation-provider v-slot="{ errors }" name="date">
+                <v-select
+                    v-model="date"
+                    :items="construction"
+                    :error-messages="errors"
+                    label="Quand a été construit votre logement ?"
+                    data-vv-name="select"
+                ></v-select>
+            </validation-provider>
+            <validation-provider
+                v-slot="{ errors }"
+                name="budget"
+                :rules="{
+                    required: true,
+                    digits: true
+                }"
+            >
+                <v-text-field
+                    v-model="budget"
+                    :error-messages="errors"
+                    label="Quel est votre budget pour ces travaux ?"
+                    placeholder="Budget €"
+                    required
+                ></v-text-field>
+            </validation-provider>
         </form>
     </validation-observer>
 </template>
 
 <script>
-import {
-    required,
-    digits,
-    email,
-    max,
-    regex
-} from 'vee-validate/dist/rules.umd'
-import {
-    extend,
-    ValidationObserver,
-    ValidationProvider,
-    setInteractionMode
-} from 'vee-validate'
-
-setInteractionMode('eager')
-extend('digits', {
-    ...digits,
-    message: '{_field_} needs to be {length} digits. ({_value_})'
-})
-extend('required', {
-    ...required,
-    message: '{_field_} can not be empty'
-})
-extend('max', {
-    ...max,
-    message: '{_field_} may not be greater than {length} characters'
-})
-extend('regex', {
-    ...regex,
-    message: '{_field_} {_value_} does not match {regex}'
-})
-extend('email', {
-    ...email,
-    message: 'Email must be valid'
-})
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 
 export default {
     components: {
@@ -122,12 +89,24 @@ export default {
         ValidationObserver
     },
     data: () => ({
-        name: '',
-        phoneNumber: '',
-        email: '',
-        select: null,
-        items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-        checkbox: null
+        adresse: '',
+        logement: '',
+        superficie: '',
+        date: '',
+        copropriete: null,
+        items: ['Oui', 'Non'],
+        construction: [
+            'Moins de 2 ans',
+            'Entre 2 et 15 ans',
+            'Plus de 15 ans',
+            'Je ne sais pas'
+        ],
+        typeLogement: ['Maison', 'Appartement'],
+        budget: '',
+        rulesAdresse: [
+            (value) =>
+                !!value || 'Veuillez rentrer l\tadresse de votre logement'
+        ]
     }),
     methods: {
         isValid() {
@@ -137,10 +116,11 @@ export default {
             this.$refs.observer.validate()
         },
         clear() {
-            this.name = ''
-            this.phoneNumber = ''
+            this.adresse = ''
+            this.typeLogement = ''
+            this.superficie = ''
             this.email = ''
-            this.select = null
+            this.copropriete = null
             this.checkbox = null
             this.$refs.observer.reset()
         }

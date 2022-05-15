@@ -2,13 +2,18 @@
     <v-row>
         <v-col class="text-center">
             <h1>Mes informations</h1>
-            <new-form />
+            <StepByStepForm />
         </v-col>
     </v-row>
 </template>
 
 <script>
 export default {
-    name: 'DesignedForm'
+    name: 'FormWithStep'
 }
 </script>
+<style>
+h1 {
+    color: black;
+}
+</style>
