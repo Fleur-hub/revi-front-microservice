@@ -1,7 +1,7 @@
 <template>
-    <v-stepper v-model="e1">
+    <v-stepper v-model="stepState">
         <v-stepper-items>
-            <v-stepper-content step="1">
+            <v-stepper-content step="adresseStep">
                 <v-text-field
                     v-model="adresse"
                     :rules="rulesAdresse"
@@ -14,15 +14,14 @@
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 2
+                        stepState = 'typeLogementStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="2">
+            <v-stepper-content step="typeLogementStep">
                 <v-radio-group
                     v-model="typeLogement"
                     label="Quel est votre type de bien ?"
@@ -36,21 +35,20 @@
                     >
                     </v-radio>
                 </v-radio-group>
-                <v-btn color="secondary" @click="e1 = 1"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'adresseStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isTypeLogementValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 3
+                        stepState = 'coproprieteStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="3">
+            <v-stepper-content step="coproprieteStep">
                 <v-select
                     v-model="copropriete"
                     :rules="rulesCopropriete"
@@ -58,21 +56,20 @@
                     label="Êtes-vous dans une copropriété ?"
                     required
                 ></v-select>
-                <v-btn color="secondary" @click="e1 = 2"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'typeLogementStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isCoproprieteValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 4
+                        stepState = 'superficieStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="4">
+            <v-stepper-content step="superficieStep">
                 <v-text-field
                     v-model="superficie"
                     type="number"
@@ -81,65 +78,62 @@
                     placeholder="Superficie m²"
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="e1 = 3"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'coproprieteStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isSuperficieValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 5
+                        stepState = 'dateConstructionStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="5">
+            <v-stepper-content step="dateConstructionStep">
                 <v-select
                     v-model="dateConstruction"
                     :rules="rulesDateConstruction"
                     :items="dateConstructions"
                     label="Quand a été construit votre logement ?"
                 ></v-select>
-                <v-btn color="secondary" @click="e1 = 4"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'superficieStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isDateConstructionValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 6
+                        stepState = 'budgetStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="6">
+            <v-stepper-content step="budgetStep">
                 <v-text-field
                     v-model="budget"
-                    type="number"
+                    type="numbers"
                     :rules="rulesBudget"
                     label="Quel est votre budget pour ces travaux ?"
                     placeholder="Budget en €"
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="e1 = 5"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'dateConstructionStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isBudgetValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 7
+                        stepState = 'typeTravauxStep'
                     "
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="7">
+            <v-stepper-content step="typeTravauxStep">
                 <v-radio-group v-model="typeTravaux">
                     <v-radio
                         v-for="(type, i) in typeTravauxValues"
@@ -150,14 +144,13 @@
                     >
                     </v-radio>
                 </v-radio-group>
-                <v-btn color="secondary" @click="e1 = 6"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'budgetStep'"> Retour </v-btn>
                 <v-btn
                     :disabled="!isTypeTravauxValid()"
                     color="success"
                     class="mr-4"
                     @click="
-                        validate
-                        e1 = 8
+                        stepState = 8
                     "
                 >
                     Valider
@@ -171,7 +164,7 @@
 export default {
     name: 'StepByStepForm',
     data: () => ({
-        e1: 1,
+        stepState: 'adresseStep',
         adresse: '',
         rulesAdresse: [
             (v) => !!v || "Veuillez rentrer l'adresse de votre logement"
