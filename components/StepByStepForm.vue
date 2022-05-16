@@ -23,7 +23,10 @@
             </v-stepper-content>
 
             <v-stepper-content step="2">
-                <v-radio-group v-model="typeLogement">
+                <v-radio-group
+                    v-model="typeLogement"
+                    label="Quel est votre type de bien ?"
+                >
                     <v-radio
                         v-for="(type, i) in typeLogements"
                         :key="i"
