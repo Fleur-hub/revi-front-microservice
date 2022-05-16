@@ -166,7 +166,7 @@
 
 <script>
 export default {
-    name: 'StepByStepForm',
+    name: 'HousingInformationForm',
     data: () => ({
         stepState: 'adresseStep',
         adresse: '',
