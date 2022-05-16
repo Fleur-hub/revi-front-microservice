@@ -2,17 +2,15 @@
     <v-stepper v-model="e1">
         <v-stepper-items>
             <v-stepper-content step="1">
-                <v-form ref="formAdress" v-model="Adressvalid">
-                    <v-text-field
-                        v-model="adresse"
-                        :rules="rulesAdresse"
-                        label="Adresse du logement"
-                        placeholder="123 rue de la paix 75009 Paris"
-                        required
-                    ></v-text-field>
-                </v-form>
+                <v-text-field
+                    v-model="adresse"
+                    :rules="rulesAdresse"
+                    label="Adresse du logement"
+                    placeholder="123 rue de la paix 75009 Paris"
+                    required
+                ></v-text-field>
                 <v-btn
-                    :disabled="!Adressvalid"
+                    :disabled="!isAdressValid()"
                     color="success"
                     class="mr-4"
                     @click="
@@ -25,22 +23,20 @@
             </v-stepper-content>
 
             <v-stepper-content step="2">
-                <v-form ref="formLogement" v-model="TypeLogementvalid">
-                    <v-radio-group v-model="logement">
-                        <v-radio
-                            v-for="(typeLogement, i) in typeLogement"
-                            :key="i"
-                            :rules="rulesTypeLogement"
-                            :label="typeLogement"
-                            :value="typeLogement"
-                            required
-                        >
-                        </v-radio>
-                    </v-radio-group>
-                </v-form>
+                <v-radio-group v-model="typeLogement">
+                    <v-radio
+                        v-for="(type, i) in typeLogements"
+                        :key="i"
+                        :rules="rulesTypeLogement"
+                        :label="type"
+                        :value="type"
+                        required
+                    >
+                    </v-radio>
+                </v-radio-group>
                 <v-btn color="secondary" @click="e1 = 1"> Retour </v-btn>
                 <v-btn
-                    :disabled="!TypeLogementvalid"
+                    :disabled="!isTypeLogementValid()"
                     color="success"
                     class="mr-4"
                     @click="
@@ -53,18 +49,16 @@
             </v-stepper-content>
 
             <v-stepper-content step="3">
-                <v-form ref="formCopropriete" v-model="Coproprietevalid">
-                    <v-select
-                        v-model="copropriete"
-                        :rules="rulesCopropriete"
-                        :items="items"
-                        label="Etes-vous dans une copropriété ?"
-                        required
-                    ></v-select>
-                </v-form>
+                <v-select
+                    v-model="copropriete"
+                    :rules="rulesCopropriete"
+                    :items="coproprieteValues"
+                    label="Etes-vous dans une copropriété ?"
+                    required
+                ></v-select>
                 <v-btn color="secondary" @click="e1 = 2"> Retour </v-btn>
                 <v-btn
-                    :disabled="!Coproprietevalid"
+                    :disabled="!isCoproprieteValid()"
                     color="success"
                     class="mr-4"
                     @click="
@@ -77,16 +71,14 @@
             </v-stepper-content>
 
             <v-stepper-content step="4">
-                <v-form ref="formSuperficie" v-model="Superficievalid">
-                    <v-text-field
-                        v-model="superficie"
-                        type="number"
-                        :rules="rulesSuperficie"
-                        label="Quelle est la superficie du bien ?"
-                        placeholder="Superficie m²"
-                        required
-                    ></v-text-field>
-                </v-form>
+                <v-text-field
+                    v-model="superficie"
+                    type="number"
+                    :rules="rulesSuperficie"
+                    label="Quelle est la superficie du bien ?"
+                    placeholder="Superficie m²"
+                    required
+                ></v-text-field>
                 <v-btn color="secondary" @click="e1 = 3"> Retour </v-btn>
                 <v-btn
                     :disabled="!Superficievalid"
@@ -102,17 +94,12 @@
             </v-stepper-content>
 
             <v-stepper-content step="5">
-                <v-form
-                    ref="formDateConstruction"
-                    v-model="DateConstructionvalid"
-                >
-                    <v-select
-                        v-model="dateConstruction"
-                        :rules="rulesDateConstruction"
-                        :items="date"
-                        label="Quand a été construit votre logement ?"
-                    ></v-select>
-                </v-form>
+                <v-select
+                    v-model="dateConstruction"
+                    :rules="rulesDateConstruction"
+                    :items="date"
+                    label="Quand a été construit votre logement ?"
+                ></v-select>
                 <v-btn color="secondary" @click="e1 = 4"> Retour </v-btn>
                 <v-btn
                     :disabled="!DateConstructionvalid"
@@ -128,16 +115,14 @@
             </v-stepper-content>
 
             <v-stepper-content step="6">
-                <v-form ref="formBudget" v-model="Budgetvalid">
-                    <v-text-field
-                        v-model="budget"
-                        type="number"
-                        :rules="rulesBudget"
-                        label="Quel est votre budget pour ces travaux ?"
-                        placeholder="Budget €"
-                        required
-                    ></v-text-field>
-                </v-form>
+                <v-text-field
+                    v-model="budget"
+                    type="number"
+                    :rules="rulesBudget"
+                    label="Quel est votre budget pour ces travaux ?"
+                    placeholder="Budget €"
+                    required
+                ></v-text-field>
                 <v-btn color="secondary" @click="e1 = 5"> Retour </v-btn>
                 <v-btn
                     :disabled="!Superficievalid"
@@ -157,11 +142,9 @@
 
 <script>
 export default {
-    name: 'SimpleStepForm',
+    name: 'StepByStepForm',
     data: () => ({
         e1: 1,
-        Adressvalid: true,
-        TypeLogementvalid: true,
         Coproprietevalid: true,
         Superficievalid: true,
         DateConstructionvalid: true,
@@ -171,14 +154,14 @@ export default {
             (v) => !!v || "Veuillez rentrer l'adresse de votre logement"
         ],
 
-        logement: '',
-        typeLogement: ['Maison', 'Appartement'],
+        typeLogement: '',
+        typeLogements: ['Maison', 'Appartement'],
         rulesTypeLogement: [
             (v) => !!v || 'Veuillez sélectionner un type de logement'
         ],
 
         copropriete: '',
-        items: ['Oui', 'Non'],
+        coproprieteValues: ['Oui', 'Non'],
         rulesCopropriete: [
             (v) =>
                 !!v ||
@@ -212,6 +195,15 @@ export default {
             this.$refs.formSuperficie.validate()
             this.$refs.formDateConstruction.validate()
             this.$refs.formBudget.validate()
+        },
+        isAdressValid() {
+            return this.adresse !== ''
+        },
+        isTypeLogementValid() {
+            return this.typeLogements.includes(this.typeLogement)
+        },
+        isCoproprieteValid() {
+            return this.coproprieteValues.includes(this.copropriete)
         }
     }
 }
