@@ -13,9 +13,7 @@
                     :disabled="!isAdressValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'typeLogementStep'
-                    "
+                    @click="stepState = 'typeLogementStep'"
                 >
                     Valider
                 </v-btn>
@@ -35,14 +33,14 @@
                     >
                     </v-radio>
                 </v-radio-group>
-                <v-btn color="secondary" @click="stepState = 'adresseStep'"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'adresseStep'">
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isTypeLogementValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'coproprieteStep'
-                    "
+                    @click="stepState = 'coproprieteStep'"
                 >
                     Valider
                 </v-btn>
@@ -56,14 +54,17 @@
                     label="Êtes-vous dans une copropriété ?"
                     required
                 ></v-select>
-                <v-btn color="secondary" @click="stepState = 'typeLogementStep'"> Retour </v-btn>
+                <v-btn
+                    color="secondary"
+                    @click="stepState = 'typeLogementStep'"
+                >
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isCoproprieteValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'superficieStep'
-                    "
+                    @click="stepState = 'superficieStep'"
                 >
                     Valider
                 </v-btn>
@@ -78,14 +79,14 @@
                     placeholder="Superficie m²"
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'coproprieteStep'"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'coproprieteStep'">
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isSuperficieValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'dateConstructionStep'
-                    "
+                    @click="stepState = 'dateConstructionStep'"
                 >
                     Valider
                 </v-btn>
@@ -98,14 +99,14 @@
                     :items="dateConstructions"
                     label="Quand a été construit votre logement ?"
                 ></v-select>
-                <v-btn color="secondary" @click="stepState = 'superficieStep'"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'superficieStep'">
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isDateConstructionValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'budgetStep'
-                    "
+                    @click="stepState = 'budgetStep'"
                 >
                     Valider
                 </v-btn>
@@ -120,14 +121,17 @@
                     placeholder="Budget en €"
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'dateConstructionStep'"> Retour </v-btn>
+                <v-btn
+                    color="secondary"
+                    @click="stepState = 'dateConstructionStep'"
+                >
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isBudgetValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 'typeTravauxStep'
-                    "
+                    @click="stepState = 'typeTravauxStep'"
                 >
                     Valider
                 </v-btn>
@@ -144,14 +148,14 @@
                     >
                     </v-radio>
                 </v-radio-group>
-                <v-btn color="secondary" @click="stepState = 'budgetStep'"> Retour </v-btn>
+                <v-btn color="secondary" @click="stepState = 'budgetStep'">
+                    Retour
+                </v-btn>
                 <v-btn
                     :disabled="!isTypeTravauxValid()"
                     color="success"
                     class="mr-4"
-                    @click="
-                        stepState = 8
-                    "
+                    @click="stepState = 8"
                 >
                     Valider
                 </v-btn>
