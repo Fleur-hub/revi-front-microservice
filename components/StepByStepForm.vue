@@ -27,7 +27,6 @@
                     <v-radio
                         v-for="(type, i) in typeLogements"
                         :key="i"
-                        :rules="rulesTypeLogement"
                         :label="type"
                         :value="type"
                         required
@@ -53,7 +52,7 @@
                     v-model="copropriete"
                     :rules="rulesCopropriete"
                     :items="coproprieteValues"
-                    label="Etes-vous dans une copropriété ?"
+                    label="Êtes-vous dans une copropriété ?"
                     required
                 ></v-select>
                 <v-btn color="secondary" @click="e1 = 2"> Retour </v-btn>
@@ -81,7 +80,7 @@
                 ></v-text-field>
                 <v-btn color="secondary" @click="e1 = 3"> Retour </v-btn>
                 <v-btn
-                    :disabled="!Superficievalid"
+                    :disabled="!isSuperficieValid()"
                     color="success"
                     class="mr-4"
                     @click="
@@ -97,12 +96,12 @@
                 <v-select
                     v-model="dateConstruction"
                     :rules="rulesDateConstruction"
-                    :items="date"
+                    :items="dateConstructions"
                     label="Quand a été construit votre logement ?"
                 ></v-select>
                 <v-btn color="secondary" @click="e1 = 4"> Retour </v-btn>
                 <v-btn
-                    :disabled="!DateConstructionvalid"
+                    :disabled="!isDateConstructionValid()"
                     color="success"
                     class="mr-4"
                     @click="
@@ -120,17 +119,42 @@
                     type="number"
                     :rules="rulesBudget"
                     label="Quel est votre budget pour ces travaux ?"
-                    placeholder="Budget €"
+                    placeholder="Budget en €"
                     required
                 ></v-text-field>
                 <v-btn color="secondary" @click="e1 = 5"> Retour </v-btn>
                 <v-btn
-                    :disabled="!Superficievalid"
+                    :disabled="!isBudgetValid()"
                     color="success"
                     class="mr-4"
                     @click="
                         validate
                         e1 = 7
+                    "
+                >
+                    Valider
+                </v-btn>
+            </v-stepper-content>
+
+            <v-stepper-content step="7">
+                <v-radio-group v-model="typeTravaux">
+                    <v-radio
+                        v-for="(type, i) in typeTravauxValues"
+                        :key="i"
+                        :label="type"
+                        :value="type"
+                        required
+                    >
+                    </v-radio>
+                </v-radio-group>
+                <v-btn color="secondary" @click="e1 = 6"> Retour </v-btn>
+                <v-btn
+                    :disabled="!isTypeTravauxValid()"
+                    color="success"
+                    class="mr-4"
+                    @click="
+                        validate
+                        e1 = 8
                     "
                 >
                     Valider
@@ -145,10 +169,6 @@ export default {
     name: 'StepByStepForm',
     data: () => ({
         e1: 1,
-        Coproprietevalid: true,
-        Superficievalid: true,
-        DateConstructionvalid: true,
-        Budgetvalid: true,
         adresse: '',
         rulesAdresse: [
             (v) => !!v || "Veuillez rentrer l'adresse de votre logement"
@@ -156,9 +176,6 @@ export default {
 
         typeLogement: '',
         typeLogements: ['Maison', 'Appartement'],
-        rulesTypeLogement: [
-            (v) => !!v || 'Veuillez sélectionner un type de logement'
-        ],
 
         copropriete: '',
         coproprieteValues: ['Oui', 'Non'],
@@ -174,28 +191,28 @@ export default {
         ],
 
         dateConstruction: '',
+        dateConstructions: [
+            'Moins de 2 ans',
+            'Entre 2 et 15 ans',
+            'Plus de 15 ans'
+        ],
         rulesDateConstruction: [
             (v) => !!v || 'Veuillez sélectionner une réponse'
         ],
-        date: [
-            'Moins de 2 ans',
-            'Entre 2 et 15 ans',
-            'Plus de 15 ans',
-            "J'ignore cette information"
-        ],
 
         budget: '',
-        rulesBudget: [(v) => !!v || 'Veuillez sélectionner une réponse']
+        rulesBudget: [(v) => !!v || 'Veuillez ajouter un budget'],
+
+        typeTravaux: '',
+        typeTravauxValues: [
+            'Isolation',
+            'Chauffage',
+            'Ventilation',
+            'Chauffe-eau'
+        ]
     }),
+
     methods: {
-        validate() {
-            this.$refs.formAdress.validate()
-            this.$refs.formLogement.validate()
-            this.$refs.formCopropriete.validate()
-            this.$refs.formSuperficie.validate()
-            this.$refs.formDateConstruction.validate()
-            this.$refs.formBudget.validate()
-        },
         isAdressValid() {
             return this.adresse !== ''
         },
@@ -204,6 +221,18 @@ export default {
         },
         isCoproprieteValid() {
             return this.coproprieteValues.includes(this.copropriete)
+        },
+        isSuperficieValid() {
+            return this.superficie !== ''
+        },
+        isDateConstructionValid() {
+            return this.dateConstructions.includes(this.dateConstruction)
+        },
+        isBudgetValid() {
+            return this.budget !== ''
+        },
+        isTypeTravauxValid() {
+            return this.typeTravauxValues.includes(this.typeTravaux)
         }
     }
 }
