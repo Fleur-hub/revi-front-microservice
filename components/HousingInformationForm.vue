@@ -223,13 +223,13 @@ export default {
             return this.coproprieteValues.includes(this.copropriete)
         },
         isSuperficieValid() {
-            return this.superficie !== ''
+            return /^\d+$/.test(this.superficie)
         },
         isDateConstructionValid() {
             return this.dateConstructions.includes(this.dateConstruction)
         },
         isBudgetValid() {
-            return this.budget !== ''
+            return /^\d+$/.test(this.budget)
         },
         isTypeTravauxValid() {
             return this.typeTravauxValues.includes(this.typeTravaux)

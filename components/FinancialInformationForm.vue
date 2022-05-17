@@ -6,6 +6,7 @@
                     v-model="numberPeopleLiving"
                     :rules="rulesNumberPeopleLiving"
                     label="Nombre de personnes dans le logement fiscal "
+                    onkeydown="return event.keyCode !== 69"
                     required
                 ></v-text-field>
                 <v-btn
@@ -20,9 +21,10 @@
 
             <v-stepper-content step="taxRevenueStep">
                 <v-text-field
-                    v-model="taxRevenue"
+                    v-model.number="taxRevenue"
                     :rules="rulesTaxRevenue"
                     label="Revenu fiscal de référence"
+                    onkeydown="return event.keyCode !== 69"
                     required
                 ></v-text-field>
                 <v-btn
@@ -102,10 +104,10 @@ export default {
 
     methods: {
         isNumberPeopleLivingValid() {
-            return this.numberPeopleLiving !== ''
+            return /^\d+$/.test(this.numberPeopleLiving)
         },
         isTaxRevenueValid() {
-            return this.taxRevenue !== ''
+            return /^\d+$/.test(this.taxRevenue)
         },
         isHousingPeopleTypeValid() {
             return this.housingPeopleTypes.includes(this.housingPeopleType)
