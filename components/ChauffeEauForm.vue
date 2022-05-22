@@ -8,10 +8,8 @@
                     label=" Votre type de chauffe-eau ?"
                 >
                     <v-radio
-                        v-for="(type, i) in chauffeEauTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
+                        :label="chauffeEauTypes[0]"
+                        :value="chauffeEauTypes[0]"
                         required
                         @click="
                             chauffeEauThermodynamiqueType = ''
@@ -19,6 +17,42 @@
                         "
                     >
                     </v-radio>
+                    <v-container v-if="chauffeEauType === chauffeEauTypes[0]">
+                        <v-radio-group v-model="chauffeEauThermodynamiqueType">
+                            <v-radio
+                                v-for="(
+                                    type, i
+                                ) in chauffeEauThermodynamiqueTypes"
+                                :key="i"
+                                :label="type"
+                                :value="type"
+                                required
+                            >
+                            </v-radio>
+                        </v-radio-group>
+                    </v-container>
+                    <v-radio
+                        :label="chauffeEauTypes[1]"
+                        :value="chauffeEauTypes[1]"
+                        required
+                        @click="
+                            chauffeEauThermodynamiqueType = ''
+                            chauffeEauSolaireType = ''
+                        "
+                    >
+                    </v-radio>
+                    <v-container v-if="chauffeEauType === chauffeEauTypes[1]">
+                        <v-radio-group v-model="chauffeEauSolaireType">
+                            <v-radio
+                                v-for="(type, i) in chauffeEauSolaireTypes"
+                                :key="i"
+                                :label="type"
+                                :value="type"
+                                required
+                            >
+                            </v-radio>
+                        </v-radio-group>
+                    </v-container>
                 </v-radio-group>
                 <v-btn
                     :disabled="!isChauffeEauValid()"
@@ -29,32 +63,6 @@
                     Valider
                 </v-btn>
             </v-stepper-content>
-
-            <v-container v-if="chauffeEauType === chauffeEauTypes[0]">
-                <v-radio-group v-model="chauffeEauThermodynamiqueType">
-                    <v-radio
-                        v-for="(type, i) in chauffeEauThermodynamiqueTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
-                        required
-                    >
-                    </v-radio>
-                </v-radio-group>
-            </v-container>
-
-            <v-container v-else-if="chauffeEauType === chauffeEauTypes[1]">
-                <v-radio-group v-model="chauffeEauSolaireType">
-                    <v-radio
-                        v-for="(type, i) in chauffeEauSolaireTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
-                        required
-                    >
-                    </v-radio>
-                </v-radio-group>
-            </v-container>
         </v-stepper-items>
     </v-stepper>
 </template>

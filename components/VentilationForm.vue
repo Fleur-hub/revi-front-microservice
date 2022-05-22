@@ -8,10 +8,8 @@
                     label=" Votre type de ventilation ?"
                 >
                     <v-radio
-                        v-for="(type, i) in ventilationTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
+                        :label="ventilationTypes[0]"
+                        :value="ventilationTypes[0]"
                         required
                         @click="
                             ventilationSimpleNumber = ''
@@ -19,6 +17,34 @@
                         "
                     >
                     </v-radio>
+                    <v-container v-if="ventilationType === ventilationTypes[0]">
+                        <v-text-field
+                            v-model="ventilationSimpleNumber"
+                            type="number"
+                            label="Nombre de VMC"
+                            onkeydown="return event.keyCode !== 69"
+                            required
+                        ></v-text-field>
+                    </v-container>
+                    <v-radio
+                        :label="ventilationTypes[1]"
+                        :value="ventilationTypes[1]"
+                        required
+                        @click="
+                            ventilationSimpleNumber = ''
+                            ventilationDoubleNumber = ''
+                        "
+                    >
+                    </v-radio>
+                    <v-container v-if="ventilationType === ventilationTypes[1]">
+                        <v-text-field
+                            v-model="ventilationDoubleNumber"
+                            type="number"
+                            label="Nombre de VMC"
+                            onkeydown="return event.keyCode !== 69"
+                            required
+                        ></v-text-field>
+                    </v-container>
                 </v-radio-group>
                 <v-btn
                     :disabled="!isVentilationValid()"
@@ -30,25 +56,9 @@
                 </v-btn>
             </v-stepper-content>
 
-            <v-container v-if="ventilationType === ventilationTypes[0]">
-                <v-text-field
-                    v-model="ventilationSimpleNumber"
-                    type="number"
-                    label="Nombre de VMC"
-                    onkeydown="return event.keyCode !== 69"
-                    required
-                ></v-text-field>
-            </v-container>
 
-            <v-container v-else-if="ventilationType === ventilationTypes[1]">
-                <v-text-field
-                    v-model="ventilationDoubleNumber"
-                    type="number"
-                    label="Nombre de VMC"
-                    onkeydown="return event.keyCode !== 69"
-                    required
-                ></v-text-field>
-            </v-container>
+
+
         </v-stepper-items>
     </v-stepper>
 </template>
