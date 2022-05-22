@@ -55,10 +55,6 @@
                     Valider
                 </v-btn>
             </v-stepper-content>
-
-
-
-
         </v-stepper-items>
     </v-stepper>
 </template>
