@@ -32,6 +32,26 @@
                     :disabled="!isFirstNameValid()"
                     color="success"
                     class="mr-4"
+                    @click="stepState = 'addressStep'"
+                >
+                    Valider
+                </v-btn>
+            </v-stepper-content>
+
+            <v-stepper-content step="addressStep">
+                <v-text-field
+                    v-model.number="address"
+                    :rules="rulesAddress"
+                    label="Adresse"
+                    required
+                ></v-text-field>
+                <v-btn color="secondary" @click="stepState = 'firstNameStep'">
+                    Retour
+                </v-btn>
+                <v-btn
+                    :disabled="!isAddressValid()"
+                    color="success"
+                    class="mr-4"
                     @click="stepState = 'personalPhoneStep'"
                 >
                     Valider
@@ -48,7 +68,7 @@
                     minlength="10"
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'firstNameStep'">
+                <v-btn color="secondary" @click="stepState = 'addressStep'">
                     Retour
                 </v-btn>
                 <v-btn
@@ -98,15 +118,18 @@ export default {
         firstName: '',
         rulesFirstName: [(v) => !!v || 'Veuillez indiquer votre prénom'],
 
+        address: '',
+        rulesAddress: [
+            (v) => !!v || 'Veuillez indiquer votre adresse personnelle'
+        ],
+
         personalPhone: '',
         rulesPersonalPhone: [
-            (v) => !!v || 'Veuillez indiquer un numéro de téléphone valide'
+            (v) => !!v || 'Veuillez indiquer votre numéro de téléphone'
         ],
 
         eMail: '',
-        rulesEmail: [
-            (v) => !!v || 'Veuillez indiquer une adresse e-mail valide'
-        ]
+        rulesEmail: [(v) => !!v || 'Veuillez indiquer votre adresse e-mail']
     }),
 
     methods: {
@@ -115,6 +138,9 @@ export default {
         },
         isFirstNameValid() {
             return this.firstName !== ''
+        },
+        isAddressValid() {
+            return this.adresse !== ''
         },
         isPersonalPhoneValid() {
             return (
