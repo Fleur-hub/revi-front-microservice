@@ -9,21 +9,22 @@
         >
         </v-checkbox>
         <v-radio-group v-if="toitureAccessible" v-model="toitureAccessibleType">
-            <v-radio
-                v-for="(type, i) in toitureAccessibleValues"
+            <v-container
+                v-for="(type, i) in toitureNonAccessibleValues"
                 :key="i"
-                :label="type"
-                :value="type"
-                required
             >
-            </v-radio>
+                <v-radio :label="type" :value="type" required> </v-radio>
+                <v-container>
+                    <v-text-field
+                        v-if="toitureAccessibleType === type"
+                        v-model="accessibleSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        required
+                    ></v-text-field>
+                </v-container>
+            </v-container>
         </v-radio-group>
-        <v-text-field
-            v-if="toitureAccessibleType !== ''"
-            v-model="accessibleSurface"
-            onkeydown="return event.keyCode !== 69"
-            required
-        ></v-text-field>
+
         <v-checkbox
             v-model="toitureNonAccessible"
             :label="toitureNonAccessibleLabel"
@@ -36,21 +37,22 @@
             v-if="toitureNonAccessible"
             v-model="toitureNonAccessibleType"
         >
-            <v-radio
+            <v-container
                 v-for="(type, i) in toitureNonAccessibleValues"
                 :key="i"
-                :label="type"
-                :value="type"
-                required
             >
-            </v-radio>
+                <v-radio :label="type" :value="type" required> </v-radio>
+                <v-container>
+                    <v-text-field
+                        v-if="toitureNonAccessibleType === type"
+                        v-model="nonAccessibleSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        required
+                    ></v-text-field>
+                </v-container>
+            </v-container>
         </v-radio-group>
-        <v-text-field
-            v-if="toitureNonAccessibleType !== ''"
-            v-model="nonAccessibleSurface"
-            onkeydown="return event.keyCode !== 69"
-            required
-        ></v-text-field>
+
         <v-btn :disabled="!isValid()" color="success" class="mr-4">
             Valider
         </v-btn>
