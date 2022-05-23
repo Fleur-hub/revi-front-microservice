@@ -2,7 +2,7 @@
     <v-row>
         <v-col class="text-center">
             <h1>Mes informations</h1>
-            <new-form />
+            <IsolationToitureForm />
         </v-col>
     </v-row>
 </template>
