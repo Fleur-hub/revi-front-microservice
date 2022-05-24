@@ -4,7 +4,6 @@
             <v-stepper-content step="ventilationStep">
                 <v-radio-group
                     v-model="ventilationType"
-                    :rules="rulesVentilation"
                     label=" Votre type de ventilation ?"
                 >
                     <v-radio
@@ -22,6 +21,7 @@
                             v-model="ventilationSimpleNumber"
                             type="number"
                             label="Nombre de VMC"
+                            :rules="rulesVentilationNumber"
                             onkeydown="return event.keyCode !== 69"
                             required
                         ></v-text-field>
@@ -41,6 +41,7 @@
                             v-model="ventilationDoubleNumber"
                             type="number"
                             label="Nombre de VMC"
+                            :rules="rulesVentilationNumber"
                             onkeydown="return event.keyCode !== 69"
                             required
                         ></v-text-field>
@@ -66,11 +67,13 @@ export default {
         stepState: 'ventilationStep',
         ventilationType: '',
         ventilationTypes: ['VMC simple-flux', 'VMC double-flux'],
-        rulesVentilation: [(v) => !!v || 'Veuillez choisir votre ventilation'],
 
-        ventilationSimpleNumber: '',
+        ventilationSimpleNumber: 0,
+        ventilationDoubleNumber: 0,
 
-        ventilationDoubleNumber: ''
+        rulesVentilationNumber: [
+            (v) => !!v || 'Veuillez ajouter un nombre de ventilation'
+        ]
     }),
 
     methods: {

@@ -1,121 +1,143 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="isolationFenetresStep">
-                <v-checkbox
-                    v-model="isolation"
-                    :label="chauffeEauTypes[0]"
-                    :value="true"
-                    required
-                    @click="
-                        chauffeEauThermodynamiqueType = ''
-                        chauffeEauSolaireType = ''
-                    "
-                >
-                </v-checkbox>
-                <v-checkbox
-                    v-model="refection"
-                    :label="chauffeEauTypes[1]"
-                    :value="true"
-                    required
-                    @click="
-                        chauffeEauThermodynamiqueType = ''
-                        chauffeEauSolaireType = ''
-                    "
-                >
-                </v-checkbox>
-                <v-btn
-                    :disabled="!(isolation || refection)"
-                    color="success"
-                    class="mr-4"
-                    @click="stepState = computeNextStep()"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-            <v-stepper-content step="2">
-                <v-radio-group v-model="chauffeEauThermodynamiqueType">
-                    <v-radio
-                        v-for="(type, i) in chauffeEauThermodynamiqueTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
+    <v-container>
+        <v-checkbox
+            v-model="toitureAccessible"
+            :label="toitureAccessibleLabel"
+            :value="true"
+            required
+            @click="clearRadioAndField()"
+        >
+        </v-checkbox>
+        <v-radio-group v-if="toitureAccessible" v-model="toitureAccessibleType">
+            <v-container
+                v-for="(type, i) in toitureNonAccessibleValues"
+                :key="i"
+            >
+                <v-radio :label="type" :value="type" required> </v-radio>
+                <v-container>
+                    <v-text-field
+                        v-if="toitureAccessibleType === type"
+                        v-model="accessibleSurface"
+                        type="number"
+                        :rules="rulesToitureSurface"
+                        onkeydown="return event.keyCode !== 69"
                         required
-                    >
-                    </v-radio>
-                </v-radio-group>
-                <v-btn
-                    :disabled="chauffeEauThermodynamiqueType === ''"
-                    color="success"
-                    class="mr-4"
-                    @click="stepState = computeNextStep()"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-            <v-stepper-content step="3">
-                <v-radio-group v-model="chauffeEauSolaireType">
-                    <v-radio
-                        v-for="(type, i) in chauffeEauSolaireTypes"
-                        :key="i"
-                        :label="type"
-                        :value="type"
+                    ></v-text-field>
+                </v-container>
+            </v-container>
+        </v-radio-group>
+
+        <v-checkbox
+            v-model="toitureNonAccessible"
+            :label="toitureNonAccessibleLabel"
+            :value="true"
+            required
+            @click="clearRadioAndField()"
+        >
+        </v-checkbox>
+        <v-radio-group
+            v-if="toitureNonAccessible"
+            v-model="toitureNonAccessibleType"
+        >
+            <v-container
+                v-for="(type, i) in toitureNonAccessibleValues"
+                :key="i"
+            >
+                <v-radio :label="type" :value="type" required> </v-radio>
+                <v-container>
+                    <v-text-field
+                        v-if="toitureNonAccessibleType === type"
+                        v-model="nonAccessibleSurface"
+                        type="number"
+                        :rules="rulesToitureSurface"
+                        onkeydown="return event.keyCode !== 69"
                         required
-                    >
-                    </v-radio>
-                </v-radio-group>
-                <v-btn
-                    :disabled="chauffeEauSolaireType === ''"
-                    color="success"
-                    class="mr-4"
-                    @click="stepState = computeNextStep()"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+                    ></v-text-field>
+                </v-container>
+            </v-container>
+        </v-radio-group>
+
+        <v-btn :disabled="!isValid()" color="success" class="mr-4">
+            Valider
+        </v-btn>
+    </v-container>
 </template>
 
 <script>
 export default {
-    name: 'IsolationFenetresForm',
+    name: 'IsolationToitureForm',
     data: () => ({
-        stepState: 'isolationFenetresStep',
-        isolation: false,
-        refection: false,
-        chauffeEauType: '',
-        chauffeEauTypes: [
-            'Chauffe-eau thermodynamique',
-            'Chauffe-eau solaire individuel'
-        ],
-        rulesChauffeEau: [(v) => !!v || 'Veuillez choisir votre chauffe-eau'],
+        toitureAccessible: false,
+        toitureAccessibleLabel: 'Accessible',
+        toitureNonAccessible: false,
+        toitureNonAccessibleLabel: 'Non Accessible',
 
-        chauffeEauThermodynamiqueType: '',
-        chauffeEauThermodynamiqueTypes: [
-            'Monobloc',
-            'Circulation forcée',
-            'Système PVT',
-            'Capteurs solaires'
+        toitureAccessibleType: '',
+        toitureAccessibleValues: [
+            'Bitume ou caoutchouc',
+            'Végetalisation',
+            'Gravier'
         ],
 
-        chauffeEauSolaireType: '',
-        chauffeEauSolaireTypes: [
-            'Split',
-            'Air ambiant',
-            'Air extrait',
-            'Air extérieur'
-        ]
+        toitureNonAccessibleType: '',
+        toitureNonAccessibleValues: [
+            'Bois',
+            'Carrelage',
+            'Dalle gravillonée',
+            'Végetalisation',
+            'Béton',
+            'Pierre naturelle'
+        ],
+
+        accessibleSurface: 0,
+        nonAccessibleSurface: 0,
+
+        rulesToitureSurface: [(v) => !!v || 'Veuillez ajouter une surface']
     }),
 
     methods: {
         computeNextStep() {
-            if (this.stepState === 'isolationFenetresStep' && this.isolation) {
+            if (this.stepState === 'isolationToitureStep' && this.isolation) {
                 return '2'
             }
             if (this.refection) {
                 return '3'
             }
+        },
+        clearRadioAndField() {
+            if (!this.toitureAccessible) {
+                this.toitureAccessibleType = ''
+                this.accessibleSurface = 0
+            }
+
+            if (!this.toitureNonAccessible) {
+                this.toitureNonAccessibleType = ''
+                this.nonAccessibleSurface = 0
+            }
+        },
+        isValid() {
+            if (!this.toitureAccessible && !this.toitureNonAccessible) {
+                return false
+            }
+
+            if (this.toitureAccessible) {
+                if (
+                    this.toitureAccessibleType === '' ||
+                    this.accessibleSurface <= 0
+                ) {
+                    return false
+                }
+            }
+
+            if (this.toitureNonAccessible) {
+                if (
+                    this.toitureNonAccessibleType === '' ||
+                    this.nonAccessibleSurface <= 0
+                ) {
+                    return false
+                }
+            }
+            return true
         }
     }
 }

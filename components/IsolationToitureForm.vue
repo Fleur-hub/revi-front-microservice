@@ -18,6 +18,8 @@
                     <v-text-field
                         v-if="toitureAccessibleType === type"
                         v-model="accessibleSurface"
+                        type="number"
+                        :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"
                         required
                     ></v-text-field>
@@ -46,6 +48,8 @@
                     <v-text-field
                         v-if="toitureNonAccessibleType === type"
                         v-model="nonAccessibleSurface"
+                        type="number"
+                        :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"
                         required
                     ></v-text-field>
@@ -86,7 +90,9 @@ export default {
         ],
 
         accessibleSurface: 0,
-        nonAccessibleSurface: 0
+        nonAccessibleSurface: 0,
+
+        rulesToitureSurface: [(v) => !!v || 'Veuillez ajouter une surface']
     }),
 
     methods: {

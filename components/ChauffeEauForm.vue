@@ -4,7 +4,6 @@
             <v-stepper-content step="chauffeEauStep">
                 <v-radio-group
                     v-model="chauffeEauType"
-                    :rules="rulesChauffeEau"
                     label=" Votre type de chauffe-eau ?"
                 >
                     <v-radio
@@ -77,7 +76,6 @@ export default {
             'Chauffe-eau thermodynamique',
             'Chauffe-eau solaire individuel'
         ],
-        rulesChauffeEau: [(v) => !!v || 'Veuillez choisir votre chauffe-eau'],
 
         chauffeEauThermodynamiqueType: '',
         chauffeEauThermodynamiqueTypes: [

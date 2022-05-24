@@ -65,6 +65,8 @@ export default {
                     /* Primary */
                     primaryBorder: '#bbb0f5',
                     primaryFocus: '#ac9ff0',
+                    primaryCard: '#f0ebff',
+                    primaryFont: '#f9f9fb',
                     primaryHoover: '#3817d8',
                     primaryPressed: '#210f7f',
                     primarySecondary: '#f7f4ff',
