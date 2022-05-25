@@ -21,6 +21,7 @@
                         type="number"
                         :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
                     ></v-text-field>
                 </v-container>
@@ -51,6 +52,7 @@
                         type="number"
                         :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
                     ></v-text-field>
                 </v-container>

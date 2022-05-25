@@ -19,6 +19,7 @@
                     <v-container v-if="ventilationType === ventilationTypes[0]">
                         <v-text-field
                             v-model="ventilationSimpleNumber"
+                            outlined
                             type="number"
                             label="Nombre de VMC"
                             :rules="rulesVentilationNumber"
@@ -39,6 +40,7 @@
                     <v-container v-if="ventilationType === ventilationTypes[1]">
                         <v-text-field
                             v-model="ventilationDoubleNumber"
+                            outlined
                             type="number"
                             label="Nombre de VMC"
                             :rules="rulesVentilationNumber"

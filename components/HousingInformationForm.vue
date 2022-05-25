@@ -7,11 +7,12 @@
                     :rules="rulesAdresse"
                     label="Adresse du logement"
                     placeholder="123 rue de la paix 75009 Paris"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn
                     :disabled="!isAdressValid()"
-                    color="success"
+                    color="primaryMain"
                     class="mr-4"
                     @click="stepState = 'typeLogementStep'"
                 >
@@ -77,6 +78,7 @@
                     :rules="rulesSuperficie"
                     label="Quelle est la superficie du bien ?"
                     placeholder="Superficie m²"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn color="secondary" @click="stepState = 'coproprieteStep'">
@@ -119,6 +121,7 @@
                     :rules="rulesBudget"
                     label="Quel est votre budget pour ces travaux ?"
                     placeholder="Budget en €"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn
@@ -233,7 +236,24 @@ export default {
         },
         isTypeTravauxValid() {
             return this.typeTravauxValues.includes(this.typeTravaux)
+        },
+        emitTravauxType() {
+            this.$emit('set-travaux-type', { travauxType: this.typeTravaux })
         }
     }
 }
 </script>
+
+<style lang="scss">
+.v-input__slot {
+    background-color: $grayScale10 !important;
+}
+
+.v-input--radio-group__input {
+    background-color: $primaryCard !important;
+}
+
+.v-select__selections > * {
+    color: $grayScale50;
+}
+</style>

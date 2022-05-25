@@ -7,6 +7,7 @@
                     :rules="rulesNumberPeopleLiving"
                     label="Nombre de personnes dans le logement fiscal "
                     onkeydown="return event.keyCode !== 69"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn
@@ -25,6 +26,7 @@
                     :rules="rulesTaxRevenue"
                     label="Revenu fiscal de référence"
                     onkeydown="return event.keyCode !== 69"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn

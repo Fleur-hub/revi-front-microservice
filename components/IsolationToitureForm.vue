@@ -18,6 +18,7 @@
                     <v-text-field
                         v-if="toitureAccessibleType === type"
                         v-model="accessibleSurface"
+                        outlined
                         type="number"
                         :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"
@@ -48,6 +49,7 @@
                     <v-text-field
                         v-if="toitureNonAccessibleType === type"
                         v-model="nonAccessibleSurface"
+                        outlined
                         type="number"
                         :rules="rulesToitureSurface"
                         onkeydown="return event.keyCode !== 69"

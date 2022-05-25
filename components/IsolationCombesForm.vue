@@ -17,6 +17,7 @@
                             v-model="combesPerduesSurface"
                             :rules="rulesCombesSurface"
                             type="number"
+                            outlined
                             onkeydown="return event.keyCode !== 69"
                             required
                         ></v-text-field>
@@ -34,6 +35,7 @@
                         <v-text-field
                             v-if="combesAmenages"
                             v-model="combesAmenagesSurface"
+                            outlined
                             :rules="rulesCombesSurface"
                             type="number"
                             onkeydown="return event.keyCode !== 69"

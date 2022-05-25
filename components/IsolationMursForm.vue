@@ -15,6 +15,7 @@
                         <v-text-field
                             v-if="mursInterieur"
                             v-model="mursInterieurSurface"
+                            outlined
                             :rules="rulesMursSurface"
                             type="number"
                             onkeydown="return event.keyCode !== 69"
@@ -34,6 +35,7 @@
                         <v-text-field
                             v-if="mursExterieur"
                             v-model="mursExterieurSurface"
+                            outlined
                             :rules="rulesMursSurface"
                             type="number"
                             onkeydown="return event.keyCode !== 69"

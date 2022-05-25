@@ -4,6 +4,7 @@
             <v-stepper-content step="lastNameStep">
                 <v-text-field
                     v-model="lastName"
+                    outlined
                     :rules="rulesLastName"
                     label="Nom"
                     required
@@ -21,6 +22,7 @@
             <v-stepper-content step="firstNameStep">
                 <v-text-field
                     v-model="firstName"
+                    outlined
                     :rules="rulesFirstName"
                     label="Prénom"
                     required
@@ -41,6 +43,7 @@
             <v-stepper-content step="addressStep">
                 <v-text-field
                     v-model.number="address"
+                    outlined
                     :rules="rulesAddress"
                     label="Adresse"
                     required
@@ -61,6 +64,7 @@
             <v-stepper-content step="personalPhoneStep">
                 <v-text-field
                     v-model="personalPhone"
+                    outlined
                     :rules="rulesPersonalPhone"
                     label="0123456789"
                     onkeydown="return event.keyCode !== 69"
@@ -84,6 +88,7 @@
             <v-stepper-content step="eMailStep">
                 <v-text-field
                     v-model="eMail"
+                    outlined
                     :rules="rulesEmail"
                     label="adresse@exemple.com"
                     required

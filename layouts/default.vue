@@ -1,9 +1,11 @@
 <template>
-    <v-app dark>
+    <v-app>
         <v-navigation-drawer
             v-model="drawer"
             :mini-variant="miniVariant"
             :clipped="clipped"
+            color="background"
+            overlay-color="primaryMain"
             fixed
             app
         >
@@ -12,6 +14,7 @@
                     v-for="(item, i) in items"
                     :key="i"
                     :to="item.to"
+                    color="primaryMain"
                     router
                     exact
                 >
@@ -101,6 +104,11 @@ export default {
                     icon: 'mdi-apps',
                     title: 'Mes travaux V2',
                     to: '/formWithStep'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Revi Stepper',
+                    to: '/reviStepper'
                 }
             ],
             miniVariant: false,
@@ -111,3 +119,17 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.v-list-item > * {
+    color: $grayScale70 !important;
+}
+
+.v-list-item__action > * {
+    color: $grayScale70 !important;
+}
+
+.v-list-item--active * {
+    color: $primaryMain !important;
+}
+</style>

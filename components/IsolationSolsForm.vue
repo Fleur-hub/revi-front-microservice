@@ -15,6 +15,7 @@
                         <v-text-field
                             v-if="solsLocal"
                             v-model="solsLocalSurface"
+                            outlined
                             type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
@@ -34,6 +35,7 @@
                         <v-text-field
                             v-if="solsTerrePlein"
                             v-model="solsTerrePleinSurface"
+                            outlined
                             type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
@@ -53,6 +55,7 @@
                         <v-text-field
                             v-if="solsSanitaire"
                             v-model="solsSanitaireSurface"
+                            outlined
                             type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
@@ -72,6 +75,7 @@
                         <v-text-field
                             v-if="solsPlancher"
                             v-model="solsPlancherSurface"
+                            outlined
                             type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
