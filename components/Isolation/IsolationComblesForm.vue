@@ -16,10 +16,10 @@
                             v-if="combesPerdues"
                             v-model="combesPerduesSurface"
                             :rules="rulesCombesSurface"
-                            type="number"
-                            outlined
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
@@ -35,15 +35,20 @@
                         <v-text-field
                             v-if="combesAmenages"
                             v-model="combesAmenagesSurface"
-                            outlined
                             :rules="rulesCombesSurface"
-                            type="number"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
-                    <v-btn :disabled="!isValid()" color="success" class="mr-4">
+                    <v-btn
+                        :disabled="!isValid()"
+                        class="mr-4"
+                        color="success"
+                        @click="$emit('done-event')"
+                    >
                         Valider
                     </v-btn>
                 </v-container>

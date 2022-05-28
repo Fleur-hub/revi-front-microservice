@@ -15,11 +15,11 @@
                         <v-text-field
                             v-if="solsLocal"
                             v-model="solsLocalSurface"
-                            outlined
-                            type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
@@ -35,11 +35,11 @@
                         <v-text-field
                             v-if="solsTerrePlein"
                             v-model="solsTerrePleinSurface"
-                            outlined
-                            type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
@@ -55,11 +55,11 @@
                         <v-text-field
                             v-if="solsSanitaire"
                             v-model="solsSanitaireSurface"
-                            outlined
-                            type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
@@ -75,15 +75,20 @@
                         <v-text-field
                             v-if="solsPlancher"
                             v-model="solsPlancherSurface"
-                            outlined
-                            type="number"
                             :rules="rulesSolsSurface"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
-                    <v-btn :disabled="!isValid()" color="success" class="mr-4">
+                    <v-btn
+                        :disabled="!isValid()"
+                        class="mr-4"
+                        color="success"
+                        @click="$emit('done-event')"
+                    >
                         Valider
                     </v-btn>
                 </v-container>

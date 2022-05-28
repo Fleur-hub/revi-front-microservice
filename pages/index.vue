@@ -1,7 +1,7 @@
 <!-- eslint-disable -->
 <template>
-    <v-row justify="center" align="center">
-        <v-col cols="12" sm="8" md="6">
+    <v-row align="center" justify="center">
+        <v-col cols="12" md="6" sm="8">
             <v-card class="logo py-4 d-flex justify-center">
                 <NuxtLogo />
                 <VuetifyLogo />
@@ -20,8 +20,8 @@
                         For more information on Vuetify, check out the
                         <a
                             href="https://vuetifyjs.com"
-                            target="_blank"
                             rel="noopener noreferrer"
+                            target="_blank"
                         >
                             documentation </a
                         >.
@@ -30,8 +30,8 @@
                         If you have questions, please join the official
                         <a
                             href="https://chat.vuetifyjs.com/"
-                            target="_blank"
                             rel="noopener noreferrer"
+                            target="_blank"
                             title="chat"
                         >
                             discord </a
@@ -41,8 +41,8 @@
                         Find a bug? Report it on the github
                         <a
                             href="https://github.com/vuetifyjs/vuetify/issues"
-                            target="_blank"
                             rel="noopener noreferrer"
+                            target="_blank"
                             title="contribute"
                         >
                             issue board </a
@@ -58,27 +58,26 @@
                     <hr class="my-3" />
                     <a
                         href="https://nuxtjs.org/"
-                        target="_blank"
                         rel="noopener noreferrer"
+                        target="_blank"
                     >
                         Nuxt Documentation
                     </a>
                     <br />
                     <a
                         href="https://github.com/nuxt/nuxt.js"
-                        target="_blank"
                         rel="noopener noreferrer"
+                        target="_blank"
                     >
                         Nuxt GitHub
                     </a>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer />
-                    <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
+                    <v-btn color="primary" nuxt to="/reviForm"> Continue</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
         <Nuxt />
-        <devis-form />
     </v-row>
 </template>

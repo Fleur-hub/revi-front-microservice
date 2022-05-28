@@ -15,11 +15,11 @@
                         <v-text-field
                             v-if="mursInterieur"
                             v-model="mursInterieurSurface"
-                            outlined
                             :rules="rulesMursSurface"
-                            type="number"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
@@ -35,15 +35,20 @@
                         <v-text-field
                             v-if="mursExterieur"
                             v-model="mursExterieurSurface"
-                            outlined
                             :rules="rulesMursSurface"
-                            type="number"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
 
-                    <v-btn :disabled="!isValid()" color="success" class="mr-4">
+                    <v-btn
+                        :disabled="!isValid()"
+                        class="mr-4"
+                        color="success"
+                        @click="$emit('someEvent')"
+                    >
                         Valider
                     </v-btn>
                 </v-container>

@@ -2,6 +2,7 @@
 //
 // The variables you want to modify
 @import '~vuetify/src/styles/styles.sass';
+
 $material-dark: map-merge(
     $material-dark,
     (
@@ -68,10 +69,13 @@ v-text-field {
     background-color: $grayScale10 !important;
 }
 
-.field-container,
-.v-stepper__content {
-    background-color: #bbb0f5;
+.field-container {
+    background-color: $primaryBorder;
     border-radius: 5px;
+}
+
+.v-stepper__content {
+    background-color: $primaryFont;
 }
 
 label {
@@ -85,4 +89,10 @@ input {
 
 fieldset {
     border: 2px solid $grayScale70 !important;
+}
+
+.container {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-left: 8px;
 }

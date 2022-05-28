@@ -2,21 +2,25 @@
     <v-app>
         <v-navigation-drawer
             v-model="drawer"
-            :mini-variant="miniVariant"
             :clipped="clipped"
-            color="background"
-            overlay-color="primaryMain"
-            fixed
+            :mini-variant="miniVariant"
             app
+            color="background"
+            fixed
+            overlay-color="primaryMain"
+            permanent
         >
-            <v-list>
+            <v-container>
+                <h1 class="title">REVI</h1>
+            </v-container>
+            <v-list class="navigation-drawer">
                 <v-list-item
                     v-for="(item, i) in items"
                     :key="i"
                     :to="item.to"
                     color="primaryMain"
-                    router
                     exact
+                    router
                 >
                     <v-list-item-action>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -27,49 +31,11 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-app-bar :clipped-left="clipped" fixed app>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-            <v-btn icon @click.stop="miniVariant = !miniVariant">
-                <v-icon
-                    >mdi-{{
-                        `chevron-${miniVariant ? 'right' : 'left'}`
-                    }}</v-icon
-                >
-            </v-btn>
-            <v-btn icon @click.stop="clipped = !clipped">
-                <v-icon>mdi-application</v-icon>
-            </v-btn>
-            <v-btn icon @click.stop="fixed = !fixed">
-                <v-icon>mdi-minus</v-icon>
-            </v-btn>
-            <v-toolbar-title v-text="title" />
-            <v-spacer />
-            <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-                <v-icon>mdi-menu</v-icon>
-            </v-btn>
-        </v-app-bar>
         <v-main>
             <v-container>
                 <Nuxt />
             </v-container>
         </v-main>
-        <v-navigation-drawer
-            v-model="rightDrawer"
-            :right="right"
-            temporary
-            fixed
-        >
-            <v-list>
-                <v-list-item @click.native="right = !right">
-                    <v-list-item-action>
-                        <v-icon light> mdi-repeat </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title
-                        >Switch drawer (click me)</v-list-item-title
-                    >
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
         <v-footer :absolute="!fixed" app>
             <span>&copy; {{ new Date().getFullYear() }}</span>
         </v-footer>
@@ -87,28 +53,48 @@ export default {
             items: [
                 {
                     icon: 'mdi-apps',
-                    title: 'Welcome',
+                    title: 'Informations',
                     to: '/'
                 },
                 {
-                    icon: 'mdi-chart-bubble',
-                    title: 'Inspire',
-                    to: '/inspire'
-                },
-                {
-                    icon: 'mdi-apps',
-                    title: 'Mes travaux V1',
-                    to: '/form'
-                },
-                {
-                    icon: 'mdi-apps',
-                    title: 'Mes travaux V2',
-                    to: '/formWithStep'
+                    icon: 'mdi-form-select',
+                    title: 'Mes travaux',
+                    to: '/reviForm'
                 },
                 {
                     icon: 'mdi-form-select',
-                    title: 'Revi Stepper',
-                    to: '/reviStepper'
+                    title: 'Isolation',
+                    to: '/travauxPages/isolationPage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Chauffage',
+                    to: '/travauxPages/chauffagePage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Chauffe-eau',
+                    to: '/travauxPages/chauffeEauPage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Ventilation',
+                    to: '/travauxPages/ventilationPage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Mes aides',
+                    to: '/financialInfoPage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Mes information personnelles',
+                    to: '/personalInformationPage'
+                },
+                {
+                    icon: 'mdi-form-select',
+                    title: 'Mon compte-rendue',
+                    to: '/'
                 }
             ],
             miniVariant: false,
@@ -131,5 +117,14 @@ export default {
 
 .v-list-item--active * {
     color: $primaryMain !important;
+}
+
+.title {
+    color: $grayScale100;
+}
+
+.navigation-drawer {
+    border: 1px !important;
+    border-color: #9e9e9e;
 }
 </style>

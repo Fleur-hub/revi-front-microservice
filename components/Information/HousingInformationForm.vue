@@ -1,19 +1,21 @@
 <template>
-    <v-stepper v-model="stepState">
+    <v-stepper v-model="stepState" elevation="0">
         <v-stepper-items>
             <v-stepper-content step="adresseStep">
-                <v-text-field
-                    v-model="adresse"
-                    :rules="rulesAdresse"
-                    label="Adresse du logement"
-                    placeholder="123 rue de la paix 75009 Paris"
-                    outlined
-                    required
-                ></v-text-field>
+                <v-container class="field-container">
+                    <v-text-field
+                        v-model="adresse"
+                        :rules="rulesAdresse"
+                        label="Adresse du logement"
+                        outlined
+                        placeholder="123 rue de la paix 75009 Paris"
+                        required
+                    ></v-text-field>
+                </v-container>
                 <v-btn
                     :disabled="!isAdressValid()"
-                    color="primaryMain"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'typeLogementStep'"
                 >
                     Valider
@@ -39,8 +41,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isTypeLogementValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'coproprieteStep'"
                 >
                     Valider
@@ -50,8 +52,8 @@
             <v-stepper-content step="coproprieteStep">
                 <v-select
                     v-model="copropriete"
-                    :rules="rulesCopropriete"
                     :items="coproprieteValues"
+                    :rules="rulesCopropriete"
                     label="Êtes-vous dans une copropriété ?"
                     required
                 ></v-select>
@@ -63,8 +65,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isCoproprieteValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'superficieStep'"
                 >
                     Valider
@@ -74,20 +76,43 @@
             <v-stepper-content step="superficieStep">
                 <v-text-field
                     v-model="superficie"
-                    type="number"
                     :rules="rulesSuperficie"
                     label="Quelle est la superficie du bien ?"
-                    placeholder="Superficie m²"
                     outlined
+                    placeholder="Superficie m²"
                     required
+                    type="number"
                 ></v-text-field>
                 <v-btn color="secondary" @click="stepState = 'coproprieteStep'">
                     Retour
                 </v-btn>
                 <v-btn
                     :disabled="!isSuperficieValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
+                    @click="stepState = 'consomationElectriqueStep'"
+                >
+                    Valider
+                </v-btn>
+            </v-stepper-content>
+
+            <v-stepper-content step="consomationElectriqueStep">
+                <v-text-field
+                    v-model="consomationElectrique"
+                    :rules="rulesConsomationElectrique"
+                    label="Quelle est votre consomation electrique annuel ?"
+                    outlined
+                    placeholder="Consomation Electrique kWh"
+                    required
+                    type="number"
+                ></v-text-field>
+                <v-btn color="secondary" @click="stepState = 'superficieStep'">
+                    Retour
+                </v-btn>
+                <v-btn
+                    :disabled="consomationElectrique <= 0"
+                    class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'dateConstructionStep'"
                 >
                     Valider
@@ -97,17 +122,20 @@
             <v-stepper-content step="dateConstructionStep">
                 <v-select
                     v-model="dateConstruction"
-                    :rules="rulesDateConstruction"
                     :items="dateConstructions"
+                    :rules="rulesDateConstruction"
                     label="Quand a été construit votre logement ?"
                 ></v-select>
-                <v-btn color="secondary" @click="stepState = 'superficieStep'">
+                <v-btn
+                    color="secondary"
+                    @click="stepState = 'consomationElectriqueStep'"
+                >
                     Retour
                 </v-btn>
                 <v-btn
                     :disabled="!isDateConstructionValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'budgetStep'"
                 >
                     Valider
@@ -117,12 +145,12 @@
             <v-stepper-content step="budgetStep">
                 <v-text-field
                     v-model="budget"
-                    type="numbers"
                     :rules="rulesBudget"
                     label="Quel est votre budget pour ces travaux ?"
-                    placeholder="Budget en €"
                     outlined
+                    placeholder="Budget en €"
                     required
+                    type="number"
                 ></v-text-field>
                 <v-btn
                     color="secondary"
@@ -132,8 +160,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isBudgetValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 'typeTravauxStep'"
                 >
                     Valider
@@ -141,23 +169,35 @@
             </v-stepper-content>
 
             <v-stepper-content step="typeTravauxStep">
-                <v-radio-group v-model="typeTravaux">
-                    <v-radio
-                        v-for="(type, i) in typeTravauxValues"
-                        :key="i"
-                        :label="type"
-                        :value="type"
-                        required
-                    >
-                    </v-radio>
-                </v-radio-group>
+                <v-container>
+                    <v-checkbox
+                        v-model="travauxChauffage"
+                        :label="typeTravauxValues.chauffage"
+                        :value="true"
+                    />
+                    <v-checkbox
+                        v-model="travauxIsolation"
+                        :label="typeTravauxValues.isolation"
+                        :value="true"
+                    />
+                    <v-checkbox
+                        v-model="travauxChauffeEau"
+                        :label="typeTravauxValues.chauffeEau"
+                        :value="true"
+                    />
+                    <v-checkbox
+                        v-model="travauxVentilation"
+                        :label="typeTravauxValues.ventilation"
+                        :value="true"
+                    />
+                </v-container>
                 <v-btn color="secondary" @click="stepState = 'budgetStep'">
                     Retour
                 </v-btn>
                 <v-btn
                     :disabled="!isTypeTravauxValid()"
-                    color="success"
                     class="mr-4"
+                    color="primaryMain"
                     @click="stepState = 8"
                 >
                     Valider
@@ -193,6 +233,13 @@ export default {
             (v) => !!v || 'Veuillez rentrer la superficie du bien en m²'
         ],
 
+        consomationElectrique: 0,
+        rulesConsomationElectrique: [
+            (v) =>
+                !!v ||
+                'Veuillez rentrer la consomation electrique annuel du bien en kWh'
+        ],
+
         dateConstruction: '',
         dateConstructions: [
             'Moins de 2 ans',
@@ -206,13 +253,16 @@ export default {
         budget: '',
         rulesBudget: [(v) => !!v || 'Veuillez ajouter un budget'],
 
-        typeTravaux: '',
-        typeTravauxValues: [
-            'Isolation',
-            'Chauffage',
-            'Ventilation',
-            'Chauffe-eau'
-        ]
+        typeTravauxValues: {
+            isolation: 'Isolation',
+            chauffage: 'Chauffage',
+            ventilation: 'Ventilation',
+            chauffeEau: 'Chauffe-eau'
+        },
+        travauxIsolation: false,
+        travauxChauffage: false,
+        travauxVentilation: false,
+        travauxChauffeEau: false
     }),
 
     methods: {
@@ -235,10 +285,12 @@ export default {
             return /^\d+$/.test(this.budget)
         },
         isTypeTravauxValid() {
-            return this.typeTravauxValues.includes(this.typeTravaux)
-        },
-        emitTravauxType() {
-            this.$emit('set-travaux-type', { travauxType: this.typeTravaux })
+            return (
+                this.travauxVentilation ||
+                this.travauxChauffage ||
+                this.travauxIsolation ||
+                this.travauxChauffeEau
+            )
         }
     }
 }
