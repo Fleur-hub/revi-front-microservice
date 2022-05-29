@@ -198,7 +198,7 @@
                     :disabled="!isTypeTravauxValid()"
                     class="mr-4"
                     color="primaryMain"
-                    @click="stepState = 8"
+                    @click="$emit('done-event')"
                 >
                     Valider
                 </v-btn>

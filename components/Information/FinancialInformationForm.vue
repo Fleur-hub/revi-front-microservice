@@ -12,8 +12,8 @@
                 ></v-text-field>
                 <v-btn
                     :disabled="!isNumberPeopleLivingValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'taxRevenueStep'"
                 >
                     Valider
@@ -37,8 +37,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isTaxRevenueValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'housingPeopleTypeStep'"
                 >
                     Valider
@@ -64,9 +64,9 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isHousingPeopleTypeValid()"
-                    color="success"
                     class="mr-4"
-                    @click="stepState = 4"
+                    color="success"
+                    @click="$emit('done-event')"
                 >
                     Valider
                 </v-btn>

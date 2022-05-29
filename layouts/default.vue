@@ -59,37 +59,37 @@ export default {
                 {
                     icon: 'mdi-form-select',
                     title: 'Mes travaux',
-                    to: '/reviForm'
+                    to: '/revi'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Isolation',
-                    to: '/travauxPages/isolationPage'
+                    to: '/travaux/isolation'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Chauffage',
-                    to: '/travauxPages/chauffagePage'
+                    to: '/travaux/chauffage'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Chauffe-eau',
-                    to: '/travauxPages/chauffeEauPage'
+                    to: '/travaux/chauffeEau'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Ventilation',
-                    to: '/travauxPages/ventilationPage'
+                    to: '/travaux/ventilation'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Mes aides',
-                    to: '/financialInfoPage'
+                    to: '/financialInformation'
                 },
                 {
                     icon: 'mdi-form-select',
                     title: 'Mes information personnelles',
-                    to: '/personalInformationPage'
+                    to: '/personalInformation'
                 },
                 {
                     icon: 'mdi-form-select',

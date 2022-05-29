@@ -119,7 +119,10 @@
                     :disabled="!isValid()"
                     class="mr-4"
                     color="success"
-                    @click="$emit('done-event')"
+                    @click="
+                        postData()
+                        $emit('done-event')
+                    "
                 >
                     Valider
                 </v-btn>
@@ -131,6 +134,12 @@
 <script>
 export default {
     name: 'ChauffageBoisForm',
+    props: {
+        housingId: {
+            type: Number,
+            default: () => 0
+        }
+    },
     data: () => ({
         stepState: 'chauffageBoisStep',
         chauffageBoisType: '',
@@ -194,6 +203,10 @@ export default {
                 }
             }
             return true
+        },
+        postData() {
+            this.$data.housingId = this.housingId
+            // await this.$axios.$post('/api/chauffage/chauffageBois', this.$data);
         }
     }
 }

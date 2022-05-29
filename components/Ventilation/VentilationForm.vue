@@ -19,12 +19,12 @@
                     <v-container v-if="ventilationType === ventilationTypes[0]">
                         <v-text-field
                             v-model="ventilationSimpleNumber"
-                            outlined
-                            type="number"
-                            label="Nombre de VMC"
                             :rules="rulesVentilationNumber"
+                            label="Nombre de VMC"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
                     <v-radio
@@ -40,20 +40,20 @@
                     <v-container v-if="ventilationType === ventilationTypes[1]">
                         <v-text-field
                             v-model="ventilationDoubleNumber"
-                            outlined
-                            type="number"
-                            label="Nombre de VMC"
                             :rules="rulesVentilationNumber"
+                            label="Nombre de VMC"
                             onkeydown="return event.keyCode !== 69"
+                            outlined
                             required
+                            type="number"
                         ></v-text-field>
                     </v-container>
                 </v-radio-group>
                 <v-btn
                     :disabled="!isVentilationValid()"
-                    color="success"
                     class="mr-4"
-                    @click="stepState = 2"
+                    color="success"
+                    @click="$emit('done-event')"
                 >
                     Valider
                 </v-btn>

@@ -114,8 +114,8 @@ export default {
         nextStep() {
             if (this.remainingStep.length !== 0) {
                 this.stepState = this.remainingStep.pop()
-                // eslint-disable-next-line no-empty
             } else {
+                this.$emit('done-event')
             }
         }
     }

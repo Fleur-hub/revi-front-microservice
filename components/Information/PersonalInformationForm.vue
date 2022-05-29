@@ -4,15 +4,15 @@
             <v-stepper-content step="lastNameStep">
                 <v-text-field
                     v-model="lastName"
-                    outlined
                     :rules="rulesLastName"
                     label="Nom"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn
                     :disabled="!isLastNameValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'firstNameStep'"
                 >
                     Valider
@@ -22,9 +22,9 @@
             <v-stepper-content step="firstNameStep">
                 <v-text-field
                     v-model="firstName"
-                    outlined
                     :rules="rulesFirstName"
                     label="Prénom"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn color="secondary" @click="stepState = 'lastNameStep'">
@@ -32,8 +32,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isFirstNameValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'addressStep'"
                 >
                     Valider
@@ -43,9 +43,9 @@
             <v-stepper-content step="addressStep">
                 <v-text-field
                     v-model.number="address"
-                    outlined
                     :rules="rulesAddress"
                     label="Adresse"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn color="secondary" @click="stepState = 'firstNameStep'">
@@ -53,8 +53,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isAddressValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'personalPhoneStep'"
                 >
                     Valider
@@ -64,12 +64,12 @@
             <v-stepper-content step="personalPhoneStep">
                 <v-text-field
                     v-model="personalPhone"
-                    outlined
                     :rules="rulesPersonalPhone"
                     label="0123456789"
-                    onkeydown="return event.keyCode !== 69"
                     maxlength="10"
                     minlength="10"
+                    onkeydown="return event.keyCode !== 69"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn color="secondary" @click="stepState = 'addressStep'">
@@ -77,8 +77,8 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isPersonalPhoneValid()"
-                    color="success"
                     class="mr-4"
+                    color="success"
                     @click="stepState = 'eMailStep'"
                 >
                     Valider
@@ -88,9 +88,9 @@
             <v-stepper-content step="eMailStep">
                 <v-text-field
                     v-model="eMail"
-                    outlined
                     :rules="rulesEmail"
                     label="adresse@exemple.com"
+                    outlined
                     required
                 ></v-text-field>
                 <v-btn
@@ -101,9 +101,9 @@
                 </v-btn>
                 <v-btn
                     :disabled="!isEmailValid()"
-                    color="success"
                     class="mr-4"
-                    @click="stepState = 5"
+                    color="success"
+                    @click="$emit('done-event')"
                 >
                     Valider
                 </v-btn>

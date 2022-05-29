@@ -33,7 +33,7 @@
                 <ChauffageGazForm @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="chauffageChoice.bois.step">
-                <ChauffageBoisForm @done-event="nextStep()" />
+                <ChauffageBoisForm housing-id="id" @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="chauffageChoice.pompeChaleur.step">
                 <ChauffagePompeChaleurForm @done-event="nextStep()" />
@@ -121,8 +121,8 @@ export default {
         nextStep() {
             if (this.remainingStep.length !== 0) {
                 this.stepState = this.remainingStep.pop()
-                // eslint-disable-next-line no-empty
             } else {
+                this.$emit('done-event')
             }
         }
     }

@@ -55,9 +55,9 @@
                 </v-radio-group>
                 <v-btn
                     :disabled="!isChauffeEauValid()"
-                    color="success"
                     class="mr-4"
-                    @click="stepState = 2"
+                    color="success"
+                    @click="$emit('done-event')"
                 >
                     Valider
                 </v-btn>
