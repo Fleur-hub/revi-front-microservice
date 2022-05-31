@@ -162,42 +162,6 @@
                     :disabled="!isBudgetValid()"
                     class="mr-4"
                     color="primaryMain"
-                    @click="stepState = 'typeTravauxStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="typeTravauxStep">
-                <v-container>
-                    <v-checkbox
-                        v-model="travauxChauffage"
-                        :label="typeTravauxValues.chauffage"
-                        :value="true"
-                    />
-                    <v-checkbox
-                        v-model="travauxIsolation"
-                        :label="typeTravauxValues.isolation"
-                        :value="true"
-                    />
-                    <v-checkbox
-                        v-model="travauxChauffeEau"
-                        :label="typeTravauxValues.chauffeEau"
-                        :value="true"
-                    />
-                    <v-checkbox
-                        v-model="travauxVentilation"
-                        :label="typeTravauxValues.ventilation"
-                        :value="true"
-                    />
-                </v-container>
-                <v-btn color="secondary" @click="stepState = 'budgetStep'">
-                    Retour
-                </v-btn>
-                <v-btn
-                    :disabled="!isTypeTravauxValid()"
-                    class="mr-4"
-                    color="primaryMain"
                     @click="$emit('done-event')"
                 >
                     Valider
@@ -251,18 +215,7 @@ export default {
         ],
 
         budget: '',
-        rulesBudget: [(v) => !!v || 'Veuillez ajouter un budget'],
-
-        typeTravauxValues: {
-            isolation: 'Isolation',
-            chauffage: 'Chauffage',
-            ventilation: 'Ventilation',
-            chauffeEau: 'Chauffe-eau'
-        },
-        travauxIsolation: false,
-        travauxChauffage: false,
-        travauxVentilation: false,
-        travauxChauffeEau: false
+        rulesBudget: [(v) => !!v || 'Veuillez ajouter un budget']
     }),
 
     methods: {

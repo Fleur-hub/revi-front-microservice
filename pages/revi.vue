@@ -2,7 +2,10 @@
     <v-stepper v-model="stepState" elevation="0">
         <v-stepper-items class="text-center">
             <v-stepper-content step="housing">
-                <HousingInformationForm class="text-center" />
+                <HousingInformationForm
+                    class="text-center"
+                    @done-event="stepState = 'TravauxChoiceStep'"
+                />
             </v-stepper-content>
             <v-stepper-content step="TravauxChoiceStep">
                 <v-checkbox
@@ -27,22 +30,28 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content :step="travauxChoisi.chauffage.step">
-                <ChauffageForm class="text-center" />
+                <ChauffageForm class="text-center" @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="travauxChoisi.chauffeEau.step">
-                <ChauffeEauForm class="text-center" />
+                <ChauffeEauForm class="text-center" @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="travauxChoisi.isolation.step">
-                <IsolationForm class="text-center" />
+                <IsolationForm class="text-center" @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="travauxChoisi.ventilation.step">
-                <VentilationForm class="text-center" />
+                <VentilationForm class="text-center" @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content step="financialStep">
-                <FinancialInformationForm class="text-center" />
+                <FinancialInformationForm
+                    class="text-center"
+                    @done-event="nextStep()"
+                />
             </v-stepper-content>
             <v-stepper-content step="personalStep">
-                <PersonalInformationForm class="text-center" />
+                <PersonalInformationForm
+                    class="text-center"
+                    @done-event="nextStep()"
+                />
             </v-stepper-content>
         </v-stepper-items>
     </v-stepper>
@@ -69,7 +78,7 @@ export default {
         HousingInformationForm
     },
     data: () => ({
-        stepState: 'revi',
+        stepState: 'housing',
         remainingStep: [],
 
         travauxChoisi: {
@@ -97,16 +106,16 @@ export default {
     }),
     methods: {
         isChoiceValid() {
-            for (const key in this.chauffageChoice) {
-                if (this.chauffageChoice[key].model) {
+            for (const key in this.travauxChoisi) {
+                if (this.travauxChoisi[key].model) {
                     return true
                 }
             }
             return false
         },
         computeStep() {
-            for (const key in this.chauffageChoice) {
-                const value = this.chauffageChoice[key]
+            for (const key in this.travauxChoisi) {
+                const value = this.travauxChoisi[key]
                 if (value.model) {
                     this.remainingStep.push(value.step)
                 }
