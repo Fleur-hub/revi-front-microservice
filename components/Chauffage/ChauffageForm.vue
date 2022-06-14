@@ -33,7 +33,7 @@
                 <ChauffageGazForm @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="chauffageChoice.bois.step">
-                <ChauffageBoisForm :housing-id="0" @done-event="nextStep()" />
+                <ChauffageBoisForm @done-event="nextStep()" />
             </v-stepper-content>
             <v-stepper-content :step="chauffageChoice.pompeChaleur.step">
                 <ChauffagePompeChaleurForm @done-event="nextStep()" />

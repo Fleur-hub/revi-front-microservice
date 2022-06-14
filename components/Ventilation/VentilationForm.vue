@@ -3,7 +3,7 @@
         <v-stepper-items>
             <v-stepper-content step="ventilationStep">
                 <v-radio-group
-                    v-model="ventilationType"
+                    v-model="formData.ventilationType"
                     label=" Votre type de ventilation ?"
                 >
                     <v-radio
@@ -11,14 +11,16 @@
                         :value="ventilationTypes[0]"
                         required
                         @click="
-                            ventilationSimpleNumber = ''
-                            ventilationDoubleNumber = ''
+                            formData.ventilationSimpleNumber = ''
+                            formData.ventilationDoubleNumber = ''
                         "
                     >
                     </v-radio>
-                    <v-container v-if="ventilationType === ventilationTypes[0]">
+                    <v-container
+                        v-if="formData.ventilationType === ventilationTypes[0]"
+                    >
                         <v-text-field
-                            v-model="ventilationSimpleNumber"
+                            v-model="formData.ventilationSimpleNumber"
                             :rules="rulesVentilationNumber"
                             label="Nombre de VMC"
                             onkeydown="return event.keyCode !== 69"
@@ -32,14 +34,16 @@
                         :value="ventilationTypes[1]"
                         required
                         @click="
-                            ventilationSimpleNumber = ''
-                            ventilationDoubleNumber = ''
+                            formData.ventilationSimpleNumber = ''
+                            formData.ventilationDoubleNumber = ''
                         "
                     >
                     </v-radio>
-                    <v-container v-if="ventilationType === ventilationTypes[1]">
+                    <v-container
+                        v-if="formData.ventilationType === ventilationTypes[1]"
+                    >
                         <v-text-field
-                            v-model="ventilationDoubleNumber"
+                            v-model="formData.ventilationDoubleNumber"
                             :rules="rulesVentilationNumber"
                             label="Nombre de VMC"
                             onkeydown="return event.keyCode !== 69"
@@ -53,7 +57,10 @@
                     :disabled="!isVentilationValid()"
                     class="mr-4"
                     color="success"
-                    @click="$emit('done-event')"
+                    @click="
+                        submit()
+                        $emit('done-event')
+                    "
                 >
                     Valider
                 </v-btn>
@@ -67,11 +74,13 @@ export default {
     name: 'VentilationForm',
     data: () => ({
         stepState: 'ventilationStep',
-        ventilationType: '',
-        ventilationTypes: ['VMC simple-flux', 'VMC double-flux'],
+        formData: {
+            ventilationType: '',
+            ventilationSimpleNumber: 0,
+            ventilationDoubleNumber: 0
+        },
 
-        ventilationSimpleNumber: 0,
-        ventilationDoubleNumber: 0,
+        ventilationTypes: ['VMC simple-flux', 'VMC double-flux'],
 
         rulesVentilationNumber: [
             (v) => !!v || 'Veuillez ajouter un nombre de ventilation'
@@ -81,10 +90,13 @@ export default {
     methods: {
         isVentilationValid() {
             return (
-                this.ventilationTypes.includes(this.ventilationType) &&
-                (/^\d+$/.test(this.ventilationSimpleNumber) ||
-                    /^\d+$/.test(this.ventilationDoubleNumber))
+                this.ventilationTypes.includes(this.formData.ventilationType) &&
+                (/^\d+$/.test(this.formData.ventilationSimpleNumber) ||
+                    /^\d+$/.test(this.formData.ventilationDoubleNumber))
             )
+        },
+        submit() {
+            this.$store.commit('reviFormState/setVentilationData')
         }
     }
 }

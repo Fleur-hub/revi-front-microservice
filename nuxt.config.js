@@ -62,6 +62,7 @@ export default {
             themes: {
                 dark: {
                     background: '#f9f9fb',
+                    primary: '#5a3fe1',
 
                     /* Primary */
                     primaryBorder: '#bbb0f5',
@@ -125,5 +126,9 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {}
+    build: {
+        loaders: {
+            scss: { sourceMap: false }
+        }
+    }
 }

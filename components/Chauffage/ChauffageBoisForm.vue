@@ -134,12 +134,6 @@
 <script>
 export default {
     name: 'ChauffageBoisForm',
-    props: {
-        housingId: {
-            type: Number,
-            default: () => 0
-        }
-    },
     data: () => ({
         stepState: 'chauffageBoisStep',
         chauffageBoisType: '',
@@ -205,7 +199,6 @@ export default {
             return true
         },
         postData() {
-            this.$data.housingId = this.housingId
             // await this.$axios.$post('/api/chauffage/chauffageBois', this.$data);
         }
     }

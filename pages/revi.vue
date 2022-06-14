@@ -1,9 +1,8 @@
 <template>
     <v-stepper v-model="stepState" elevation="0">
-        <v-stepper-items class="text-center">
+        <v-stepper-items>
             <v-stepper-content step="housing">
                 <HousingInformationForm
-                    class="text-center"
                     @done-event="stepState = 'TravauxChoiceStep'"
                 />
             </v-stepper-content>
@@ -58,6 +57,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import HousingInformationForm from '~/components/Information/HousingInformationForm'
 import ChauffageForm from '~/components/Chauffage/ChauffageForm'
 import ChauffeEauForm from '~/components/ChauffeEau/ChauffeEauForm'
@@ -128,6 +128,17 @@ export default {
             if (this.remainingStep.length !== 0) {
                 this.stepState = this.remainingStep.pop()
             }
+        },
+        async postCreateTravaux() {
+            const response = await axios.post(
+                'http://localhost:8080/api/' +
+                    this.$store.getters['reviFormState/getHousingId'] +
+                    '/travaux/'
+            )
+            this.$store.commit(
+                'reviFormState/setTravauxId',
+                response.data.travauxId
+            )
         }
     }
 }

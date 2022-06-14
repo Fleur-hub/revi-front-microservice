@@ -1,40 +1,58 @@
 export const state = () => ({
-    formStep: '',
     housingId: null,
-    page: {
-        housing: 'revi',
-        chauffage: '/travaux/chauffage',
-        chauffeEau: '/travaux/chauffeEau',
-        isolation: 'travaux/isolation',
-        ventilation: 'travaux/ventilation',
-        financialInformation: '/financialInformation',
-        personalInformation: '/personalInformation',
-        report: '/report'
-    },
-    choosedTravaux: {
-        chauffage: false,
-        chauffeEau: false,
-        isolation: false,
-        ventilation: false
-    }
+    travauxId: null,
+    housingData: null,
+    travauxData: null,
+    chauffageData: null,
+    chauffeEauData: null,
+    ventilationData: null,
+    isolationData: null,
+    financialData: null,
+    personalData: null,
+    reportData: null
 })
 
 export const mutations = {
-    setStep(state, step) {
-        state.formStep = step
+    setHousingId(state, housingId) {
+        state.housingId = housingId
     },
-    buildWorkflow(state, payload) {
-        if (payload.chauffage) {
-            state.choosedTravaux.chauffage = true
-        }
-        if (payload.chauffeEau) {
-            state.choosedTravaux.chauffeEau = true
-        }
-        if (payload.isolation) {
-            state.choosedTravaux.isolation = true
-        }
-        if (payload.ventilation) {
-            state.choosedTravaux.ventilation = true
-        }
+    setTravauxId(state, travauxId) {
+        state.travauxId = travauxId
+    },
+    setHousingData(state, housing) {
+        state.housingData = housing
+    },
+    setTravauxData(state, travaux) {
+        state.travauxData = travaux
+    },
+    setChauffageData(state, chauffage) {
+        state.chauffageData = chauffage
+    },
+    setChauffeEauData(state, chauffeEau) {
+        state.chauffeEauData = chauffeEau
+    },
+    setIsolationData(state, isolation) {
+        state.isolationData = isolation
+    },
+    setVentilationData(state, ventilation) {
+        state.ventilationData = ventilation
+    },
+    setFinancialData(state, financial) {
+        state.financialData = financial
+    },
+    setPersonalData(state, personal) {
+        state.personalData = personal
+    },
+    setReportData(state, report) {
+        state.reportData = report
+    }
+}
+
+export const getters = {
+    getHousingId(state) {
+        return state.housingId
+    },
+    getTravauxId(state) {
+        return state.travauxId
     }
 }

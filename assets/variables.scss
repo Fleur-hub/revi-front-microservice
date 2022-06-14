@@ -13,6 +13,7 @@ $material-dark: map-merge(
 );
 
 $primaryBorder: #bbb0f5;
+$primarySelected: #d0ccff;
 $primaryFocus: #ac9ff0;
 $primaryCard: #f0ebff;
 $primaryFont: #f9f9fb;
@@ -65,12 +66,15 @@ $dangerPressed: #541212;
 $dangerSecondary: #eed3d3;
 $dangerMain: #a82525;
 
+$list-border-radius: 6px;
+$list-item-min-height: 32px;
+
 v-text-field {
     background-color: $grayScale10 !important;
 }
 
 .field-container {
-    background-color: $primaryBorder;
+    background-color: $primaryCard;
     border-radius: 5px;
 }
 
@@ -95,4 +99,37 @@ fieldset {
     padding-top: 4px;
     padding-bottom: 4px;
     margin-left: 8px;
+}
+
+.v-input__slot {
+    background-color: $grayScale10 !important;
+}
+
+button {
+    text-align: center !important;
+    margin-left: 4px !important;
+    margin-top: 8px !important;
+}
+
+legend {
+    color: $grayScale90 !important;
+}
+
+.field-title {
+    color: $grayScale90 !important;
+    font-size: 16px !important;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.v-input--radio-group__input {
+    background-color: $primaryCard !important;
+    border-radius: 6px;
+}
+
+.v-select__selections > * {
+    color: $grayScale50;
 }
