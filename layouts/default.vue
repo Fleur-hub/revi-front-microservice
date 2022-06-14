@@ -5,12 +5,12 @@
             :clipped="clipped"
             :mini-variant="miniVariant"
             app
-            color="background"
             class="navigation-drawer"
+            color="background"
             fixed
-            style="border-right: 2px solid #e6e6e6 !important"
             overlay-color="primaryMain"
             permanent
+            style="border-right: 2px solid #e6e6e6 !important"
         >
             <v-container>
                 <h1 class="title">REVI</h1>
@@ -20,9 +20,9 @@
                     <v-list-item :to="info.to" color="primaryMain" exact router>
                         <v-list-item-action class="menu-step-item">
                             <img
-                                class="icon-class"
                                 :src="info.icon"
                                 alt="info icon"
+                                class="icon-class"
                             />
                         </v-list-item-action>
                         <v-list-item-content>
@@ -33,19 +33,19 @@
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item
-                        :to="travaux.to"
-                        color="primaryMain"
                         :class="{
                             'active-item v-list-item--active': isPathTravaux()
                         }"
+                        :to="travaux.to"
+                        color="primaryMain"
                         exact
                         router
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
-                                class="icon-class"
                                 :src="travaux.icon"
                                 alt="travaux icon"
+                                class="icon-class"
                             />
                         </v-list-item-action>
                         <v-list-item-content>
@@ -55,34 +55,36 @@
                             />
                         </v-list-item-content>
                     </v-list-item>
-                    <v-container
-                        v-if="isPathTravaux()"
-                        :class="{ 'sub-choosed-travaux': isPathTravaux() }"
-                    >
-                        <v-list-item
-                            v-for="(item, i) in choosedTravaux"
-                            :key="i"
-                            :ref="i"
-                            :to="item.to"
-                            color="primaryMain"
-                            exact
-                            router
+                    <v-expand-transition>
+                        <v-container
+                            v-show="isPathTravaux()"
+                            :class="{ 'sub-choosed-travaux': isPathTravaux() }"
                         >
-                            <v-list-item-action class="menu-step-item">
-                                <img
-                                    class="icon-class"
-                                    :src="item.icon"
-                                    alt="sub travaux icon"
-                                />
-                            </v-list-item-action>
-                            <v-list-item-content>
-                                <v-list-item-title
-                                    style="font-size: 14px !important"
-                                    v-text="item.title"
-                                />
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-container>
+                            <v-list-item
+                                v-for="(item, i) in choosedTravaux"
+                                :key="i"
+                                :ref="i"
+                                :to="item.to"
+                                color="primaryMain"
+                                exact
+                                router
+                            >
+                                <v-list-item-action class="menu-step-item">
+                                    <img
+                                        :src="item.icon"
+                                        alt="sub travaux icon"
+                                        class="icon-class"
+                                    />
+                                </v-list-item-action>
+                                <v-list-item-content>
+                                    <v-list-item-title
+                                        style="font-size: 14px !important"
+                                        v-text="item.title"
+                                    />
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-container>
+                    </v-expand-transition>
                     <v-list-item
                         :to="financialInfo.to"
                         color="primaryMain"
@@ -91,9 +93,9 @@
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
-                                class="icon-class"
                                 :src="financialInfo.icon"
                                 alt="financial info icon"
+                                class="icon-class"
                             />
                         </v-list-item-action>
                         <v-list-item-content>
@@ -112,9 +114,9 @@
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
-                                class="icon-class"
                                 :src="personalInfo.icon"
                                 alt="personal info icon"
+                                class="icon-class"
                             />
                         </v-list-item-action>
                         <v-list-item-content>
@@ -133,9 +135,9 @@
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
-                                class="icon-class"
                                 :src="report.icon"
                                 alt="report icon"
+                                class="icon-class"
                             />
                         </v-list-item-action>
                         <v-list-item-content>
@@ -219,7 +221,7 @@ export default {
             report: {
                 icon: '/icon/Menu_horizontal_icone_compte-rendu.svg',
                 title: 'Mon compte-rendue',
-                to: '/personalInformation'
+                to: '/report'
             },
             miniVariant: false,
             right: true,

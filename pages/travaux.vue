@@ -7,5 +7,3 @@ export default {
     name: 'TravauxPage'
 }
 </script>
-
-<style scoped></style>

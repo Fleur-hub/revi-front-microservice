@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 import HousingInformationForm from '~/components/Information/HousingInformationForm'
 
 export default {
@@ -28,5 +27,3 @@ export default {
     }
 }
 </script>
-
-<style scoped></style>
