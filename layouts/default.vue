@@ -8,8 +8,8 @@
             class="navigation-drawer"
             color="background"
             fixed
-            overlay-color="primaryMain"
             permanent
+            overlay-color="primaryMain"
             style="border-right: 2px solid #e6e6e6 !important"
         >
             <v-container>
@@ -63,7 +63,6 @@
                             <v-list-item
                                 v-for="(item, i) in choosedTravaux"
                                 :key="i"
-                                :ref="i"
                                 :to="item.to"
                                 color="primaryMain"
                                 exact
@@ -169,6 +168,9 @@ export default {
             clipped: false,
             drawer: false,
             fixed: false,
+            miniVariant: false,
+            right: true,
+            rightDrawer: false,
             travauxClass: 'active-item v-list-item--active',
             isTravauxClass: false,
             info: {
@@ -216,16 +218,13 @@ export default {
             personalInfo: {
                 icon: '/icon/Menu_horizontal_icone_info-perso.svg',
                 title: 'Mes infos personnelles',
-                to: '/peronalInformation'
+                to: '/personalInformation'
             },
             report: {
                 icon: '/icon/Menu_horizontal_icone_compte-rendu.svg',
                 title: 'Mon compte-rendue',
                 to: '/report'
             },
-            miniVariant: false,
-            right: true,
-            rightDrawer: false,
             title: 'Vuetify.js'
         }
     },
@@ -260,7 +259,7 @@ export default {
 }
 
 .navigation-drawer {
-    width: 264px !important;
+    width: 215px !important;
 }
 
 .icon-class {

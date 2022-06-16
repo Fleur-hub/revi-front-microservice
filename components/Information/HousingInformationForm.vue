@@ -23,20 +23,90 @@
                 </v-btn>
             </v-stepper-content>
             <v-stepper-content step="typeLogementStep">
-                <v-container class="field-container">
+                <v-container>
                     <label class="field-title"
                         >Quel est votre type de bien ?</label
                     >
-                    <v-radio-group v-model="formData.typeLogement">
-                        <v-radio
-                            v-for="(type, i) in typeLogements"
-                            :key="i"
-                            :label="type.label"
-                            :value="type.value"
-                            required
-                        >
-                        </v-radio>
-                    </v-radio-group>
+                    <v-item-group v-model="formData.typeLogement">
+                        <v-row>
+                            <v-col class="top-col">
+                                <v-item
+                                    v-slot="{ active, toggle }"
+                                    value="MAISON"
+                                >
+                                    <v-card
+                                        :elevation="10"
+                                        height="200"
+                                        width="200"
+                                        :class="
+                                            active
+                                                ? 'img-selected'
+                                                : 'img-not-selected'
+                                        "
+                                        @click="toggle"
+                                    >
+                                        <v-img
+                                            :src="
+                                                active
+                                                    ? typeLogements[0]
+                                                          .iconSelected
+                                                    : typeLogements[0].icon
+                                            "
+                                            class="image-center"
+                                        >
+                                        </v-img>
+                                        <v-card-text
+                                            :class="
+                                                active
+                                                    ? 'text-selected'
+                                                    : 'text-not-selected'
+                                            "
+                                        >
+                                            {{ typeLogements[0].label }}
+                                        </v-card-text>
+                                    </v-card>
+                                </v-item>
+                            </v-col>
+                            <v-col class="top-col">
+                                <v-item
+                                    v-slot="{ active, toggle }"
+                                    value="APPARTEMENT"
+                                >
+                                    <v-card
+                                        :elevation="10"
+                                        height="200"
+                                        width="200"
+                                        :class="
+                                            active
+                                                ? 'img-selected'
+                                                : 'img-not-selected'
+                                        "
+                                        @click="toggle"
+                                    >
+                                        <v-img
+                                            :src="
+                                                active
+                                                    ? typeLogements[1]
+                                                          .iconSelected
+                                                    : typeLogements[1].icon
+                                            "
+                                            class="image-center"
+                                        >
+                                        </v-img>
+                                        <v-card-text
+                                            :class="
+                                                active
+                                                    ? 'text-selected'
+                                                    : 'text-not-selected'
+                                            "
+                                        >
+                                            {{ typeLogements[1].label }}
+                                        </v-card-text>
+                                    </v-card>
+                                </v-item>
+                            </v-col>
+                        </v-row>
+                    </v-item-group>
                 </v-container>
                 <v-container class="buttons-container">
                     <v-btn color="secondary" @click="stepState = 'adresseStep'">
@@ -219,7 +289,7 @@
 export default {
     name: 'HousingInformationForm',
     data: () => ({
-        stepState: 'adresseStep',
+        stepState: 'typeLogementStep',
         formData: {
             adresse: '',
             typeLogement: '',
@@ -237,11 +307,15 @@ export default {
         typeLogements: [
             {
                 label: 'Maison',
-                value: 'MAISON'
+                value: 'MAISON',
+                icon: 'button_img/Icone_type-de-bien_maison_NS.png',
+                iconSelected: 'button_img/Icone_type-de-bien_maison_S.png'
             },
             {
                 label: 'Appartement',
-                value: 'APPARTEMENT'
+                value: 'APPARTEMENT',
+                icon: 'button_img/Icone_type-de-bien_appartement_NS.png',
+                iconSelected: 'button_img/Icone_type-de-bien_appartement_S.png'
             }
         ],
 
@@ -302,7 +376,10 @@ export default {
             return this.formData.adresse !== ''
         },
         isTypeLogementValid() {
-            return this.formData.typeLogement !== ''
+            return (
+                this.formData.typeLogement !== '' &&
+                this.formData.typeLogement !== undefined
+            )
         },
         isCoproprieteValid() {
             return this.formData.copropriete !== ''
@@ -328,3 +405,49 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.img-selected {
+    background-color: $primaryMain !important;
+}
+
+.img-not-selected {
+    background-color: #fff !important;
+}
+
+.image-center {
+    height: 100px;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.top-col {
+    margin-left: 18px;
+    margin-top: 18px;
+}
+
+.bottom-col {
+    margin-left: 18px;
+    margin-bottom: 18px;
+}
+
+.text-selected {
+    color: $grayScale10 !important;
+}
+
+.text-not-selected {
+    color: $grayScale90 !important;
+}
+
+.text-selected,
+.text-not-selected {
+    font-weight: bold !important;
+    font-size: 16px !important;
+    padding-top: 35% !important;
+    display: flex;
+    justify-content: center;
+}
+</style>
