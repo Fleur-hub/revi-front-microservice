@@ -1,5 +1,5 @@
 <template>
-    <ChauffageForm @done-event="goToNextPage()" />
+    <ChauffageForm @done-event="goToNextStep()" />
 </template>
 
 <script>
@@ -9,8 +9,12 @@ export default {
     name: 'ChauffagePage',
     components: { ChauffageForm },
     methods: {
-        goToNextPage() {
-            this.$router.push()
+        goToNextStep() {
+            const nextUrl =
+                this.$store.getters['reviFormState/computeNextStep'](
+                    'chauffage'
+                ).next
+            this.$router.push(nextUrl)
         }
     }
 }

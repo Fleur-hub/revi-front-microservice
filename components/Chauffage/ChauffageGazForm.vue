@@ -3,10 +3,10 @@
         <v-stepper-items>
             <v-stepper-content step="chauffageGazStep">
                 <v-radio-group
-                    v-model="chauffageGazType"
+                    v-model="formData.type"
                     @click="
-                        chauffageGazNbRadiateurs = 0
-                        chauffageGazType = ''
+                        formData.quantity = 0
+                        formData.type = ''
                     "
                 >
                     <v-container
@@ -17,16 +17,15 @@
                             :label="type"
                             :value="type"
                             required
-                            @click="chauffageGazNbRadiateurs = 0"
+                            @click="formData.quantity = 0"
                         ></v-radio>
                         <v-container>
                             <v-text-field
                                 v-if="
-                                    chauffageGazType ===
-                                        chauffageGazValues[2] &&
+                                    formData.type === chauffageGazValues[2] &&
                                     type === chauffageGazValues[2]
                                 "
-                                v-model="chauffageGazNbRadiateurs"
+                                v-model="formData.quantity"
                                 :rules="rulesChauffageGazNbRadiateurs"
                                 onkeydown="return event.keyCode !== 69"
                                 outlined
@@ -54,6 +53,10 @@ export default {
     name: 'ChauffageGazForm',
     data: () => ({
         stepState: 'chauffageGazStep',
+        formData: {
+            type: '',
+            quantity: 0
+        },
         chauffageGazType: '',
         chauffageGazValues: [
             'Chaudière à condensation',
@@ -71,15 +74,18 @@ export default {
 
     methods: {
         isValid() {
-            if (this.chauffageGazType === '') {
+            if (this.formData.type === '') {
                 return false
             } else if (
-                this.chauffageGazType === this.chauffageGazValues[2] &&
-                this.chauffageGazNbRadiateurs <= 0
+                this.formData.type === this.chauffageGazValues[2] &&
+                this.formData.quantity <= 0
             ) {
                 return false
             }
             return true
+        },
+        submit() {
+            this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }

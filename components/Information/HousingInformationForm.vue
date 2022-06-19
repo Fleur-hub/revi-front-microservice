@@ -287,10 +287,10 @@
 
 <script>
 export default {
-    name: 'HousingInformationForm',
+    name: 'AdresseStep',
     data: () => ({
-        stepState: 'typeLogementStep',
-        formData: {
+        stepState: 'budgetStep',
+        fake: {
             adresse: '',
             typeLogement: '',
             copropriete: '',
@@ -299,7 +299,15 @@ export default {
             dateConstruction: '',
             budget: ''
         },
-
+        formData: {
+            adresse: '120',
+            typeLogement: 'MAISON',
+            copropriete: true,
+            superficie: '150',
+            consomationElectrique: 150,
+            dateConstruction: 'PLUS_15_ANS',
+            budget: '150'
+        },
         rulesAdresse: [
             (v) => !!v || "Veuillez rentrer l'adresse de votre logement"
         ],

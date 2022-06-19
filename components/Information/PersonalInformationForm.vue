@@ -3,7 +3,7 @@
         <v-stepper-items>
             <v-stepper-content step="lastNameStep">
                 <v-text-field
-                    v-model="lastName"
+                    v-model="formData.lastName"
                     :rules="rulesLastName"
                     label="Nom"
                     outlined
@@ -21,7 +21,7 @@
 
             <v-stepper-content step="firstNameStep">
                 <v-text-field
-                    v-model="firstName"
+                    v-model="formData.firstName"
                     :rules="rulesFirstName"
                     label="Prénom"
                     outlined
@@ -42,7 +42,7 @@
 
             <v-stepper-content step="addressStep">
                 <v-text-field
-                    v-model.number="address"
+                    v-model.number="formData.address"
                     :rules="rulesAddress"
                     label="Adresse"
                     outlined
@@ -63,7 +63,7 @@
 
             <v-stepper-content step="personalPhoneStep">
                 <v-text-field
-                    v-model="personalPhone"
+                    v-model="formData.personalPhone"
                     :rules="rulesPersonalPhone"
                     label="0123456789"
                     maxlength="10"
@@ -79,15 +79,15 @@
                     :disabled="!isPersonalPhoneValid()"
                     class="mr-4"
                     color="success"
-                    @click="stepState = 'eMailStep'"
+                    @click="stepState = 'emailStep'"
                 >
                     Valider
                 </v-btn>
             </v-stepper-content>
 
-            <v-stepper-content step="eMailStep">
+            <v-stepper-content step="emailStep">
                 <v-text-field
-                    v-model="eMail"
+                    v-model="formData.email"
                     :rules="rulesEmail"
                     label="adresse@exemple.com"
                     outlined
@@ -116,45 +116,48 @@
 export default {
     name: 'PersonalInformationForm',
     data: () => ({
-        stepState: 'lastNameStep',
-        lastName: '',
+        stepState: 'emailStep',
+        formData: {
+            lastName: 'z',
+            firstName: 'z',
+            address: 'z',
+            personalPhone: '0101101001',
+            email: 'z'
+        },
+
         rulesLastName: [(v) => !!v || 'Veuillez indiquer votre nom de famille'],
 
-        firstName: '',
         rulesFirstName: [(v) => !!v || 'Veuillez indiquer votre prénom'],
 
-        address: '',
         rulesAddress: [
             (v) => !!v || 'Veuillez indiquer votre adresse personnelle'
         ],
 
-        personalPhone: '',
         rulesPersonalPhone: [
             (v) => !!v || 'Veuillez indiquer votre numéro de téléphone'
         ],
 
-        eMail: '',
         rulesEmail: [(v) => !!v || 'Veuillez indiquer votre adresse e-mail']
     }),
 
     methods: {
         isLastNameValid() {
-            return this.lastName !== ''
+            return this.formData.lastName !== ''
         },
         isFirstNameValid() {
-            return this.firstName !== ''
+            return this.formData.firstName !== ''
         },
         isAddressValid() {
-            return this.adresse !== ''
+            return this.formData.adresse !== ''
         },
         isPersonalPhoneValid() {
             return (
-                /^\d+$/.test(this.personalPhone) &&
-                this.personalPhone.length === 10
+                /^\d+$/.test(this.formData.personalPhone) &&
+                this.formData.personalPhone.length === 10
             )
         },
         isEmailValid() {
-            return this.eMail !== ''
+            return this.formData.email !== ''
         }
     }
 }

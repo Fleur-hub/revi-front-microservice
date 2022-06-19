@@ -4,7 +4,7 @@ export default {
         titleTemplate: '%s - revi-front-microservice',
         title: 'revi-front-microservice',
         htmlAttrs: {
-            lang: 'en'
+            lang: 'fr'
         },
         meta: [
             { charset: 'utf-8' },

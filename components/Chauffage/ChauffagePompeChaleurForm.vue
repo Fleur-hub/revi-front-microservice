@@ -3,10 +3,10 @@
         <v-stepper-items>
             <v-stepper-content step="chauffagePompeChaleurStep">
                 <v-radio-group
-                    v-model="chauffagePompeChaleurType"
+                    v-model="formData.type"
                     @click="
-                        chauffagePompeChaleurSurface = 0
-                        chauffagePompeChaleurType = ''
+                        formData.quantity = 0
+                        formData.type = ''
                     "
                 >
                     <v-container
@@ -17,13 +17,13 @@
                             :label="type"
                             :value="type"
                             required
-                            @click="chauffagePompeChaleurSurface = 0"
+                            @click="formData.quantity = 0"
                         ></v-radio>
                         <v-container>
                             <v-text-field
-                                v-if="chauffagePompeChaleurType === type"
-                                v-model="chauffagePompeChaleurSurface"
-                                :rules="rulesChauffageSurface"
+                                v-if="formData.type === type"
+                                v-model="formData.quantity"
+                                :rules="rulesChauffagePompeChaleurSurface"
                                 onkeydown="return event.keyCode !== 69"
                                 outlined
                                 required
@@ -50,6 +50,10 @@ export default {
     name: 'ChauffagePompeChaleurForm',
     data: () => ({
         stepState: 'chauffagePompeChaleurStep',
+        formData: {
+            type: '',
+            quantity: ''
+        },
         chauffagePompeChaleurType: '',
         chauffagePompeChaleurValues: [
             'Pompe à chaleur Sol/Eau',
@@ -68,10 +72,10 @@ export default {
 
     methods: {
         isValid() {
-            return (
-                this.chauffagePompeChaleurType !== '' &&
-                this.chauffagePompeChaleurSurface > 0
-            )
+            return this.formData.type !== '' && this.formData.quantity > 0
+        },
+        submit() {
+            this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }

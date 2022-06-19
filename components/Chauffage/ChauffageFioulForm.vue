@@ -3,8 +3,8 @@
         <v-stepper-items>
             <v-stepper-content step="chauffageFioulStep">
                 <v-radio-group
-                    v-model="chauffageFioulType"
-                    @click="chauffageFioulType = ''"
+                    v-model="formData.type"
+                    @click="formData.type = ''"
                 >
                     <v-container
                         v-for="(type, i) in chauffageFioulValues"
@@ -31,6 +31,10 @@ export default {
     name: 'ChauffageFioulForm',
     data: () => ({
         stepState: 'chauffageFioulStep',
+        formData: {
+            type: '',
+            quantity: 1
+        },
         chauffageFioulType: '',
         chauffageFioulValues: [
             'Chaudière à condensation',
@@ -40,7 +44,10 @@ export default {
 
     methods: {
         isValid() {
-            return this.chauffageFioulType !== ''
+            return this.formData.type !== ''
+        },
+        submit() {
+            this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }

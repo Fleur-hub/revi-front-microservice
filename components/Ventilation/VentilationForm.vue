@@ -96,7 +96,10 @@ export default {
             )
         },
         submit() {
-            this.$store.commit('reviFormState/setVentilationData')
+            this.$store.commit(
+                'reviFormState/setVentilationData',
+                this.formData
+            )
         }
     }
 }

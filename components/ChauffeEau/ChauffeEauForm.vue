@@ -57,7 +57,10 @@
                     :disabled="!isChauffeEauValid()"
                     class="mr-4"
                     color="success"
-                    @click="$emit('done-event')"
+                    @click="
+                        submit()
+                        $emit('done-event')
+                    "
                 >
                     Valider
                 </v-btn>
@@ -71,6 +74,7 @@ export default {
     name: 'ChauffeEauForm',
     data: () => ({
         stepState: 'chauffeEauStep',
+        formData: {},
         chauffeEauType: '',
         chauffeEauTypes: [
             'Chauffe-eau thermodynamique',
@@ -81,6 +85,7 @@ export default {
         chauffeEauThermodynamiqueTypes: [
             'Monobloc',
             'Circulation forcée',
+            'Thermosiphon',
             'Système PVT',
             'Capteurs solaires'
         ],
@@ -105,6 +110,12 @@ export default {
                         this.chauffeEauSolaireType
                     ))
             )
+        },
+        submit() {
+            this.formData.chauffeEauType = this.chauffeEauType
+            this.formData.chauffeEauSubType =
+                this.chauffeEauThermodynamiqueType + this.chauffeEauSolaireType
+            this.$store.commit('reviFormState/setChauffeEauData', this.formData)
         }
     }
 }

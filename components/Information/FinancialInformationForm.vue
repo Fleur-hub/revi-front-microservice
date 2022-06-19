@@ -3,7 +3,7 @@
         <v-stepper-items>
             <v-stepper-content step="numberPeopleLivingStep">
                 <v-text-field
-                    v-model="numberPeopleLiving"
+                    v-model="formData.numberPeopleLiving"
                     :rules="rulesNumberPeopleLiving"
                     label="Nombre de personnes dans le logement fiscal "
                     onkeydown="return event.keyCode !== 69"
@@ -22,7 +22,7 @@
 
             <v-stepper-content step="taxRevenueStep">
                 <v-text-field
-                    v-model.number="taxRevenue"
+                    v-model.number="formData.taxRevenue"
                     :rules="rulesTaxRevenue"
                     label="Revenu fiscal de référence"
                     onkeydown="return event.keyCode !== 69"
@@ -47,7 +47,7 @@
 
             <v-stepper-content step="housingPeopleTypeStep">
                 <v-radio-group
-                    v-model="housingPeopleType"
+                    v-model="formData.housingPeopleType"
                     label="Êtes-vous propriétaire ou locataire ?"
                 >
                     <v-radio
@@ -66,7 +66,10 @@
                     :disabled="!isHousingPeopleTypeValid()"
                     class="mr-4"
                     color="success"
-                    @click="$emit('done-event')"
+                    @click="
+                        submit()
+                        $emit('done-event')
+                    "
                 >
                     Valider
                 </v-btn>
@@ -79,22 +82,22 @@
 export default {
     name: 'FinancialInformationForm',
     data: () => ({
-        stepState: 'numberPeopleLivingStep',
-        numberPeopleLiving: '',
+        stepState: 'housingPeopleTypeStep',
+        formData: {
+            numberPeopleLiving: '7',
+            taxRevenue: '70000',
+            housingPeopleType: 'Propriétaire occupant'
+        },
         rulesNumberPeopleLiving: [
             (v) =>
                 !!v ||
                 'Veuillez rentrer le nombre de personnes vivant dans le logement'
         ],
-
-        taxRevenue: '',
         rulesTaxRevenue: [
             (v) =>
                 !!v ||
                 'Veuillez rentrer le revenu fiscal de référence de votre logement'
         ],
-
-        housingPeopleType: '',
         housingPeopleTypes: [
             'Propriétaire occupant',
             'Propriétaire bailleur',
@@ -106,13 +109,18 @@ export default {
 
     methods: {
         isNumberPeopleLivingValid() {
-            return /^\d+$/.test(this.numberPeopleLiving)
+            return /^\d+$/.test(this.formData.numberPeopleLiving)
         },
         isTaxRevenueValid() {
-            return /^\d+$/.test(this.taxRevenue)
+            return /^\d+$/.test(this.formData.taxRevenue)
         },
         isHousingPeopleTypeValid() {
-            return this.housingPeopleTypes.includes(this.housingPeopleType)
+            return this.housingPeopleTypes.includes(
+                this.formData.housingPeopleType
+            )
+        },
+        submit() {
+            this.$store.commit('reviFormState/setFinancialData', this.formData)
         }
     }
 }

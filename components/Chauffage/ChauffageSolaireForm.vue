@@ -2,7 +2,7 @@
     <v-stepper v-model="stepState" class="text-center">
         <v-stepper-items>
             <v-stepper-content step="chauffageSolaireStep">
-                <v-radio-group v-model="chauffageSolaireType">
+                <v-radio-group v-model="formData.type">
                     <v-radio
                         :label="
                             chauffageSolaireValues.panneauxSolairesAerovoltaiques
@@ -26,13 +26,13 @@
                     <v-radio
                         :label="chauffageSolaireValues.plancherSolaire"
                         :value="chauffageSolaireValues.plancherSolaire"
-                        @click="surface = 0"
+                        @click="formData.quantity = 0"
                     >
                     </v-radio>
                     <v-container>
                         <v-radio-group
                             v-if="
-                                chauffageSolaireType ===
+                                formData.type ===
                                 chauffageSolaireValues.plancherSolaire
                             "
                             v-model="plancherSolaireType"
@@ -44,15 +44,15 @@
                                 <v-radio
                                     :label="type"
                                     :value="type"
-                                    @click="surface = 0"
+                                    @click="formData.quantity = 0"
                                 ></v-radio>
                                 <v-text-field
                                     v-if="
-                                        chauffageSolaireType ===
+                                        formData.type ===
                                             chauffageSolaireValues.plancherSolaire &&
                                         plancherSolaireType === type
                                     "
-                                    v-model="surface"
+                                    v-model="formData.quantity"
                                     :rules="rulesChauffageSolaireSurface"
                                     onkeydown="return event.keyCode !== 69"
                                     outlined
@@ -71,10 +71,10 @@
                     <v-container>
                         <v-text-field
                             v-if="
-                                chauffageSolaireType ===
+                                formData.type ===
                                 chauffageSolaireValues.systemeSolaireCombine
                             "
-                            v-model="surface"
+                            v-model="formData.quantity"
                             :rules="rulesChauffageSolaireSurface"
                             onkeydown="return event.keyCode !== 69"
                             outlined
@@ -103,7 +103,10 @@ export default {
     name: 'ChauffageSolaireForm',
     data: () => ({
         stepState: 'chauffageSolaireStep',
-
+        formData: {
+            type: '',
+            quantity: ''
+        },
         chauffageSolaireType: '',
         chauffageSolaireValues: {
             systemeSolaireCombine: 'Système solaire combiné (SSC)',
@@ -126,24 +129,26 @@ export default {
 
     methods: {
         isValid() {
-            if (this.chauffageSolaireType === '') {
+            if (this.formData.type === '') {
                 return false
             }
             if (
-                this.chauffageSolaireType ===
+                this.formData.type ===
                     this.chauffageSolaireValues.plancherSolaire ||
-                this.chauffageSolaireType ===
+                this.formData.type ===
                     this.chauffageSolaireValues.systemeSolaireCombine
             ) {
-                if (this.surface <= 0) {
+                if (this.formData.quantity <= 0) {
                     return false
                 }
             }
             return true
         },
         clearRadioAndField() {
-            this.surface = 0
-            this.plancherSolaireType = ''
+            this.formData.quantity = 0
+        },
+        submit() {
+            this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }

@@ -9,14 +9,13 @@
                             :value="chauffageBoisValues[0]"
                             required
                             @click="
-                                chauffageBoisNbCheminees = 0
-                                chauffageInsertBoisType = ''
-                                chauffagePoeleBoisType = ''
+                                formData.quantity = 1
+                                formData.type = ''
                             "
                         ></v-radio>
                         <v-radio-group
                             v-if="chauffageBoisType === chauffageBoisValues[0]"
-                            v-model="chauffageChaudiereBoisType"
+                            v-model="formData.type"
                         >
                             <v-container
                                 v-for="(
@@ -28,11 +27,7 @@
                                     :label="type"
                                     :value="type"
                                     required
-                                    @click="
-                                        chauffageBoisNbCheminees = 0
-                                        chauffageInsertBoisType = ''
-                                        chauffagePoeleBoisType = ''
-                                    "
+                                    @click="formData.quantity = 1"
                                 ></v-radio>
                             </v-container>
                         </v-radio-group>
@@ -43,14 +38,13 @@
                             :value="chauffageBoisValues[1]"
                             required
                             @click="
-                                chauffageBoisNbCheminees = 0
-                                chauffageChaudiereBoisType = ''
-                                chauffagePoeleBoisType = ''
+                                formData.quantity = 0
+                                formData.type = ''
                             "
                         ></v-radio>
                         <v-radio-group
                             v-if="chauffageBoisType === chauffageBoisValues[1]"
-                            v-model="chauffageInsertBoisType"
+                            v-model="formData.type"
                         >
                             <v-container
                                 v-for="(type, i) in chauffageInsertBoisValues"
@@ -60,18 +54,12 @@
                                     :label="type"
                                     :value="type"
                                     required
-                                    @click="
-                                        chauffageBoisNbCheminees = 0
-                                        chauffageChaudiereBoisType = ''
-                                        chauffagePoeleBoisType = ''
-                                    "
+                                    @click="formData.quantity = 0"
                                 ></v-radio>
 
-                                <v-container
-                                    v-if="chauffageInsertBoisType === type"
-                                >
+                                <v-container v-if="formData.type === type">
                                     <v-text-field
-                                        v-model="chauffageBoisNbCheminees"
+                                        v-model="formData.quantity"
                                         :rules="ruleschauffageBoisNbCheminees"
                                         onkeydown="return event.keyCode !== 69"
                                         outlined
@@ -88,14 +76,13 @@
                             :value="chauffageBoisValues[2]"
                             required
                             @click="
-                                chauffageBoisNbCheminees = 0
-                                chauffageChaudiereBoisType = ''
-                                chauffageInsertBoisType = ''
+                                formData.quantity = 1
+                                formData.type = ''
                             "
                         ></v-radio>
                         <v-radio-group
                             v-if="chauffageBoisType === chauffageBoisValues[2]"
-                            v-model="chauffagePoeleBoisType"
+                            v-model="formData.type"
                         >
                             <v-container
                                 v-for="(type, i) in chauffagePoeleBoisValues"
@@ -105,11 +92,7 @@
                                     :label="type"
                                     :value="type"
                                     required
-                                    @click="
-                                        chauffageBoisNbCheminees = 0
-                                        chauffageChaudiereBoisType = ''
-                                        chauffageInsertBoisType = ''
-                                    "
+                                    @click="formData.quantity = 1"
                                 ></v-radio>
                             </v-container>
                         </v-radio-group>
@@ -120,7 +103,7 @@
                     class="mr-4"
                     color="success"
                     @click="
-                        postData()
+                        submit()
                         $emit('done-event')
                     "
                 >
@@ -136,6 +119,10 @@ export default {
     name: 'ChauffageBoisForm',
     data: () => ({
         stepState: 'chauffageBoisStep',
+        formData: {
+            type: '',
+            quantity: 0
+        },
         chauffageBoisType: '',
         chauffageBoisValues: [
             'Chaudière à bois',
@@ -175,31 +162,14 @@ export default {
 
     methods: {
         isValid() {
-            if (this.chauffageBoisType === '') {
-                return false
-            }
-            if (this.chauffageBoisType === this.chauffageBoisValues[0]) {
-                if (this.chauffageChaudiereBoisType === '') {
-                    return false
-                }
-            }
-            if (this.chauffageBoisType === this.chauffageBoisValues[1]) {
-                if (
-                    this.chauffageInsertBoisType === '' ||
-                    this.chauffageBoisNbCheminees <= 0
-                ) {
-                    return false
-                }
-            }
-            if (this.chauffageBoisType === this.chauffageBoisValues[2]) {
-                if (this.chauffagePoeleBoisType === '') {
-                    return false
-                }
-            }
-            return true
+            return (
+                this.formData.type !== '' &&
+                !this.chauffageBoisValues.includes(this.formData.type) &&
+                this.formData.quantity > 0
+            )
         },
-        postData() {
-            // await this.$axios.$post('/api/chauffage/chauffageBois', this.$data);
+        submit() {
+            this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }
