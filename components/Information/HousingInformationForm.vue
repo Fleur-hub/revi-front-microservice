@@ -1,7 +1,7 @@
 <template>
-    <v-stepper v-model="stepState" elevation="0">
-        <v-stepper-items>
-            <v-stepper-content step="adresseStep" class="text-right">
+    <v-card class="mx-auto" elevation="0">
+        <v-window v-model="stepState">
+            <v-window-item :value="1" class="text-right">
                 <v-container class="field-container text-left">
                     <label class="field-title">Adresse du logement</label>
                     <v-text-field
@@ -12,119 +12,94 @@
                         required
                     ></v-text-field>
                 </v-container>
-                <v-btn
-                    :disabled="!isAdressValid()"
-                    class="mr-4"
-                    style="margin-right: 0 !important"
-                    color="primaryMain"
-                    @click="stepState = 'typeLogementStep'"
+            </v-window-item>
+            <v-window-item :value="2">
+                <label class="field-title">Quel est votre type de bien ?</label>
+                <v-container
+                    style="
+                        justify-content: center;
+                        display: flex;
+                        margin-bottom: 12px;
+                    "
                 >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-            <v-stepper-content step="typeLogementStep">
-                <v-container>
-                    <label class="field-title"
-                        >Quel est votre type de bien ?</label
-                    >
                     <v-item-group v-model="formData.typeLogement">
                         <v-row>
-                            <v-col class="top-col">
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    value="MAISON"
+                            <v-item
+                                v-slot="{ active, toggle }"
+                                value="MAISON"
+                                class="image-button-item"
+                            >
+                                <v-card
+                                    height="200"
+                                    width="200"
+                                    :class="
+                                        active
+                                            ? 'img-selected'
+                                            : 'img-not-selected'
+                                    "
+                                    @click="toggle"
                                 >
-                                    <v-card
-                                        :elevation="10"
-                                        height="200"
-                                        width="200"
+                                    <v-img
+                                        :src="
+                                            active
+                                                ? typeLogements[0].iconSelected
+                                                : typeLogements[0].icon
+                                        "
+                                        class="image-center"
+                                    >
+                                    </v-img>
+                                    <v-card-text
                                         :class="
                                             active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
+                                                ? 'text-selected'
+                                                : 'text-not-selected'
                                         "
-                                        @click="toggle"
                                     >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? typeLogements[0]
-                                                          .iconSelected
-                                                    : typeLogements[0].icon
-                                            "
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{ typeLogements[0].label }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                            </v-col>
-                            <v-col class="top-col">
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    value="APPARTEMENT"
+                                        {{ typeLogements[0].label }}
+                                    </v-card-text>
+                                </v-card>
+                            </v-item>
+                            <v-item
+                                v-slot="{ active, toggle }"
+                                value="APPARTEMENT"
+                                class="image-button-item"
+                            >
+                                <v-card
+                                    height="200"
+                                    width="200"
+                                    :class="
+                                        active
+                                            ? 'img-selected'
+                                            : 'img-not-selected'
+                                    "
+                                    @click="toggle"
                                 >
-                                    <v-card
-                                        :elevation="10"
-                                        height="200"
-                                        width="200"
+                                    <v-img
+                                        :src="
+                                            active
+                                                ? typeLogements[1].iconSelected
+                                                : typeLogements[1].icon
+                                        "
+                                        class="image-center"
+                                    >
+                                    </v-img>
+                                    <v-card-text
                                         :class="
                                             active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
+                                                ? 'text-selected'
+                                                : 'text-not-selected'
                                         "
-                                        @click="toggle"
                                     >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? typeLogements[1]
-                                                          .iconSelected
-                                                    : typeLogements[1].icon
-                                            "
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{ typeLogements[1].label }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                            </v-col>
+                                        {{ typeLogements[1].label }}
+                                    </v-card-text>
+                                </v-card>
+                            </v-item>
                         </v-row>
                     </v-item-group>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn color="secondary" @click="stepState = 'adresseStep'">
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="!isTypeLogementValid()"
-                        class="mr-4"
-                        style="margin-right: 0 !important"
-                        color="primaryMain"
-                        @click="stepState = 'coproprieteStep'"
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="coproprieteStep">
+            <v-window-item :value="3">
                 <v-container class="field-container">
                     <label class="field-title"
                         >Êtes-vous dans une copropriété ?</label
@@ -133,28 +108,13 @@
                         v-model="formData.copropriete"
                         :items="coproprieteValues"
                         :rules="rulesCopropriete"
+                        outlined
                         required
                     ></v-select>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn
-                        color="secondary"
-                        @click="stepState = 'typeLogementStep'"
-                    >
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="!isCoproprieteValid()"
-                        class="mr-4"
-                        color="primaryMain"
-                        @click="stepState = 'superficieStep'"
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="superficieStep">
+            <v-window-item :value="4">
                 <v-container class="field-container">
                     <label class="field-title"
                         >Quelle est la superficie du bien ?</label
@@ -168,25 +128,9 @@
                         type="number"
                     ></v-text-field>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn
-                        color="secondary"
-                        @click="stepState = 'coproprieteStep'"
-                    >
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="!isSuperficieValid()"
-                        class="mr-4"
-                        color="primaryMain"
-                        @click="stepState = 'consomationElectriqueStep'"
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="consomationElectriqueStep">
+            <v-window-item :value="5">
                 <v-container class="field-container">
                     <label class="field-title"
                         >Quelle est votre consomation electrique annuel ?</label
@@ -200,25 +144,9 @@
                         type="number"
                     ></v-text-field>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn
-                        color="secondary"
-                        @click="stepState = 'superficieStep'"
-                    >
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="formData.consomationElectrique <= 0"
-                        class="mr-4"
-                        color="primaryMain"
-                        @click="stepState = 'dateConstructionStep'"
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="dateConstructionStep">
+            <v-window-item :value="6">
                 <v-container class="field-container">
                     <label class="field-title"
                         >Quand a été construit votre logement ?</label
@@ -227,27 +155,12 @@
                         v-model="formData.dateConstruction"
                         :items="dateConstructions"
                         :rules="rulesDateConstruction"
+                        outlined
                     ></v-select>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn
-                        color="secondary"
-                        @click="stepState = 'consomationElectriqueStep'"
-                    >
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="!isDateConstructionValid()"
-                        class="mr-4"
-                        color="primaryMain"
-                        @click="stepState = 'budgetStep'"
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="budgetStep">
+            <v-window-item :value="7">
                 <v-container class="field-container">
                     <label class="field-title"
                         >Quel est votre budget pour ces travaux ?</label
@@ -261,35 +174,33 @@
                         type="number"
                     ></v-text-field>
                 </v-container>
-                <v-container class="buttons-container">
-                    <v-btn
-                        color="secondary"
-                        @click="stepState = 'dateConstructionStep'"
-                    >
-                        Retour
-                    </v-btn>
-                    <v-btn
-                        :disabled="!isBudgetValid()"
-                        class="mr-4"
-                        color="primaryMain"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
-                </v-container>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-window-item>
+        </v-window>
+        <v-card-actions style="padding-right: 0">
+            <v-container class="buttons-container">
+                <v-btn
+                    :color="stepState === 1 ? 'grayScale60' : 'secondary'"
+                    @click="computeStep(-1)"
+                >
+                    Retour
+                </v-btn>
+                <v-btn
+                    style="margin-right: 0 !important"
+                    :color="isValid() ? 'primaryMain' : 'primaryBorder'"
+                    @click="computeStep(1)"
+                >
+                    Valider
+                </v-btn>
+            </v-container>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
 export default {
     name: 'AdresseStep',
     data: () => ({
-        stepState: 'budgetStep',
+        stepState: 1,
         fake: {
             adresse: '',
             typeLogement: '',
@@ -398,23 +309,73 @@ export default {
         isDateConstructionValid() {
             return this.formData.dateConstruction !== ''
         },
+        isConsomationValid() {
+            return this.formData.consomationElectrique > 0
+        },
         isBudgetValid() {
             return /^\d+$/.test(this.formData.budget)
         },
+        isValid() {
+            switch (this.stepState) {
+                case 1:
+                    return this.isAdressValid()
+                case 2:
+                    return this.isTypeLogementValid()
+                case 3:
+                    return this.isCoproprieteValid()
+                case 4:
+                    return this.isSuperficieValid()
+                case 5:
+                    return this.isConsomationValid()
+                case 6:
+                    return this.isDateConstructionValid()
+                case 7:
+                    return this.isBudgetValid()
+            }
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 7) {
+                    this.submit()
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
         submit() {
             this.$store.commit('reviFormState/setHousingData', this.formData)
-            /* const response = await axios.post(
-                'http://localhost:8080/api/housing/',
-                this.formData
-            )
-            this.$store.commit('reviFormState/setHousingId', response.data.id)
-            */
         }
     }
 }
 </script>
 
 <style lang="scss">
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+}
+
+.field-container {
+    background-color: $primaryCard;
+    border-radius: 5px;
+    padding: 28px 16px !important;
+}
+
+.v-stepper__content {
+    padding-left: 0 !important;
+}
+
+.theme--dark.v-card {
+    background-color: $primaryFont;
+    color: #ffffff;
+}
+
 .img-selected {
     background-color: $primaryMain !important;
 }
@@ -448,6 +409,15 @@ export default {
 
 .text-not-selected {
     color: $grayScale90 !important;
+}
+
+.v-btn--disabled {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.image-button-item {
+    margin-top: 24px;
+    margin-right: 12px;
 }
 
 .text-selected,

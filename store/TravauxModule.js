@@ -960,3 +960,447 @@ export function computeChauffageAideGroup(
         }
     }
 }
+
+export function computeIsolationCost(isolationData) {
+    const quantity = isolationData.quantity
+    switch (isolationData.type) {
+        // COMBLE
+
+        case 'Combles perdues': {
+            return new Cost(18 * quantity, 53 * quantity)
+        }
+        case 'Combles aménagées': {
+            return new Cost(20 * quantity, 50 * quantity)
+        }
+
+        // FENETRES
+
+        case 'Joint de calfeutrage': {
+            return new Cost(20 * quantity, 50 * quantity)
+        }
+        case 'Plastique isolant': {
+            return new Cost(10, 30)
+        }
+        case 'Survitrage': {
+            return new Cost(70 * quantity, 120 * quantity)
+        }
+        case 'Changement vitrage': {
+            return new Cost(40 * quantity, 80 * quantity)
+        }
+        case 'Volets': {
+            return new Cost(120 * quantity, 800 * quantity)
+        }
+        case 'Pose volet': {
+            return new Cost(100 * quantity, 250 * quantity)
+        }
+        case "Remplacement de l'ouvrant": {
+            return new Cost(150 * quantity, 750 * quantity)
+        }
+        case "Pose d'une fenêtre devant une fenêtre existante": {
+            return new Cost(350 * quantity, 800 * quantity)
+        }
+        case 'Réfection totale de la fenêtre': {
+            return new Cost(150 * quantity, 800 * quantity)
+        }
+
+        // MURS
+
+        case 'Murs intérieurs': {
+            return new Cost(50 * quantity, 90 * quantity)
+        }
+        case 'Murs extérieurs': {
+            return new Cost(100 * quantity, 180 * quantity)
+        }
+
+        // SOL
+
+        case 'Local chauffé': {
+            return new Cost(20 * quantity, 40 * quantity)
+        }
+        case 'Terre-plein': {
+            return new Cost(30 * quantity, 50 * quantity)
+        }
+        case 'Vide sanitaire non accessible': {
+            return new Cost(30 * quantity, 50 * quantity)
+        }
+        case 'Plancher en étage': {
+            return new Cost(20 * quantity, 50 * quantity)
+        }
+
+        // TOITURE-TERRASSE
+
+        case 'Bitume ou caoutchouc': {
+            return new Cost(180 * quantity, 210 * quantity)
+        }
+        case 'Toiture accessible Végetalisation': {
+            return new Cost(310 * quantity, 430 * quantity)
+        }
+        case 'Gravier': {
+            return new Cost(200 * quantity, 290 * quantity)
+        }
+        case 'Bois': {
+            return new Cost(280 * quantity, 390 * quantity)
+        }
+        case 'Carrelage': {
+            return new Cost(280 * quantity, 390 * quantity)
+        }
+        case 'Dalle gravillonée': {
+            return new Cost(260 * quantity, 360 * quantity)
+        }
+        case 'Toiture non-accessible Végetalisation': {
+            return new Cost(310 * quantity, 430 * quantity)
+        }
+        case 'Béton': {
+            return new Cost(260 * quantity, 360 * quantity)
+        }
+        case 'Pierre naturelle': {
+            return new Cost(280 * quantity, 390 * quantity)
+        }
+        default: {
+            return new Cost(0, 0)
+        }
+    }
+}
+
+export function computeIsolationAideGroup(
+    housingData,
+    financialData,
+    isolation
+) {
+    switch (isolation.title) {
+        // COMBLE
+
+        case 'Combles perdues': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Combles aménagées': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+
+        // FENETRES
+
+        case 'Joint de calfeutrage': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Plastique isolant': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Survitrage': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Changement vitrage': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Volets': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Pose volet': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case "Remplacement de l'ouvrant": {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case "Pose d'une fenêtre devant une fenêtre existante": {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Réfection totale de la fenêtre': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+
+        // MURS
+
+        case 'Murs intérieurs': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Murs extérieurs': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+
+        // SOL
+
+        case 'Local chauffé': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Terre-plein': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Vide sanitaire non accessible': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Plancher en étage': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+
+        // TOITURE-TERRASSE
+
+        case 'Bitume ou caoutchouc': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Toiture accessible Végetalisation': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Gravier': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Bois': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Carrelage': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Dalle gravillonée': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Toiture non-accessible Végetalisation': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Béton': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        case 'Pierre naturelle': {
+            return new AideGroup(
+                computeRenov(housingData, isolation.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    isolation.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceIsolation(financialData, isolation.data.quantity)
+            )
+        }
+        default: {
+            return new AideGroup(
+                createRenov(0),
+                createSerenite(0),
+                createZero(0),
+                createPouce(0)
+            )
+        }
+    }
+}

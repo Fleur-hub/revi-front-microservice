@@ -47,7 +47,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('done-event')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>
@@ -62,6 +65,7 @@ export default {
     name: 'IsolationCombesForm',
     data: () => ({
         stepState: 'isolationCombesStep',
+
         combesPerdues: false,
         combesPerduesLabel: 'Combles perdues',
         combesAmenages: false,
@@ -94,6 +98,20 @@ export default {
             }
 
             return !(this.combesAmenages && this.combesAmenagesSurface <= 0)
+        },
+        submit() {
+            if (this.combesPerdues) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.combesPerduesLabel,
+                    quantity: this.combesPerduesSurface
+                })
+            }
+            if (this.combesAmenages) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.combesAmenagesLabel,
+                    quantity: this.combesAmenagesSurface
+                })
+            }
         }
     }
 }

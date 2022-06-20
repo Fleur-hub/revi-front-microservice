@@ -16,7 +16,7 @@
                         v-model="toitureAccessibleType"
                     >
                         <v-container
-                            v-for="(type, i) in toitureNonAccessibleValues"
+                            v-for="(type, i) in toitureAccessibleValues"
                             :key="i"
                         >
                             <v-radio
@@ -77,7 +77,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('done-event')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>
@@ -100,7 +103,7 @@ export default {
         toitureAccessibleType: '',
         toitureAccessibleValues: [
             'Bitume ou caoutchouc',
-            'Végetalisation',
+            'Toiture accessible Végetalisation',
             'Gravier'
         ],
 
@@ -109,7 +112,7 @@ export default {
             'Bois',
             'Carrelage',
             'Dalle gravillonée',
-            'Végetalisation',
+            'Toiture non-accessible Végetalisation',
             'Béton',
             'Pierre naturelle'
         ],
@@ -121,14 +124,6 @@ export default {
     }),
 
     methods: {
-        computeNextStep() {
-            if (this.stepState === 'isolationToitureStep' && this.isolation) {
-                return '2'
-            }
-            if (this.refection) {
-                return '3'
-            }
-        },
         clearRadioAndField() {
             if (!this.toitureAccessible) {
                 this.toitureAccessibleType = ''
@@ -163,6 +158,20 @@ export default {
                 }
             }
             return true
+        },
+        submit() {
+            if (this.toitureAccessible) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.toitureAccessibleType,
+                    quantity: this.accessibleSurface
+                })
+            }
+            if (this.toitureNonAccessible) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.toitureNonAccessibleType,
+                    quantity: this.nonAccessibleSurface
+                })
+            }
         }
     }
 }

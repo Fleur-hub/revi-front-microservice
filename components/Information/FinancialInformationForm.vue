@@ -1,55 +1,33 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="numberPeopleLivingStep">
+    <v-card class="mx-auto" elevation="0">
+        <v-window v-model="stepState" class="field-container text-left">
+            <v-window-item :value="1">
+                <label class="field-title"
+                    >Nombre de personnes dans le logement fiscal
+                </label>
                 <v-text-field
                     v-model="formData.numberPeopleLiving"
                     :rules="rulesNumberPeopleLiving"
-                    label="Nombre de personnes dans le logement fiscal "
                     onkeydown="return event.keyCode !== 69"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn
-                    :disabled="!isNumberPeopleLivingValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'taxRevenueStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="taxRevenueStep">
+            </v-window-item>
+            <v-window-item :value="2">
+                <label class="field-title">Revenu fiscal de référence</label>
                 <v-text-field
                     v-model.number="formData.taxRevenue"
                     :rules="rulesTaxRevenue"
-                    label="Revenu fiscal de référence"
                     onkeydown="return event.keyCode !== 69"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn
-                    color="secondary"
-                    @click="stepState = 'numberPeopleLivingStep'"
-                >
-                    Retour
-                </v-btn>
-                <v-btn
-                    :disabled="!isTaxRevenueValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'housingPeopleTypeStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="housingPeopleTypeStep">
-                <v-radio-group
-                    v-model="formData.housingPeopleType"
-                    label="Êtes-vous propriétaire ou locataire ?"
-                >
+            </v-window-item>
+            <v-window-item :value="3">
+                <label class="field-title"
+                    >Quel propriétaire êtes-vous ?
+                </label>
+                <v-radio-group v-model="formData.housingPeopleType">
                     <v-radio
                         v-for="(type, i) in housingPeopleTypes"
                         :key="i"
@@ -59,30 +37,33 @@
                     >
                     </v-radio>
                 </v-radio-group>
-                <v-btn color="secondary" @click="stepState = 'taxRevenueStep'">
+            </v-window-item>
+        </v-window>
+        <v-card-actions style="padding-right: 0">
+            <v-container class="buttons-container">
+                <v-btn
+                    :color="stepState === 1 ? 'grayScale60' : 'secondary'"
+                    @click="computeStep(-1)"
+                >
                     Retour
                 </v-btn>
                 <v-btn
-                    :disabled="!isHousingPeopleTypeValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="
-                        submit()
-                        $emit('done-event')
-                    "
+                    style="margin-right: 0 !important"
+                    :color="isValid() ? 'primaryMain' : 'primaryBorder'"
+                    @click="computeStep(1)"
                 >
                     Valider
                 </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-container>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
 export default {
     name: 'FinancialInformationForm',
     data: () => ({
-        stepState: 'housingPeopleTypeStep',
+        stepState: 1,
         formData: {
             numberPeopleLiving: '7',
             taxRevenue: '70000',
@@ -119,9 +100,41 @@ export default {
                 this.formData.housingPeopleType
             )
         },
+        isValid() {
+            switch (this.stepState) {
+                case 1:
+                    return this.isNumberPeopleLivingValid()
+                case 2:
+                    return this.isTaxRevenueValid()
+                case 3:
+                    return this.isHousingPeopleTypeValid()
+            }
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 3) {
+                    // this.submit()
+                    // this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
         submit() {
             this.$store.commit('reviFormState/setFinancialData', this.formData)
         }
     }
 }
 </script>
+
+<style lang="scss">
+.field-container {
+    background-color: $primaryCard;
+    border-radius: 5px;
+    padding: 28px 16px !important;
+}
+</style>

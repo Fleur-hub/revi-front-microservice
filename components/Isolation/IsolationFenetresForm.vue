@@ -99,7 +99,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('done-event')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>
@@ -188,6 +191,25 @@ export default {
                 }
             }
             return true
+        },
+        submit() {
+            let formData
+            if (this.isolationSurPlace) {
+                formData = {
+                    type: this.isolationSurPlaceType,
+                    quantity:
+                        this.isolationSurPlaceNbFenetres +
+                        this.isolationSurPlaceSurface
+                }
+                this.$store.commit('reviFormState/setIsolationData', formData)
+            }
+            if (this.isolationRefection) {
+                formData = {
+                    type: this.isolationRefectionType,
+                    quantity: this.isolationRefectionSurface
+                }
+                this.$store.commit('reviFormState/setIsolationData', formData)
+            }
         }
     }
 }

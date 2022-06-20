@@ -47,7 +47,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('someEvent')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>
@@ -94,6 +97,20 @@ export default {
             }
 
             return !(this.mursExterieur && this.mursExterieurSurface <= 0)
+        },
+        submit() {
+            if (this.mursInterieur) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.mursInterieurLabel,
+                    quantity: this.mursInterieurSurface
+                })
+            }
+            if (this.mursExterieur) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.mursExterieurLabel,
+                    quantity: this.mursExterieurSurface
+                })
+            }
         }
     }
 }

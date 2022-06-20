@@ -58,7 +58,14 @@ export const mutations = {
         tm.addTravaux(state.travauxMeta.chauffeEau, travaux)
     },
     setIsolationData(state, isolation) {
-        state.isolationData = isolation
+        const cost = tm.computeIsolationCost(isolation)
+        const travaux = new tm.Travaux(
+            isolation.type,
+            cost,
+            isolation,
+            tm.computeIsolationAideGroup
+        )
+        tm.addTravaux(state.travauxMeta.isolation, travaux)
     },
     setVentilationData(state, ventilation) {
         const cost = tm.computeVentilationCost(ventilation)

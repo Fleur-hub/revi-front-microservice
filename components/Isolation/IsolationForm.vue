@@ -23,19 +23,19 @@
                     Valider
                 </v-btn>
             </v-stepper-content>
-            <v-stepper-content step="IsolationCombleStep">
+            <v-stepper-content :step="isolationChoice.comble.step">
                 <IsolationCombesForm @done-event="nextStep()" />
             </v-stepper-content>
-            <v-stepper-content step="IsolationMurStep">
+            <v-stepper-content :step="isolationChoice.mur.step">
                 <IsolationMursForm @done-event="nextStep()" />
             </v-stepper-content>
-            <v-stepper-content step="IsolationSolStep">
+            <v-stepper-content :step="isolationChoice.sol.step">
                 <IsolationSolsForm @done-event="nextStep()" />
             </v-stepper-content>
-            <v-stepper-content step="IsolationFenetreStep">
+            <v-stepper-content :step="isolationChoice.fenetre.step">
                 <IsolationFenetresForm @done-event="nextStep()" />
             </v-stepper-content>
-            <v-stepper-content step="IsolationToitureStep">
+            <v-stepper-content :step="isolationChoice.toiture.step">
                 <IsolationToitureForm @done-event="nextStep()" />
             </v-stepper-content>
         </v-stepper-items>
@@ -64,23 +64,28 @@ export default {
         isolationChoice: {
             comble: {
                 label: 'Isolation des combles',
-                model: false
+                model: false,
+                step: 'IsolationCombleStep'
             },
             mur: {
                 label: 'Isolation des mur',
-                model: false
+                model: false,
+                step: 'IsolationMurStep'
             },
             sol: {
                 label: 'Isolation des sols',
-                model: false
+                model: false,
+                step: 'IsolationSolStep'
             },
             fenetre: {
                 label: 'Isolation des fenêtres',
-                model: false
+                model: false,
+                step: 'IsolationFenetreStep'
             },
             toiture: {
                 label: 'Isolation toiture-fenêtre',
-                model: false
+                model: false,
+                step: 'IsolationToitureStep'
             }
         }
     }),
@@ -95,21 +100,13 @@ export default {
             )
         },
         computeStep() {
-            if (this.isolationChoice.toiture.model) {
-                this.remainingStep.push('IsolationToitureStep')
+            for (const key in this.isolationChoice) {
+                const value = this.isolationChoice[key]
+                if (value.model) {
+                    this.remainingStep.push(value.step)
+                }
             }
-            if (this.isolationChoice.fenetre.model) {
-                this.remainingStep.push('IsolationFenetreStep')
-            }
-            if (this.isolationChoice.sol.model) {
-                this.remainingStep.push('IsolationSolStep')
-            }
-            if (this.isolationChoice.mur.model) {
-                this.remainingStep.push('IsolationMurStep')
-            }
-            if (this.isolationChoice.comble.model) {
-                this.remainingStep.push('IsolationCombleStep')
-            }
+            this.remainingStep = this.remainingStep.reverse()
         },
         nextStep() {
             if (this.remainingStep.length !== 0) {

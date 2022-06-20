@@ -87,7 +87,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('done-event')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>
@@ -163,6 +166,32 @@ export default {
             }
 
             return !(this.solsPlancher && this.solsPlancherSurface <= 0)
+        },
+        submit() {
+            if (this.solsLocal) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.solsLocalLabel,
+                    quantity: this.solsLocalSurface
+                })
+            }
+            if (this.solsTerrePlein) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.solsTerrePleinLabel,
+                    quantity: this.solsTerrePleinSurface
+                })
+            }
+            if (this.solsSanitaire) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.solsSanitaireLabel,
+                    quantity: this.solsSanitaireSurface
+                })
+            }
+            if (this.solsPlancher) {
+                this.$store.commit('reviFormState/setIsolationData', {
+                    type: this.solsPlancherLabel,
+                    quantity: this.solsPlancherSurface
+                })
+            }
         }
     }
 }

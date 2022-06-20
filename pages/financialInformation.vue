@@ -1,8 +1,11 @@
 <template>
-    <FinancialInformationForm
-        class="text-center"
-        @done-event="goToNextStep()"
-    />
+    <v-container class="container-stepper">
+        <p class="stepper-title">Mes aides 💰</p>
+        <FinancialInformationForm
+            class="text-center"
+            @done-event="goToNextStep()"
+        />
+    </v-container>
 </template>
 
 <script>
@@ -22,3 +25,21 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.container {
+    margin: auto;
+}
+
+.container-stepper {
+    top: 50%;
+    transform: translateY(50%);
+    margin: auto;
+}
+
+.stepper-title {
+    color: $grayScale90;
+    font-weight: bold;
+    font-size: 46px;
+}
+</style>

@@ -1,11 +1,8 @@
 <template>
-    <v-stepper v-model="stepState" elevation="0">
-        <v-stepper-items>
-            <v-stepper-content step="housing">
-                <HousingInformationForm @done-event="nextStep()" />
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+    <v-container class="container-stepper">
+        <p class="stepper-title">Mes informations</p>
+        <HousingInformationForm @done-event="nextStep()" />
+    </v-container>
 </template>
 
 <script>
@@ -27,3 +24,21 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.container {
+    margin: auto;
+}
+
+.container-stepper {
+    top: 50%;
+    transform: translateY(50%);
+    margin: auto;
+}
+
+.stepper-title {
+    color: $grayScale90;
+    font-weight: bold;
+    font-size: 46px;
+}
+</style>
