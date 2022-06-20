@@ -88,7 +88,10 @@
                         :disabled="!isValid()"
                         class="mr-4"
                         color="success"
-                        @click="$emit('done-event')"
+                        @click="
+                            submit()
+                            $emit('done-event')
+                        "
                     >
                         Valider
                     </v-btn>

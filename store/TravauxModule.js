@@ -17,8 +17,40 @@ export function computeMetaAideGroup(travauxMeta, housingData, financialData) {
     for (let i = 0; i < list.length; ++i) {
         computeAideGroup(list[i], housingData, financialData)
     }
-    travauxMeta.aideGroup = sumAideGroupFromTravaux(...list)
+    const aideGroup = sumAideGroupFromTravaux(...list)
+    const zero = computeMetaEcoZero(travauxMeta)
+    travauxMeta.aideGroup = new AideGroup(
+        aideGroup.renov,
+        aideGroup.serenite,
+        zero,
+        aideGroup.pouce
+    )
     return travauxMeta.aideGroup
+}
+
+export function computeMetaEcoZero(travauxMeta) {
+    const isolationCost = sumCost(travauxMeta.isolation)
+    const chauffageCost = sumCost(travauxMeta.chauffage)
+    const chauffeEauCost = sumCost(travauxMeta.chauffeEau)
+
+    const min =
+        isolationCost.minCost + chauffageCost.minCost + chauffeEauCost.minCost
+
+    const level =
+        travauxMeta.isolation.travauxList.length +
+        travauxMeta.chauffage.travauxList.length +
+        travauxMeta.chauffeEau.travauxList.length
+
+    if (level === 1) {
+        return createZero(Math.min(min, 15000))
+    }
+    if (level === 2) {
+        return createZero(Math.min(min, 25000))
+    }
+    if (level >= 3) {
+        return createZero(Math.min(min, 30000))
+    }
+    return createZero(0)
 }
 
 export function computeMetaCost(travauxMeta) {
@@ -287,6 +319,22 @@ export function computeRenovSerenite(housingData, cost, financialData) {
     return createSerenite(0)
 }
 
+export function computePouceChauffage(financialData) {
+    const factor = computeFiscalFactor(financialData)
+    if (factor === fiscalType.MODESTE || factor === fiscalType.TRES_MODESTE) {
+        return createPouce(2350)
+    }
+    return createPouce(1450)
+}
+
+export function computePouceIsolation(financialData, surface) {
+    const factor = computeFiscalFactor(financialData)
+    if (factor === fiscalType.MODESTE || factor === fiscalType.TRES_MODESTE) {
+        return createPouce(12 * surface)
+    }
+    return createPouce(10 * surface)
+}
+
 // VENTILATION
 
 export function computeVentilationAideGroup(
@@ -367,12 +415,548 @@ export function computeChauffeEauAideGroupe(
         financialData
     )
     let renov
+    let pouce
     if (!excludeSubType.includes(chauffeEau.title)) {
         renov = computeRenov(housingData, chauffeEau.cost, financialData)
+        pouce = computePouceChauffage(financialData)
     } else {
         renov = createRenov(0)
+        pouce = createPouce(0)
     }
-    return new AideGroup(renov, serenite, createZero(0), createPouce(0))
+    return new AideGroup(renov, serenite, createZero(1), pouce)
 }
 
 // CHAUFFAGE
+
+export function computeChauffageCost(chauffageData) {
+    const quantity = chauffageData.quantity
+    switch (chauffageData.type) {
+        // BOIS
+        case 'Modèle à bûches': {
+            return new Cost(6500, 9000)
+        }
+        case 'Modèle à granulés': {
+            return new Cost(13000, 15500)
+        }
+        case 'Modèle à plaquettes de bois': {
+            return new Cost(17500, 20000)
+        }
+        case 'Modèle mixte': {
+            return new Cost(11500, 14000)
+        }
+        case 'Foyer fermé': {
+            return new Cost(4250, 4750)
+        }
+        case 'Insert à bûches': {
+            return new Cost(2250, 3250)
+        }
+        case 'Insert à granulés': {
+            return new Cost(5750, 7750)
+        }
+        case 'Poêle à bois suspendu': {
+            return new Cost(900, 5000)
+        }
+        case "Poêle à bois d'angle": {
+            return new Cost(550, 1500)
+        }
+        case 'Poêle à bois à double combustion': {
+            return new Cost(400, 3500)
+        }
+        case 'Poêle à bois encastrable': {
+            return new Cost(250, 5000)
+        }
+        // GAZ
+        case 'Chaudière à condensation gaz': {
+            return new Cost(3500, 8500)
+        }
+        case 'Chaudière classique gaz': {
+            return new Cost(1000, 4000)
+        }
+        case 'Radiateur au gaz': {
+            return new Cost(500 * quantity, 2000 * quantity)
+        }
+        case 'Poêle au gaz': {
+            return new Cost(2500, 6500)
+        }
+        // POMPE CHALEUR
+        case 'Pompe à chaleur Sol/Eau': {
+            return new Cost(75 * quantity, 120 * quantity)
+        }
+        case 'Pompe à chaleur Sol/Air': {
+            return new Cost(90 * quantity, 150 * quantity)
+        }
+        case 'Pompe à chaleur Air/Air': {
+            return new Cost(45 * quantity, 100 * quantity)
+        }
+        case 'Pompe à chaleur Air/Eau': {
+            return new Cost(60 * quantity, 130 * quantity)
+        }
+        case 'Pompe à chaleur Eau/Eau': {
+            return new Cost(60 * quantity, 120 * quantity)
+        }
+        // SOLAIRE
+        case 'Plancher solaire direct (PSD)': {
+            return new Cost(100 * quantity, 300 * quantity)
+        }
+        case 'Plancher solaire combiné (PSC)': {
+            return new Cost(160 * quantity, 240 * quantity)
+        }
+        case 'Système solaire combiné (SSC)': {
+            return new Cost(13000 * quantity, 20000 * quantity)
+        }
+        case 'Panneaux solaires aerovoltaiques': {
+            return new Cost(0, 0)
+        }
+        case 'Panneaux solaires photovoltaiques': {
+            return new Cost(0, 0)
+        }
+        // ELECTRIQUE
+        case 'Murale': {
+            return new Cost(800 * quantity, 4500 * quantity)
+        }
+        case 'Au sol': {
+            return new Cost(6500, 20500)
+        }
+        case 'Ionique': {
+            return new Cost(11500, 25500)
+        }
+        case 'A basse température': {
+            return new Cost(9500, 23500)
+        }
+        case 'Plafonds ou planchers chauffants': {
+            return new Cost(75 * quantity, 105 * quantity)
+        }
+        case 'Radiateurs électriques': {
+            return new Cost(3000 * quantity, 5000 * quantity)
+        }
+        // FIOUL
+        case 'Chaudière à condensation fioul': {
+            return new Cost(11000, 20000)
+        }
+        case 'Chaudière classique fioul': {
+            return new Cost(4500, 8000)
+        }
+        default: {
+            return new Cost(0, 0)
+        }
+    }
+}
+
+export function computeChauffageAideGroup(
+    housingData,
+    financialData,
+    chauffage
+) {
+    switch (chauffage.title) {
+        // BOIS
+        case 'Modèle à bûches': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Modèle à granulés': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Modèle à plaquettes de bois': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Modèle mixte': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Foyer fermé': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Insert à bûches': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Insert à granulés': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Poêle à bois suspendu': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case "Poêle à bois d'angle": {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Poêle à bois à double combustion': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Poêle à bois encastrable': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        // GAZ
+        case 'Chaudière à condensation gaz': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Chaudière classique gaz': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Radiateur au gaz': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Poêle au gaz': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        // POMPE CHALEUR
+        case 'Pompe à chaleur Sol/Eau': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Pompe à chaleur Sol/Air': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Pompe à chaleur Air/Air': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Pompe à chaleur Air/Eau': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Pompe à chaleur Eau/Eau': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        // SOLAIRE
+        case 'Plancher solaire direct (PSD)': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Plancher solaire combiné (PSC)': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Système solaire combiné (SSC)': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Panneaux solaires aerovoltaiques': {
+            return new AideGroup(
+                computeRenov(housingData, chauffage.cost, financialData),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        case 'Panneaux solaires photovoltaiques': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        // ELECTRIQUE
+        case 'Murale': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Au sol': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Ionique': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'A basse température': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Plafonds ou planchers chauffants': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Radiateurs électriques': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        // FIOUL
+        case 'Chaudière à condensation fioul': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                createPouce(0)
+            )
+        }
+        case 'Chaudière classique fioul': {
+            return new AideGroup(
+                createRenov(0),
+                computeRenovSerenite(
+                    housingData,
+                    chauffage.cost,
+                    financialData
+                ),
+                createZero(1),
+                computePouceChauffage(financialData)
+            )
+        }
+        default: {
+            return new AideGroup(
+                createRenov(0),
+                createSerenite(0),
+                createZero(0),
+                createPouce(0)
+            )
+        }
+    }
+}
