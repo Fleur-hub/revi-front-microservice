@@ -1,48 +1,58 @@
 <template>
-    <v-stepper v-model="stepState" elevation="0">
-        <v-stepper-items class="text-center">
-            <v-stepper-content step="ChauffagePageStep">
-                <v-checkbox
+    <v-card class="mx-auto" elevation="0">
+        <v-window v-model="stepState">
+            <v-window-item :value="1" class="text-right">
+                <v-container
                     v-for="(choice, i) in chauffageChoice"
                     :key="i"
-                    v-model="choice.model"
-                    :label="choice.label"
-                    :value="true"
-                    required
+                    class="field-container text-right spaced-container"
                 >
-                </v-checkbox>
+                    <v-checkbox
+                        v-model="selected"
+                        class="field-title"
+                        color="primaryPressed"
+                        :value="choice"
+                        required
+                    >
+                        <template #label>
+                            <label class="radio-label">{{
+                                choice.label
+                            }}</label>
+                        </template>
+                    </v-checkbox>
+                </v-container>
+            </v-window-item>
+            <v-window-item
+                v-for="(item, i) in selected"
+                :key="i"
+                :value="item.step"
+                class="pa-0"
+            >
+                <component
+                    :is="item.component"
+                    @done-event="computeStep(1)"
+                    @isValid="setSubFormValid"
+                />
+            </v-window-item>
+        </v-window>
+        <v-card-actions style="padding-right: 0">
+            <v-container class="buttons-container">
                 <v-btn
-                    :disabled="!isChoiceValid()"
-                    class="mr-4"
-                    color="primaryMain"
-                    @click="
-                        computeStep()
-                        nextStep()
-                    "
+                    :color="stepState === 1 ? 'grayScale60' : 'secondary'"
+                    @click="computeStep(-1)"
+                >
+                    Retour
+                </v-btn>
+                <v-btn
+                    style="margin-right: 0 !important"
+                    :color="isValid() ? 'primaryMain' : 'primaryBorder'"
+                    @click="computeStep(1)"
                 >
                     Valider
                 </v-btn>
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.fioul.step">
-                <ChauffageFioulForm @done-event="nextStep()" />
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.electrique.step">
-                <ChauffageElectriqueForm @done-event="nextStep()" />
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.gaz.step">
-                <ChauffageGazForm @done-event="nextStep()" />
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.bois.step">
-                <ChauffageBoisForm @done-event="nextStep()" />
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.pompeChaleur.step">
-                <ChauffagePompeChaleurForm @done-event="nextStep()" />
-            </v-stepper-content>
-            <v-stepper-content :step="chauffageChoice.solaire.step">
-                <ChauffageSolaireForm @done-event="nextStep()" />
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-container>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
@@ -64,67 +74,87 @@ export default {
         ChauffageFioulForm
     },
     data: () => ({
-        stepState: 'ChauffagePageStep',
-        remainingStep: [],
-
+        stepState: 1,
+        selected: [],
+        stepInitialized: false,
+        subFormIsValid: false,
+        formData: {
+            type: '',
+            quantity: 0
+        },
         chauffageChoice: {
             bois: {
                 label: 'Bois',
-                model: false,
-                step: 'ChauffageBoisStep'
+                step: -1,
+                component: ChauffageBoisForm
             },
             electrique: {
                 label: 'Electrique',
-                model: false,
-                step: 'ChauffageElectriqueStep'
+                step: -1,
+                component: ChauffageElectriqueForm
             },
             fioul: {
                 label: 'Fioul',
-                model: false,
-                step: 'ChauffageFioulStep'
+                step: -1,
+                component: ChauffageFioulForm
             },
             gaz: {
                 label: 'Gaz',
-                model: false,
-                step: 'ChauffageGazStep'
+                step: -1,
+                component: ChauffageGazForm
             },
             pompeChaleur: {
                 label: 'Pompe à chaleur',
-                model: false,
-                step: 'ChauffagePompeChaleurStep'
+                step: -1,
+                component: ChauffagePompeChaleurForm
             },
             solaire: {
                 label: 'Solaire',
-                model: false,
-                step: 'ChauffageSolaireStep'
+                step: -1,
+                component: ChauffageSolaireForm
             }
         }
     }),
     methods: {
-        isChoiceValid() {
-            for (const key in this.chauffageChoice) {
-                if (this.chauffageChoice[key].model) {
-                    return true
-                }
+        isValid() {
+            if (this.stepState === 1) {
+                return this.selected.length !== 0 || this.subFormIsValid
             }
-            return false
+            return this.subFormIsValid
         },
-        computeStep() {
-            for (const key in this.chauffageChoice) {
-                const value = this.chauffageChoice[key]
-                if (value.model) {
-                    this.remainingStep.push(value.step)
-                }
+        initSteps() {
+            let stepIndex = 1
+            for (const key in this.selected) {
+                const value = this.selected[key]
+                value.step = ++stepIndex
             }
-            this.remainingStep = this.remainingStep.reverse()
         },
-        nextStep() {
-            if (this.remainingStep.length !== 0) {
-                this.stepState = this.remainingStep.pop()
-            } else {
-                this.$emit('done-event')
+        setSubFormValid(isValid, formData) {
+            this.subFormIsValid = isValid
+            this.formData = formData
+        },
+        computeStep(direction) {
+            if (this.stepState === 1) {
+                this.initSteps()
+            }
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === this.selected.length + 1) {
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
             }
         }
     }
 }
 </script>
+
+<style lang="scss">
+.mdi-checkbox-blank-outline {
+    color: $grayScale70 !important;
+}
+</style>

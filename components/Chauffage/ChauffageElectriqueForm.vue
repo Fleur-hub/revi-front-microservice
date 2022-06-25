@@ -1,134 +1,206 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="chauffageElectriqueStep">
-                <v-radio-group v-model="chauffageElectriqueType">
-                    <v-container>
-                        <v-radio
-                            :label="chauffageElectriqueValues[0]"
-                            :value="chauffageElectriqueValues[0]"
+    <v-container class="text-left pa-0" :class="emitIsValid()">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="chauffageElectriqueType"
+                :value="chauffageElectriqueValues[0]"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+                required
+                @click="
+                    formData.quantity = 0
+                    formData.type = ''
+                "
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        chauffageElectriqueValues[0]
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-expand-transition>
+                <v-container
+                    v-if="
+                        chauffageElectriqueType === chauffageElectriqueValues[0]
+                    "
+                >
+                    <v-container class="field-container ma-0 pa-0">
+                        <v-checkbox
+                            v-model="formData.type"
+                            :value="chauffageChaudiereElectriqueValues[0]"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
                             required
-                            @click="
-                                formData.quantity = 0
-                                formData.type = ''
-                            "
-                        ></v-radio>
-                        <v-expand-transition>
-                            <v-radio-group
-                                v-if="
-                                    chauffageElectriqueType ===
-                                    chauffageElectriqueValues[0]
-                                "
-                                v-model="formData.type"
-                            >
-                                <v-container
-                                    v-for="(
-                                        type, i
-                                    ) in chauffageChaudiereElectriqueValues"
-                                    :key="i"
-                                >
-                                    <v-radio
-                                        :label="type"
-                                        :value="type"
-                                        required
-                                        @click="formData.quantity = 0"
-                                    ></v-radio>
-                                    <v-container>
-                                        <v-text-field
-                                            v-if="
-                                                chauffageChaudiereElectriqueValues[0] ===
-                                                    formData.type &&
-                                                type ===
-                                                    chauffageChaudiereElectriqueValues[0]
-                                            "
-                                            v-model="formData.quantity"
-                                            :rules="
-                                                rulesChauffageElectriqueSurface
-                                            "
-                                            onkeydown="return event.keyCode !== 69"
-                                            outlined
-                                            required
-                                            type="number"
-                                        ></v-text-field>
-                                    </v-container>
-                                </v-container>
-                            </v-radio-group>
-                        </v-expand-transition>
-                    </v-container>
-                    <v-container>
-                        <v-radio
-                            :label="chauffageElectriqueValues[1]"
-                            :value="chauffageElectriqueValues[1]"
-                            required
-                            @click="
-                                formData.quantity = 0
-                                formData.type = chauffageElectriqueValues[1]
-                            "
-                        ></v-radio>
-                        <v-container
-                            v-if="
-                                chauffageElectriqueType ===
-                                chauffageElectriqueValues[1]
-                            "
+                            @click="formData.quantity = 0"
                         >
-                            <v-text-field
-                                v-model="formData.quantity"
-                                :rules="rulesChauffageElectriqueSurface"
-                                onkeydown="return event.keyCode !== 69"
-                                outlined
-                                required
-                                type="number"
-                            ></v-text-field>
+                            <template #label>
+                                <label class="sub-radio-label">{{
+                                    chauffageChaudiereElectriqueValues[0]
+                                }}</label>
+                            </template>
+                        </v-checkbox>
+                        <v-container class="pa-0">
+                            <v-expand-transition>
+                                <v-text-field
+                                    v-if="
+                                        chauffageChaudiereElectriqueValues[0] ===
+                                        formData.type
+                                    "
+                                    v-model="formData.quantity"
+                                    :rules="rulesChauffageElectriqueSurface"
+                                    onkeydown="return event.keyCode !== 69"
+                                    outlined
+                                    required
+                                    type="number"
+                                ></v-text-field>
+                            </v-expand-transition>
                         </v-container>
                     </v-container>
-                    <v-container>
-                        <v-radio
-                            :label="chauffageElectriqueValues[2]"
-                            :value="chauffageElectriqueValues[2]"
+                    <v-container class="field-container ma-0 pa-0">
+                        <v-checkbox
+                            v-model="formData.type"
+                            :value="chauffageChaudiereElectriqueValues[1]"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
                             required
-                            @click="
-                                formData.quantity = 0
-                                formData.type = chauffageElectriqueValues[2]
-                            "
-                        ></v-radio>
-                        <v-container
+                            @click="formData.quantity = 0"
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{
+                                    chauffageChaudiereElectriqueValues[1]
+                                }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
+                    <v-container class="field-container ma-0 pa-0">
+                        <v-checkbox
+                            v-model="formData.type"
+                            :value="chauffageChaudiereElectriqueValues[2]"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            required
+                            @click="formData.quantity = 0"
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{
+                                    chauffageChaudiereElectriqueValues[2]
+                                }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
+                    <v-container class="field-container ma-0 pa-0">
+                        <v-checkbox
+                            v-model="formData.type"
+                            :value="chauffageChaudiereElectriqueValues[3]"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            required
+                            @click="formData.quantity = 0"
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{
+                                    chauffageChaudiereElectriqueValues[3]
+                                }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
+                </v-container>
+            </v-expand-transition>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="chauffageElectriqueType"
+                :value="chauffageElectriqueValues[1]"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+                required
+                @click="
+                    formData.quantity = 0
+                    formData.type = ''
+                "
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        chauffageElectriqueValues[1]
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="
+                            chauffageElectriqueType ===
+                            chauffageElectriqueValues[1]
+                        "
+                        v-model="formData.quantity"
+                        :rules="rulesChauffageElectriqueSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
+                        required
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+        <v-container class="pa-0">
+            <v-container class="field-container">
+                <v-checkbox
+                    v-model="chauffageElectriqueType"
+                    :value="chauffageElectriqueValues[2]"
+                    color="primaryPressed"
+                    class="field-title"
+                    off-icon="mdi-radiobox-blank"
+                    on-icon="mdi-radiobox-marked"
+                    required
+                    @click="
+                        formData.quantity = 0
+                        formData.type = ''
+                    "
+                >
+                    <template #label>
+                        <label class="radio-label">{{
+                            chauffageElectriqueValues[2]
+                        }}</label>
+                    </template>
+                </v-checkbox>
+                <v-container>
+                    <v-expand-transition>
+                        <v-text-field
                             v-if="
                                 chauffageElectriqueType ===
                                 chauffageElectriqueValues[2]
                             "
-                        >
-                            <v-text-field
-                                v-model="formData.quantity"
-                                :rules="rulesChauffageElectriqueSurface"
-                                onkeydown="return event.keyCode !== 69"
-                                outlined
-                                required
-                                type="number"
-                            ></v-text-field>
-                        </v-container>
-                    </v-container>
-                </v-radio-group>
-                <v-btn
-                    :disabled="!isValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="
-                        submit()
-                        $emit('done-event')
-                    "
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+                            v-model="formData.quantity"
+                            :rules="rulesChauffageElectriqueSurface"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                    </v-expand-transition>
+                </v-container>
+            </v-container>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
 export default {
     name: 'ChauffageElectriqueForm',
     data: () => ({
-        stepState: 'chauffageElectriqueStep',
+        stepState: 1,
         formData: {
             type: '',
             quantity: 0
@@ -169,9 +241,33 @@ export default {
                 ? this.formData.quantity > 0
                 : true
         },
+        emitIsValid() {
+            this.$emit('isValid', this.isValid(), this.formData)
+            return ''
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 1) {
+                    this.submit()
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
         submit() {
             this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }
 </script>
+
+<style lang="scss">
+.text-field-container-height {
+    height: 36px !important;
+}
+</style>

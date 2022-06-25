@@ -1,5 +1,8 @@
 <template>
-    <IsolationForm @done-event="goToNextStep()" />
+    <v-container class="container-stepper">
+        <p class="stepper-title">Quel type d'isolation ?</p>
+        <IsolationForm @done-event="goToNextStep()" />
+    </v-container>
 </template>
 
 <script>

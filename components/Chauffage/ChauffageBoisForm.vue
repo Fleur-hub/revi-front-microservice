@@ -1,124 +1,163 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="chauffageBoisStep">
-                <v-radio-group v-model="chauffageBoisType">
-                    <v-container>
-                        <v-radio
-                            :label="chauffageBoisValues[0]"
-                            :value="chauffageBoisValues[0]"
-                            required
-                            @click="
-                                formData.quantity = 1
-                                formData.type = ''
-                            "
-                        ></v-radio>
-                        <v-radio-group
-                            v-if="chauffageBoisType === chauffageBoisValues[0]"
-                            v-model="formData.type"
-                        >
-                            <v-container
-                                v-for="(
-                                    type, i
-                                ) in chauffageChaudiereBoisValues"
-                                :key="i"
-                            >
-                                <v-radio
-                                    :label="type"
-                                    :value="type"
-                                    required
-                                    @click="formData.quantity = 1"
-                                ></v-radio>
-                            </v-container>
-                        </v-radio-group>
-                    </v-container>
-                    <v-container>
-                        <v-radio
-                            :label="chauffageBoisValues[1]"
-                            :value="chauffageBoisValues[1]"
-                            required
-                            @click="
-                                formData.quantity = 0
-                                formData.type = ''
-                            "
-                        ></v-radio>
-                        <v-radio-group
-                            v-if="chauffageBoisType === chauffageBoisValues[1]"
-                            v-model="formData.type"
-                        >
-                            <v-container
-                                v-for="(type, i) in chauffageInsertBoisValues"
-                                :key="i"
-                            >
-                                <v-radio
-                                    :label="type"
-                                    :value="type"
-                                    required
-                                    @click="formData.quantity = 0"
-                                ></v-radio>
-
-                                <v-container v-if="formData.type === type">
-                                    <v-text-field
-                                        v-model="formData.quantity"
-                                        :rules="ruleschauffageBoisNbCheminees"
-                                        onkeydown="return event.keyCode !== 69"
-                                        outlined
-                                        required
-                                        type="number"
-                                    ></v-text-field>
-                                </v-container>
-                            </v-container>
-                        </v-radio-group>
-                    </v-container>
-                    <v-container>
-                        <v-radio
-                            :label="chauffageBoisValues[2]"
-                            :value="chauffageBoisValues[2]"
-                            required
-                            @click="
-                                formData.quantity = 1
-                                formData.type = ''
-                            "
-                        ></v-radio>
-                        <v-radio-group
-                            v-if="chauffageBoisType === chauffageBoisValues[2]"
-                            v-model="formData.type"
-                        >
-                            <v-container
-                                v-for="(type, i) in chauffagePoeleBoisValues"
-                                :key="i"
-                            >
-                                <v-radio
-                                    :label="type"
-                                    :value="type"
-                                    required
-                                    @click="formData.quantity = 1"
-                                ></v-radio>
-                            </v-container>
-                        </v-radio-group>
-                    </v-container>
-                </v-radio-group>
-                <v-btn
-                    :disabled="!isValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="
-                        submit()
-                        $emit('done-event')
-                    "
+    <v-container class="text-left pa-0" :class="emitIsValid()">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="chauffageBoisType"
+                :value="chauffageBoisValues[0]"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+                required
+                @click="
+                    formData.quantity = 1
+                    formData.type = ''
+                "
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        chauffageBoisValues[0]
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-expand-transition>
+                <v-container
+                    v-if="chauffageBoisType === chauffageBoisValues[0]"
+                    class="radio-container ma-0"
                 >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+                    <v-checkbox
+                        v-for="(type, i) in chauffageChaudiereBoisValues"
+                        :key="i"
+                        v-model="formData.type"
+                        color="primaryPressed"
+                        class="field-title ma-0"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
+                        :value="type"
+                        required
+                        @click="formData.quantity = 1"
+                    >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
+                    </v-checkbox>
+                </v-container>
+            </v-expand-transition>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="chauffageBoisType"
+                :value="chauffageBoisValues[1]"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+                required
+                @click="
+                    formData.quantity = 0
+                    formData.type = ''
+                "
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        chauffageBoisValues[1]
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-expand-transition>
+                <v-container
+                    v-if="chauffageBoisType === chauffageBoisValues[1]"
+                    class="ma-0"
+                >
+                    <div
+                        v-for="(type, i) in chauffageInsertBoisValues"
+                        :key="i"
+                        class="radio-container"
+                    >
+                        <v-checkbox
+                            v-model="formData.type"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            :value="type"
+                            required
+                            @click="formData.quantity = 0"
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{
+                                    type
+                                }}</label>
+                            </template>
+                        </v-checkbox>
+                        <v-expand-transition>
+                            <v-container v-if="formData.type === type">
+                                <v-text-field
+                                    v-model="formData.quantity"
+                                    :rules="ruleschauffageBoisNbCheminees"
+                                    onkeydown="return event.keyCode !== 69"
+                                    outlined
+                                    required
+                                    type="number"
+                                ></v-text-field>
+                            </v-container>
+                        </v-expand-transition>
+                    </div>
+                </v-container>
+            </v-expand-transition>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="chauffageBoisType"
+                :value="chauffageBoisValues[2]"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+                required
+                @click="
+                    formData.quantity = 1
+                    formData.type = ''
+                "
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        chauffageBoisValues[2]
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-expand-transition>
+                <v-container
+                    v-if="chauffageBoisType === chauffageBoisValues[2]"
+                    class="radio-container"
+                >
+                    <v-checkbox
+                        v-for="(type, i) in chauffagePoeleBoisValues"
+                        :key="i"
+                        v-model="formData.type"
+                        :value="type"
+                        color="primaryMain"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
+                        required
+                        @click="formData.quantity = 1"
+                    >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
+                    </v-checkbox>
+                </v-container>
+            </v-expand-transition>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
 export default {
     name: 'ChauffageBoisForm',
     data: () => ({
-        stepState: 'chauffageBoisStep',
+        stepState: 1,
         formData: {
             type: '',
             quantity: 0
@@ -168,9 +207,37 @@ export default {
                 this.formData.quantity > 0
             )
         },
+        emitIsValid() {
+            this.$emit('isValid', this.isValid(), this.formData)
+            return ''
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 1) {
+                    this.submit()
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
         submit() {
             this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }
 </script>
+
+<style lang="scss">
+.v-input--selection-controls {
+    margin-top: 0 !important;
+}
+
+.v-messages {
+    min-height: 0 !important;
+}
+</style>

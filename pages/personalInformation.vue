@@ -1,5 +1,11 @@
 <template>
-    <PersonalInformationForm class="text-center" @done-event="goToNextStep()" />
+    <v-container class="container-stepper">
+        <p class="stepper-title">Mes informations personnelles</p>
+        <PersonalInformationForm
+            class="text-center"
+            @done-event="goToNextStep()"
+        />
+    </v-container>
 </template>
 
 <script>

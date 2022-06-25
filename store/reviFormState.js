@@ -79,12 +79,12 @@ export const mutations = {
     },
     setFinancialData(state, financial) {
         state.financialData = financial
+        tm.computeMetaCost(state.travauxMeta)
         tm.computeMetaAideGroup(
             state.travauxMeta,
             state.housingData,
             state.financialData
         )
-        tm.computeMetaCost(state.travauxMeta)
     },
     setPersonalData(state, personal) {
         state.personalData = personal

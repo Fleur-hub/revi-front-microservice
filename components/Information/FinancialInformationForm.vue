@@ -117,8 +117,8 @@ export default {
                 }
             } else if (this.isValid()) {
                 if (this.stepState === 3) {
-                    // this.submit()
-                    // this.$emit('done-event')
+                    this.submit()
+                    this.$emit('done-event')
                 } else {
                     this.stepState += 1
                 }
@@ -130,11 +130,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.field-container {
-    background-color: $primaryCard;
-    border-radius: 5px;
-    padding: 28px 16px !important;
-}
-</style>

@@ -14,7 +14,9 @@
                 </v-container>
             </v-window-item>
             <v-window-item :value="2">
-                <label class="field-title">Quel est votre type de bien ?</label>
+                <label class="field-title" style="margin-left: 12px"
+                    >Quel est votre type de bien ?</label
+                >
                 <v-container
                     style="
                         justify-content: center;
@@ -22,7 +24,10 @@
                         margin-bottom: 12px;
                     "
                 >
-                    <v-item-group v-model="formData.typeLogement">
+                    <v-item-group
+                        v-model="formData.typeLogement"
+                        style="margin-top: 24px"
+                    >
                         <v-row>
                             <v-item
                                 v-slot="{ active, toggle }"
@@ -355,77 +360,8 @@ export default {
 </script>
 
 <style lang="scss">
-.buttons-container {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 0;
-}
-
-.field-container {
-    background-color: $primaryCard;
-    border-radius: 5px;
-    padding: 28px 16px !important;
-}
-
-.v-stepper__content {
-    padding-left: 0 !important;
-}
-
-.theme--dark.v-card {
-    background-color: $primaryFont;
-    color: #ffffff;
-}
-
-.img-selected {
-    background-color: $primaryMain !important;
-}
-
-.img-not-selected {
-    background-color: #fff !important;
-}
-
-.image-center {
-    height: 100px;
-    width: 100px;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-.top-col {
-    margin-left: 18px;
-    margin-top: 18px;
-}
-
-.bottom-col {
-    margin-left: 18px;
-    margin-bottom: 18px;
-}
-
-.text-selected {
-    color: $grayScale10 !important;
-}
-
-.text-not-selected {
-    color: $grayScale90 !important;
-}
-
-.v-btn--disabled {
-    color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.image-button-item {
-    margin-top: 24px;
-    margin-right: 12px;
-}
-
-.text-selected,
-.text-not-selected {
-    font-weight: bold !important;
-    font-size: 16px !important;
-    padding-top: 35% !important;
-    display: flex;
-    justify-content: center;
+.mdi-menu-down {
+    color: $primaryMain !important;
+    caret-color: $primaryMain;
 }
 </style>

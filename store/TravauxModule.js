@@ -20,8 +20,8 @@ export function computeMetaAideGroup(travauxMeta, housingData, financialData) {
     const aideGroup = sumAideGroupFromTravaux(...list)
     const zero = computeMetaEcoZero(travauxMeta)
     travauxMeta.aideGroup = new AideGroup(
-        aideGroup.renov,
-        aideGroup.serenite,
+        computeRenov(housingData, travauxMeta.cost, financialData),
+        computeRenovSerenite(housingData, travauxMeta.cost, financialData),
         zero,
         aideGroup.pouce
     )
@@ -262,10 +262,17 @@ export class Cost {
 }
 
 const fiscalType = {
-    TRES_ELEVES: 40,
-    INTERMEDIAIRES: 60,
-    MODESTE: 75,
-    TRES_MODESTE: 90
+    TRES_ELEVES: 20,
+    INTERMEDIAIRES: 30,
+    MODESTE: 35,
+    TRES_MODESTE: 50
+}
+
+const fiscalMaxRenov = {
+    20: 3500,
+    30: 700,
+    35: 8000,
+    50: 10000
 }
 
 const matriceFiscal = [
@@ -304,7 +311,8 @@ export function computeRenov(housingData, cost, financialData) {
         return createRenov(0)
     }
     const factor = computeFiscalFactor(financialData)
-    return createRenov((cost.minCost * factor) / 100)
+
+    return createRenov(Math.min(cost.minCost, fiscalMaxRenov[factor]))
 }
 
 export function computeRenovSerenite(housingData, cost, financialData) {
@@ -312,9 +320,8 @@ export function computeRenovSerenite(housingData, cost, financialData) {
         return createSerenite(0)
     }
     const factor = computeFiscalFactor(financialData)
-    const aide = (cost.minCost * factor) / 100
     if (factor === fiscalType.MODESTE || factor === fiscalType.TRES_MODESTE) {
-        return createSerenite(Math.min(aide, 10500))
+        return createSerenite((cost.minCost * factor) / 100)
     }
     return createSerenite(0)
 }

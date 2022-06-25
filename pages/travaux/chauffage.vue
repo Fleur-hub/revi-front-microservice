@@ -1,5 +1,8 @@
 <template>
-    <ChauffageForm @done-event="goToNextStep()" />
+    <v-container class="container-stepper">
+        <p class="stepper-title">Quel type de chauffage ?</p>
+        <ChauffageForm @done-event="goToNextStep()" />
+    </v-container>
 </template>
 
 <script>

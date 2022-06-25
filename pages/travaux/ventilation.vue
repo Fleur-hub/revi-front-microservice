@@ -1,5 +1,11 @@
 <template>
-    <VentilationForm class="text-center" @done-event="goToNextStep()" />
+    <v-container class="container-stepper">
+        <p class="stepper-title">Votre type de ventilation ?</p>
+        <VentilationForm
+            class="text-center form-no-left-padding"
+            @done-event="goToNextStep()"
+        />
+    </v-container>
 </template>
 
 <script>
@@ -19,3 +25,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.form-no-left-padding {
+    padding-left: 0 !important;
+}
+</style>

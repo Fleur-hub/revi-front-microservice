@@ -1,39 +1,31 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="chauffageFioulStep">
-                <v-radio-group
-                    v-model="formData.type"
-                    @click="formData.type = ''"
-                >
-                    <v-container
-                        v-for="(type, i) in chauffageFioulValues"
-                        :key="i"
-                    >
-                        <v-radio :label="type" :value="type" required></v-radio>
-                    </v-container>
-                </v-radio-group>
-                <v-btn
-                    :disabled="!isValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="
-                        submit()
-                        $emit('done-event')
-                    "
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+    <v-container class="text-left pa-0" :class="emitIsValid()">
+        <v-container
+            v-for="(type, i) in chauffageFioulValues"
+            :key="i"
+            class="field-container spaced-container"
+        >
+            <v-checkbox
+                v-model="formData.type"
+                :value="type"
+                color="primaryPressed"
+                class="field-title"
+                off-icon="mdi-radiobox-blank"
+                on-icon="mdi-radiobox-marked"
+            >
+                <template #label>
+                    <label class="radio-label">{{ type }}</label>
+                </template>
+            </v-checkbox>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
 export default {
     name: 'ChauffageFioulForm',
     data: () => ({
-        stepState: 'chauffageFioulStep',
+        stepState: 1,
         formData: {
             type: '',
             quantity: 1
@@ -49,9 +41,33 @@ export default {
         isValid() {
             return this.formData.type !== ''
         },
+        emitIsValid() {
+            this.$emit('isValid', this.isValid(), this.formData)
+            return ''
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 1) {
+                    this.submit()
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
         submit() {
             this.$store.commit('reviFormState/setChauffageData', this.formData)
         }
     }
 }
 </script>
+
+<style lang="scss">
+.v-messages {
+    min-height: 0 !important;
+}
+</style>

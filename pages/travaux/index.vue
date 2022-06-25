@@ -1,198 +1,183 @@
 <template>
-    <div style="justify-content: center; display: flex">
-        <v-stepper v-model="stepState" elevation="0">
-            <v-stepper-items>
-                <v-stepper-content step="TravauxChoiceStep">
-                    <p>Quel(s) travaux souhaitez-vous effectuer ?</p>
-                    <v-item-group v-model="selected" multiple>
-                        <v-item class="row-item">
-                            <v-row>
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    :value="navigationTree.chauffage"
-                                    class="image-button-item"
-                                >
-                                    <v-card
-                                        :elevation="2"
-                                        height="200"
-                                        width="200"
-                                        :class="
-                                            active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
-                                        "
-                                        @click="toggle"
-                                    >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? travauxChoice.chauffage
-                                                          .iconSelected
-                                                    : travauxChoice.chauffage
-                                                          .icon
-                                            "
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{ travauxChoice.chauffage.label }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    :value="navigationTree.chauffeEau"
-                                    class="image-button-item"
-                                >
-                                    <v-card
-                                        :elevation="2"
-                                        height="200"
-                                        width="200"
-                                        :class="
-                                            active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
-                                        "
-                                        @click="toggle"
-                                    >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? travauxChoice.chauffeEau
-                                                          .iconSelected
-                                                    : travauxChoice.chauffeEau
-                                                          .icon
-                                            "
-                                            width="83"
-                                            height="100"
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{ travauxChoice.chauffeEau.label }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                            </v-row>
-                        </v-item>
-                        <v-item class="row-item">
-                            <v-row>
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    :value="navigationTree.isolation"
-                                    class="image-button-item"
-                                >
-                                    <v-card
-                                        :elevation="2"
-                                        height="200"
-                                        width="200"
-                                        :class="
-                                            active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
-                                        "
-                                        @click="toggle"
-                                    >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? travauxChoice.isolation
-                                                          .iconSelected
-                                                    : travauxChoice.isolation
-                                                          .icon
-                                            "
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{ travauxChoice.isolation.label }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                                <v-item
-                                    v-slot="{ active, toggle }"
-                                    :value="navigationTree.ventilation"
-                                    class="image-button-item"
-                                >
-                                    <v-card
-                                        :elevation="2"
-                                        height="200"
-                                        width="200"
-                                        :class="
-                                            active
-                                                ? 'img-selected'
-                                                : 'img-not-selected'
-                                        "
-                                        @click="toggle"
-                                    >
-                                        <v-img
-                                            :src="
-                                                active
-                                                    ? travauxChoice.ventilation
-                                                          .iconSelected
-                                                    : travauxChoice.ventilation
-                                                          .icon
-                                            "
-                                            class="image-center"
-                                        >
-                                        </v-img>
-                                        <v-card-text
-                                            :class="
-                                                active
-                                                    ? 'text-selected'
-                                                    : 'text-not-selected'
-                                            "
-                                        >
-                                            {{
-                                                travauxChoice.ventilation.label
-                                            }}
-                                        </v-card-text>
-                                    </v-card>
-                                </v-item>
-                            </v-row>
-                        </v-item>
-                        <v-row
-                            style="
-                                display: flex;
-                                justify-content: end;
-                                padding-right: 20px;
-                            "
+    <v-container class="container-stepper">
+        <p class="stepper-title">Quel(s) travaux souhaitez-vous effectuer ?</p>
+        <v-container
+            class="container-stepper"
+            style="justify-content: center; display: flex"
+        >
+            <v-item-group v-model="selected" multiple>
+                <v-item class="row-item">
+                    <v-row>
+                        <v-item
+                            v-slot="{ active, toggle }"
+                            :value="navigationTree.chauffage"
+                            class="image-button-item"
                         >
-                            <v-btn
-                                :disabled="!isChoiceValid()"
-                                class="button-margin"
-                                color="primaryMain"
-                                @click="
-                                    commitChoice()
-                                    goToNextStep()
+                            <v-card
+                                :elevation="2"
+                                height="200"
+                                width="200"
+                                :class="
+                                    active ? 'img-selected' : 'img-not-selected'
                                 "
+                                @click="toggle"
                             >
-                                Valider
-                            </v-btn>
-                        </v-row>
-                    </v-item-group>
-                </v-stepper-content>
-            </v-stepper-items>
-        </v-stepper>
-    </div>
+                                <v-img
+                                    :src="
+                                        active
+                                            ? travauxChoice.chauffage
+                                                  .iconSelected
+                                            : travauxChoice.chauffage.icon
+                                    "
+                                    class="image-center"
+                                >
+                                </v-img>
+                                <v-card-text
+                                    :class="
+                                        active
+                                            ? 'text-selected'
+                                            : 'text-not-selected'
+                                    "
+                                >
+                                    {{ travauxChoice.chauffage.label }}
+                                </v-card-text>
+                            </v-card>
+                        </v-item>
+                        <v-item
+                            v-slot="{ active, toggle }"
+                            :value="navigationTree.chauffeEau"
+                            class="image-button-item"
+                        >
+                            <v-card
+                                :elevation="2"
+                                height="200"
+                                width="200"
+                                :class="
+                                    active ? 'img-selected' : 'img-not-selected'
+                                "
+                                @click="toggle"
+                            >
+                                <v-img
+                                    :src="
+                                        active
+                                            ? travauxChoice.chauffeEau
+                                                  .iconSelected
+                                            : travauxChoice.chauffeEau.icon
+                                    "
+                                    width="83"
+                                    height="100"
+                                    class="image-center"
+                                >
+                                </v-img>
+                                <v-card-text
+                                    :class="
+                                        active
+                                            ? 'text-selected'
+                                            : 'text-not-selected'
+                                    "
+                                >
+                                    {{ travauxChoice.chauffeEau.label }}
+                                </v-card-text>
+                            </v-card>
+                        </v-item>
+                    </v-row>
+                </v-item>
+                <v-item class="row-item">
+                    <v-row>
+                        <v-item
+                            v-slot="{ active, toggle }"
+                            :value="navigationTree.isolation"
+                            class="image-button-item"
+                        >
+                            <v-card
+                                :elevation="2"
+                                height="200"
+                                width="200"
+                                :class="
+                                    active ? 'img-selected' : 'img-not-selected'
+                                "
+                                @click="toggle"
+                            >
+                                <v-img
+                                    :src="
+                                        active
+                                            ? travauxChoice.isolation
+                                                  .iconSelected
+                                            : travauxChoice.isolation.icon
+                                    "
+                                    class="image-center"
+                                >
+                                </v-img>
+                                <v-card-text
+                                    :class="
+                                        active
+                                            ? 'text-selected'
+                                            : 'text-not-selected'
+                                    "
+                                >
+                                    {{ travauxChoice.isolation.label }}
+                                </v-card-text>
+                            </v-card>
+                        </v-item>
+                        <v-item
+                            v-slot="{ active, toggle }"
+                            :value="navigationTree.ventilation"
+                            class="image-button-item"
+                        >
+                            <v-card
+                                :elevation="2"
+                                height="200"
+                                width="200"
+                                :class="
+                                    active ? 'img-selected' : 'img-not-selected'
+                                "
+                                @click="toggle"
+                            >
+                                <v-img
+                                    :src="
+                                        active
+                                            ? travauxChoice.ventilation
+                                                  .iconSelected
+                                            : travauxChoice.ventilation.icon
+                                    "
+                                    class="image-center"
+                                >
+                                </v-img>
+                                <v-card-text
+                                    :class="
+                                        active
+                                            ? 'text-selected'
+                                            : 'text-not-selected'
+                                    "
+                                >
+                                    {{ travauxChoice.ventilation.label }}
+                                </v-card-text>
+                            </v-card>
+                        </v-item>
+                    </v-row>
+                </v-item>
+                <v-row
+                    style="
+                        display: flex;
+                        justify-content: end;
+                        padding-right: 20px;
+                    "
+                >
+                    <v-btn
+                        :disabled="!isChoiceValid()"
+                        class="button-margin"
+                        color="primaryMain"
+                        @click="
+                            commitChoice()
+                            goToNextStep()
+                        "
+                    >
+                        Valider
+                    </v-btn>
+                </v-row>
+            </v-item-group>
+        </v-container>
+    </v-container>
 </template>
 
 <script>

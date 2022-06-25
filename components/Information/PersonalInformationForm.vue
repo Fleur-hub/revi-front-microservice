@@ -1,115 +1,77 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="lastNameStep">
+    <v-card class="mx-auto" elevation="0">
+        <v-window v-model="stepState" class="field-container text-left">
+            <v-window-item :value="1">
+                <label class="field-title">Nom</label>
                 <v-text-field
                     v-model="formData.lastName"
                     :rules="rulesLastName"
-                    label="Nom"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn
-                    :disabled="!isLastNameValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'firstNameStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="firstNameStep">
+            <v-window-item :value="2">
+                <label class="field-title">Prénom</label>
                 <v-text-field
                     v-model="formData.firstName"
                     :rules="rulesFirstName"
-                    label="Prénom"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'lastNameStep'">
-                    Retour
-                </v-btn>
-                <v-btn
-                    :disabled="!isFirstNameValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'addressStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="addressStep">
+            <v-window-item :value="3">
+                <label class="field-title">Adresse</label>
                 <v-text-field
                     v-model.number="formData.address"
                     :rules="rulesAddress"
-                    label="Adresse"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'firstNameStep'">
-                    Retour
-                </v-btn>
-                <v-btn
-                    :disabled="!isAddressValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'personalPhoneStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="personalPhoneStep">
+            <v-window-item :value="4">
+                <label class="field-title">Téléphone</label>
                 <v-text-field
                     v-model="formData.personalPhone"
                     :rules="rulesPersonalPhone"
-                    label="0123456789"
                     maxlength="10"
                     minlength="10"
                     onkeydown="return event.keyCode !== 69"
                     outlined
                     required
                 ></v-text-field>
-                <v-btn color="secondary" @click="stepState = 'addressStep'">
-                    Retour
-                </v-btn>
-                <v-btn
-                    :disabled="!isPersonalPhoneValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="stepState = 'emailStep'"
-                >
-                    Valider
-                </v-btn>
-            </v-stepper-content>
+            </v-window-item>
 
-            <v-stepper-content step="emailStep">
+            <v-window-item :value="5">
+                <label class="field-title">Adresse mail</label>
                 <v-text-field
                     v-model="formData.email"
                     :rules="rulesEmail"
-                    label="adresse@exemple.com"
                     outlined
                     required
                 ></v-text-field>
+            </v-window-item>
+        </v-window>
+        <v-card-actions style="padding-right: 0">
+            <v-container class="buttons-container">
                 <v-btn
-                    color="secondary"
-                    @click="stepState = 'personalPhoneStep'"
+                    :color="stepState === 1 ? 'grayScale60' : 'secondary'"
+                    @click="computeStep(-1)"
                 >
                     Retour
                 </v-btn>
                 <v-btn
-                    :disabled="!isEmailValid()"
-                    class="mr-4"
-                    color="success"
-                    @click="$emit('done-event')"
+                    style="margin-right: 0 !important"
+                    :color="isValid() ? 'primaryMain' : 'primaryBorder'"
+                    @click="computeStep(1)"
                 >
                     Valider
                 </v-btn>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-container>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
@@ -158,6 +120,37 @@ export default {
         },
         isEmailValid() {
             return this.formData.email !== ''
+        },
+        isValid() {
+            switch (this.stepState) {
+                case 1:
+                    return this.isLastNameValid()
+                case 2:
+                    return this.isFirstNameValid()
+                case 3:
+                    return this.isAddressValid()
+                case 4:
+                    return this.isPersonalPhoneValid()
+                case 5:
+                    return this.isEmailValid()
+            }
+        },
+        computeStep(direction) {
+            if (direction < 0) {
+                if (this.stepState > 1) {
+                    this.stepState -= 1
+                }
+            } else if (this.isValid()) {
+                if (this.stepState === 5) {
+                    this.submit()
+                    this.$emit('done-event')
+                } else {
+                    this.stepState += 1
+                }
+            }
+        },
+        submit() {
+            this.$store.commit('reviFormState/setPersonalData', this.formData)
         }
     }
 }
