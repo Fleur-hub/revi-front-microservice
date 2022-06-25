@@ -80,11 +80,11 @@ export default {
     data: () => ({
         stepState: 'emailStep',
         formData: {
-            lastName: 'z',
-            firstName: 'z',
-            address: 'z',
-            personalPhone: '0101101001',
-            email: 'z'
+            lastName: '',
+            firstName: '',
+            address: '',
+            personalPhone: '',
+            email: ''
         },
 
         rulesLastName: [(v) => !!v || 'Veuillez indiquer votre nom de famille'],

@@ -65,9 +65,9 @@ export default {
     data: () => ({
         stepState: 1,
         formData: {
-            numberPeopleLiving: '7',
-            taxRevenue: '70000',
-            housingPeopleType: 'Propriétaire occupant'
+            numberPeopleLiving: '',
+            taxRevenue: '',
+            housingPeopleType: ''
         },
         rulesNumberPeopleLiving: [
             (v) =>
