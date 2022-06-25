@@ -1,8 +1,8 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        titleTemplate: '%s - revi-front-microservice',
-        title: 'revi-front-microservice',
+        titleTemplate: '%s',
+        title: 'REVI',
         htmlAttrs: {
             lang: 'fr'
         },
