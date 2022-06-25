@@ -206,7 +206,7 @@ export default {
     name: 'AdresseStep',
     data: () => ({
         stepState: 1,
-        fake: {
+        formData: {
             adresse: '',
             typeLogement: '',
             copropriete: '',
@@ -215,7 +215,7 @@ export default {
             dateConstruction: '',
             budget: ''
         },
-        formData: {
+        fake: {
             adresse: '120',
             typeLogement: 'MAISON',
             copropriete: true,

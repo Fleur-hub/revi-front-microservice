@@ -250,3 +250,54 @@ legend {
 .sub-radio-label {
     color: $primaryMain !important;
 }
+
+.form-no-left-padding {
+    padding-left: 0 !important;
+}
+
+.v-input--selection-controls {
+    margin-top: 0 !important;
+}
+
+.v-messages {
+    min-height: 0 !important;
+}
+
+.text-field-container-height {
+    height: 36px !important;
+}
+
+.mdi-checkbox-blank-outline {
+    color: $grayScale70 !important;
+}
+
+.radio-label {
+    color: $primaryPressed !important;
+}
+
+.spaced-container {
+    margin-bottom: 24px !important;
+}
+
+.mdi-radiobox-blank {
+    color: $grayScale70 !important;
+}
+
+.mdi-menu-down {
+    color: $primaryMain !important;
+    caret-color: $primaryMain;
+}
+
+.form-no-left-padding {
+    padding-left: 0 !important;
+}
+
+.container-stepper {
+    top: 0;
+    transform: translateY(0);
+    margin: auto;
+}
+
+.v-main__wrap {
+    top: 10%;
+}
