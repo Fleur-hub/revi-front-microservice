@@ -1,7 +1,7 @@
 <template>
     <v-stepper v-model="stepState">
         <v-stepper-items>
-            <v-stepper-content step="isolationMursStep">
+            <v-stepper-content step="isolationMursStep" :class="emitIsValid()">
                 <v-container>
                     <v-checkbox
                         v-model="mursInterieur"
@@ -42,18 +42,6 @@
                             type="number"
                         ></v-text-field>
                     </v-container>
-
-                    <v-btn
-                        :disabled="!isValid()"
-                        class="mr-4"
-                        color="success"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
                 </v-container>
             </v-stepper-content>
         </v-stepper-items>
@@ -63,6 +51,15 @@
 <script>
 export default {
     name: 'IsolationMursForm',
+    props: {
+        eventKey: {
+            type: String,
+            required: true,
+            default() {
+                return 'hello'
+            }
+        }
+    },
     data: () => ({
         stepState: 'isolationMursStep',
 
@@ -117,6 +114,23 @@ export default {
                     quantity: this.mursExterieurSurface
                 })
             }
+        },
+        emitIsValid() {
+            const formDatas = {}
+            if (this.mursExterieur) {
+                formDatas.first = {
+                    type: this.mursExterieurLabel,
+                    quantity: this.mursExterieurSurface
+                }
+            }
+            if (this.mursInterieur) {
+                formDatas.second = {
+                    type: this.mursInterieurLabel,
+                    quantity: this.mursInterieurSurface
+                }
+            }
+            this.$emit('isValid', this.isValid(), formDatas, this.eventKey)
+            return ''
         }
     }
 }

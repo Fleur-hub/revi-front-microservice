@@ -82,18 +82,6 @@
                             type="number"
                         ></v-text-field>
                     </v-container>
-
-                    <v-btn
-                        :disabled="!isValid()"
-                        class="mr-4"
-                        color="success"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
                 </v-container>
             </v-stepper-content>
         </v-stepper-items>
@@ -103,6 +91,15 @@
 <script>
 export default {
     name: 'IsolationSolsForm',
+    props: {
+        eventKey: {
+            type: String,
+            required: true,
+            default() {
+                return 'hello'
+            }
+        }
+    },
     data: () => ({
         stepState: 'isolationSolsStep',
         solsLocal: false,
@@ -192,6 +189,35 @@ export default {
                     quantity: this.solsPlancherSurface
                 })
             }
+        },
+        emitIsValid() {
+            const formDatas = {}
+            if (this.solsLocal) {
+                formDatas.first = {
+                    type: this.solsLocalLabel,
+                    quantity: this.solsLocalSurface
+                }
+            }
+            if (this.solsTerrePlein) {
+                formDatas.second = {
+                    type: this.solsTerrePleinLabel,
+                    quantity: this.solsTerrePleinSurface
+                }
+            }
+            if (this.solsSanitaire) {
+                formDatas.third = {
+                    type: this.solsSanitaireLabel,
+                    quantity: this.solsSanitaireSurface
+                }
+            }
+            if (this.solsPlancher) {
+                formDatas.fourth = {
+                    type: this.solsPlancherLabel,
+                    quantity: this.solsPlancherSurface
+                }
+            }
+            this.$emit('isValid', this.isValid(), formDatas, this.eventKey)
+            return ''
         }
     }
 }

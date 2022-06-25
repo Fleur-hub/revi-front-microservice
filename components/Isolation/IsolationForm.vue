@@ -30,6 +30,7 @@
             >
                 <component
                     :is="item.component"
+                    :event-key="item.eventKey"
                     @done-event="computeStep(1)"
                     @isValid="setSubFormValid"
                 />
@@ -84,27 +85,37 @@ export default {
             comble: {
                 label: 'Isolation des combles',
                 step: -1,
-                component: IsolationCombesForm
+                component: IsolationCombesForm,
+                formDatas: {},
+                eventKey: 'comble'
             },
             mur: {
                 label: 'Isolation des mur',
                 step: -1,
-                component: IsolationMursForm
+                component: IsolationMursForm,
+                formDatas: {},
+                eventKey: 'mur'
             },
             sol: {
                 label: 'Isolation des sols',
                 step: -1,
-                component: IsolationSolsForm
+                component: IsolationSolsForm,
+                formDatas: {},
+                eventKey: 'sol'
             },
             fenetre: {
                 label: 'Isolation des fenêtres',
                 step: -1,
-                component: IsolationFenetresForm
+                component: IsolationFenetresForm,
+                formDatas: {},
+                eventKey: 'fenetre'
             },
             toiture: {
                 label: 'Isolation toiture-fenêtre',
                 step: -1,
-                component: IsolationToitureForm
+                component: IsolationToitureForm,
+                formDatas: {},
+                eventKey: 'toiture'
             }
         }
     }),
@@ -122,9 +133,9 @@ export default {
                 value.step = ++stepIndex
             }
         },
-        setSubFormValid(isValid, formData) {
+        setSubFormValid(isValid, formDatas, eventKey) {
             this.subFormIsValid = isValid
-            this.formData = formData
+            this.isolationChoice[eventKey].formDatas = formDatas
         },
         computeStep(direction) {
             if (this.stepState === 1) {
@@ -136,10 +147,20 @@ export default {
                 }
             } else if (this.isValid()) {
                 if (this.stepState === this.selected.length + 1) {
+                    this.emitSubForm()
                     this.$emit('done-event')
                 } else {
                     this.stepState += 1
                 }
+            }
+        },
+        emitSubForm() {
+            for (const key in this.isolationChoice) {
+                if (this.isolationChoice[key].step !== -1)
+                    this.$store.commit(
+                        'reviFormState/setChauffageData',
+                        this.chauffageChoice[key].formData
+                    )
             }
         }
     }

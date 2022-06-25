@@ -30,6 +30,7 @@
             >
                 <component
                     :is="item.component"
+                    :event-key="item.eventKey"
                     @done-event="computeStep(1)"
                     @isValid="setSubFormValid"
                 />
@@ -78,40 +79,48 @@ export default {
         selected: [],
         stepInitialized: false,
         subFormIsValid: false,
-        formData: {
-            type: '',
-            quantity: 0
-        },
         chauffageChoice: {
             bois: {
+                eventKey: 'bois',
                 label: 'Bois',
                 step: -1,
-                component: ChauffageBoisForm
+                component: ChauffageBoisForm,
+                formData: {}
             },
             electrique: {
+                eventKey: 'electrique',
                 label: 'Electrique',
                 step: -1,
-                component: ChauffageElectriqueForm
+                component: ChauffageElectriqueForm,
+                formData: {}
             },
             fioul: {
+                eventKey: 'fioul',
                 label: 'Fioul',
                 step: -1,
-                component: ChauffageFioulForm
+                component: ChauffageFioulForm,
+                formData: {}
             },
             gaz: {
+                eventKey: 'gaz',
                 label: 'Gaz',
                 step: -1,
-                component: ChauffageGazForm
+                component: ChauffageGazForm,
+                formData: {}
             },
             pompeChaleur: {
+                eventKey: 'pompeChaleur',
                 label: 'Pompe à chaleur',
                 step: -1,
-                component: ChauffagePompeChaleurForm
+                component: ChauffagePompeChaleurForm,
+                formData: {}
             },
             solaire: {
+                eventKey: 'solaire',
                 label: 'Solaire',
                 step: -1,
-                component: ChauffageSolaireForm
+                component: ChauffageSolaireForm,
+                formData: {}
             }
         }
     }),
@@ -129,9 +138,9 @@ export default {
                 value.step = ++stepIndex
             }
         },
-        setSubFormValid(isValid, formData) {
+        setSubFormValid(isValid, formData, eventKey) {
             this.subFormIsValid = isValid
-            this.formData = formData
+            this.chauffageChoice[eventKey].formData = formData
         },
         computeStep(direction) {
             if (this.stepState === 1) {
@@ -143,10 +152,20 @@ export default {
                 }
             } else if (this.isValid()) {
                 if (this.stepState === this.selected.length + 1) {
+                    this.emitSubForm()
                     this.$emit('done-event')
                 } else {
                     this.stepState += 1
                 }
+            }
+        },
+        emitSubForm() {
+            for (const key in this.chauffageChoice) {
+                if (this.chauffageChoice[key].step !== -1)
+                    this.$store.commit(
+                        'reviFormState/setChauffageData',
+                        this.chauffageChoice[key].formData
+                    )
             }
         }
     }

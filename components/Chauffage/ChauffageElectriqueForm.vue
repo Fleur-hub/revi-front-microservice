@@ -128,7 +128,7 @@
                 required
                 @click="
                     formData.quantity = 0
-                    formData.type = ''
+                    formData.type = chauffageElectriqueValues[1]
                 "
             >
                 <template #label>
@@ -166,7 +166,7 @@
                     required
                     @click="
                         formData.quantity = 0
-                        formData.type = ''
+                        formData.type = chauffageElectriqueValues[2]
                     "
                 >
                     <template #label>
@@ -199,6 +199,15 @@
 <script>
 export default {
     name: 'ChauffageElectriqueForm',
+    props: {
+        eventKey: {
+            type: String,
+            default() {
+                return 'hello'
+            },
+            required: true
+        }
+    },
     data: () => ({
         stepState: 1,
         formData: {
@@ -242,22 +251,8 @@ export default {
                 : true
         },
         emitIsValid() {
-            this.$emit('isValid', this.isValid(), this.formData)
+            this.$emit('isValid', this.isValid(), this.formData, this.eventKey)
             return ''
-        },
-        computeStep(direction) {
-            if (direction < 0) {
-                if (this.stepState > 1) {
-                    this.stepState -= 1
-                }
-            } else if (this.isValid()) {
-                if (this.stepState === 1) {
-                    this.submit()
-                    this.$emit('done-event')
-                } else {
-                    this.stepState += 1
-                }
-            }
         },
         submit() {
             this.$store.commit('reviFormState/setChauffageData', this.formData)
