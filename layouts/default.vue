@@ -14,19 +14,19 @@
         >
             <v-container
                 style="
-                        justify-content: left;
-                        display: flex;
-                        margin-bottom: 12px;
-                        align-items: center;
-                    "
+                    justify-content: left;
+                    display: flex;
+                    margin-bottom: 12px;
+                    align-items: center;
+                "
             >
                 <img
                     src="/reviLogo.svg"
                     alt="revi logo icon"
-                    height='30'
-                    width='30'
+                    height="30"
+                    width="30"
                 />
-                <h1 class="title" style='padding-left: 8px'>REVI</h1>
+                <h1 class="title" style="padding-left: 8px">REVI</h1>
             </v-container>
             <v-list class="navigation-drawer-element" dense>
                 <v-list-item-group active-class="active-item" multiple>
