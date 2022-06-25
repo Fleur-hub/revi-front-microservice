@@ -1,5 +1,5 @@
 <template>
-    <v-stepper v-model="stepState">
+    <v-stepper v-model="stepState" :class="emitIsValid()">
         <v-stepper-items>
             <v-stepper-content step="isolationCombesStep">
                 <v-container>
@@ -42,18 +42,6 @@
                             type="number"
                         ></v-text-field>
                     </v-container>
-
-                    <v-btn
-                        :disabled="!isValid()"
-                        class="mr-4"
-                        color="success"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
                 </v-container>
             </v-stepper-content>
         </v-stepper-items>
@@ -63,6 +51,15 @@
 <script>
 export default {
     name: 'IsolationCombesForm',
+    props: {
+        eventKey: {
+            type: String,
+            required: true,
+            default() {
+                return 'hello'
+            }
+        }
+    },
     data: () => ({
         stepState: 'isolationCombesStep',
 
@@ -112,6 +109,23 @@ export default {
                     quantity: this.combesAmenagesSurface
                 })
             }
+        },
+        emitIsValid() {
+            const formDatas = {}
+            if (this.combesPerdues) {
+                formDatas.first = {
+                    type: this.combesPerduesLabel,
+                    quantity: this.combesPerduesSurface
+                }
+            }
+            if (this.combesAmenages) {
+                formDatas.second = {
+                    type: this.combesAmenagesLabel,
+                    quantity: this.combesAmenagesSurface
+                }
+            }
+            this.$emit('isValid', this.isValid(), formDatas, this.eventKey)
+            return ''
         }
     }
 }

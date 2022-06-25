@@ -1,7 +1,10 @@
 <template>
     <v-stepper v-model="stepState">
         <v-stepper-items>
-            <v-stepper-content step="isolationFenetresStep">
+            <v-stepper-content
+                step="isolationFenetresStep"
+                :class="emitIsValid()"
+            >
                 <v-container>
                     <v-checkbox
                         v-model="isolationSurPlace"
@@ -94,18 +97,6 @@
                             </v-container>
                         </v-container>
                     </v-radio-group>
-
-                    <v-btn
-                        :disabled="!isValid()"
-                        class="mr-4"
-                        color="success"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
                 </v-container>
             </v-stepper-content>
         </v-stepper-items>
@@ -115,6 +106,15 @@
 <script>
 export default {
     name: 'IsolationFentresForm',
+    props: {
+        eventKey: {
+            type: String,
+            required: true,
+            default() {
+                return 'hello'
+            }
+        }
+    },
     data: () => ({
         stepState: 'isolationFenetresStep',
         isolationSurPlace: false,
@@ -210,6 +210,25 @@ export default {
                 }
                 this.$store.commit('reviFormState/setIsolationData', formData)
             }
+        },
+        emitIsValid() {
+            const formDatas = {}
+            if (this.isolationSurPlace) {
+                formDatas.first = {
+                    type: this.isolationSurPlaceType,
+                    quantity:
+                        this.isolationSurPlaceNbFenetres +
+                        this.isolationSurPlaceSurface
+                }
+            }
+            if (this.isolationRefection) {
+                formDatas.second = {
+                    type: this.isolationRefectionType,
+                    quantity: this.isolationRefectionSurface
+                }
+            }
+            this.$emit('isValid', this.isValid(), formDatas, this.eventKey)
+            return ''
         }
     }
 }

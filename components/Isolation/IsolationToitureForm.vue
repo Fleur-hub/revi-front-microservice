@@ -23,6 +23,7 @@
                                 :label="type"
                                 :value="type"
                                 required
+                                @click="accessibleSurface = 0"
                             ></v-radio>
                             <v-container>
                                 <v-text-field
@@ -58,6 +59,7 @@
                                 :label="type"
                                 :value="type"
                                 required
+                                @click="nonAccessibleSurface = 0"
                             ></v-radio>
                             <v-container>
                                 <v-text-field
@@ -72,18 +74,6 @@
                             </v-container>
                         </v-container>
                     </v-radio-group>
-
-                    <v-btn
-                        :disabled="!isValid()"
-                        class="mr-4"
-                        color="success"
-                        @click="
-                            submit()
-                            $emit('done-event')
-                        "
-                    >
-                        Valider
-                    </v-btn>
                 </v-container>
             </v-stepper-content>
         </v-stepper-items>
@@ -93,6 +83,15 @@
 <script>
 export default {
     name: 'IsolationToitureForm',
+    props: {
+        eventKey: {
+            type: String,
+            required: true,
+            default() {
+                return 'hello'
+            }
+        }
+    },
     data: () => ({
         stepState: 'isolationToituresStep',
         toitureAccessible: false,
@@ -122,6 +121,27 @@ export default {
 
         rulesToitureSurface: [(v) => !!v || 'Veuillez ajouter une surface']
     }),
+
+    watch: {
+        accessibleSurface() {
+            this.emitIsValid()
+        },
+        nonAccessibleSurface() {
+            this.emitIsValid()
+        },
+        toitureAccessibleType() {
+            this.emitIsValid()
+        },
+        toitureNonAccessibleType() {
+            this.emitIsValid()
+        },
+        toitureAccessible() {
+            this.emitIsValid()
+        },
+        toitureNonAccessible() {
+            this.emitIsValid()
+        }
+    },
 
     methods: {
         clearRadioAndField() {
@@ -172,6 +192,23 @@ export default {
                     quantity: this.nonAccessibleSurface
                 })
             }
+        },
+        emitIsValid() {
+            const formDatas = {}
+            if (this.toitureAccessible) {
+                formDatas.first = {
+                    type: this.toitureAccessibleLabel,
+                    quantity: this.accessibleSurface
+                }
+            }
+            if (this.toitureNonAccessible) {
+                formDatas.second = {
+                    type: this.toitureNonAccessibleType,
+                    quantity: this.nonAccessibleSurface
+                }
+            }
+            this.$emit('isValid', this.isValid(), formDatas, this.eventKey)
+            return ''
         }
     }
 }
