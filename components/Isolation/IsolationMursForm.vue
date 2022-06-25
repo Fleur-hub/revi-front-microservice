@@ -65,6 +65,12 @@ export default {
     name: 'IsolationMursForm',
     data: () => ({
         stepState: 'isolationMursStep',
+
+        formData: {
+            type: '',
+            quantity: 0
+        },
+
         mursInterieur: false,
         mursInterieurLabel: 'Murs intérieurs',
         mursExterieur: false,

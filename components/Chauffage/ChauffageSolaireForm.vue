@@ -198,8 +198,7 @@ export default {
             this.$emit('isValid', this.isValid(), this.formData)
             return ''
         },
-        display() {
-        },
+        display() {},
         computeStep(direction) {
             if (direction < 0) {
                 if (this.stepState > 1) {
