@@ -1,83 +1,104 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="isolationToituresStep">
-                <v-container>
+    <v-container class="text-left pa-0">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="toitureAccessible"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearRadioAndField()"
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        toitureAccessibleLabel
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-container v-if="toitureAccessible">
+                <v-container
+                    v-for="(type, i) in toitureAccessibleValues"
+                    :key="i"
+                    class="field-container pa-0"
+                >
                     <v-checkbox
-                        v-model="toitureAccessible"
-                        :label="toitureAccessibleLabel"
-                        :value="true"
-                        required
-                        @click="clearRadioAndField()"
-                    >
-                    </v-checkbox>
-                    <v-radio-group
-                        v-if="toitureAccessible"
                         v-model="toitureAccessibleType"
-                    >
-                        <v-container
-                            v-for="(type, i) in toitureAccessibleValues"
-                            :key="i"
-                        >
-                            <v-radio
-                                :label="type"
-                                :value="type"
-                                required
-                                @click="accessibleSurface = 0"
-                            ></v-radio>
-                            <v-container>
-                                <v-text-field
-                                    v-if="toitureAccessibleType === type"
-                                    v-model="accessibleSurface"
-                                    :rules="rulesToitureSurface"
-                                    onkeydown="return event.keyCode !== 69"
-                                    outlined
-                                    required
-                                    type="number"
-                                ></v-text-field>
-                            </v-container>
-                        </v-container>
-                    </v-radio-group>
-
-                    <v-checkbox
-                        v-model="toitureNonAccessible"
-                        :label="toitureNonAccessibleLabel"
-                        :value="true"
+                        :value="type"
+                        color="primaryPressed"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
                         required
-                        @click="clearRadioAndField()"
+                        @click="accessibleSurface = 0"
                     >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
                     </v-checkbox>
-                    <v-radio-group
-                        v-if="toitureNonAccessible"
-                        v-model="toitureNonAccessibleType"
-                    >
-                        <v-container
-                            v-for="(type, i) in toitureNonAccessibleValues"
-                            :key="i"
-                        >
-                            <v-radio
-                                :label="type"
-                                :value="type"
-                                required
-                                @click="nonAccessibleSurface = 0"
-                            ></v-radio>
-                            <v-container>
-                                <v-text-field
-                                    v-if="toitureNonAccessibleType === type"
-                                    v-model="nonAccessibleSurface"
-                                    :rules="rulesToitureSurface"
-                                    onkeydown="return event.keyCode !== 69"
-                                    outlined
-                                    required
-                                    type="number"
-                                ></v-text-field>
-                            </v-container>
-                        </v-container>
-                    </v-radio-group>
+                    <v-container>
+                        <v-text-field
+                            v-if="toitureAccessibleType === type"
+                            v-model="accessibleSurface"
+                            :rules="rulesToitureSurface"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                    </v-container>
                 </v-container>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="toitureNonAccessible"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearRadioAndField()"
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        toitureNonAccessibleLabel
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-container v-if="toitureNonAccessible">
+                <v-container
+                    v-for="(type, i) in toitureNonAccessibleValues"
+                    :key="i"
+                    class="field-container pa-0"
+                >
+                    <v-checkbox
+                        v-model="toitureNonAccessibleType"
+                        :value="type"
+                        color="primaryPressed"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
+                        required
+                        @click="nonAccessibleSurface = 0"
+                    >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
+                    </v-checkbox>
+                    <v-container>
+                        <v-text-field
+                            v-if="toitureNonAccessibleType === type"
+                            v-model="nonAccessibleSurface"
+                            :rules="rulesToitureSurface"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                    </v-container>
+                </v-container>
+            </v-container>
+        </v-container>
+    </v-container>
 </template>
 
 <script>

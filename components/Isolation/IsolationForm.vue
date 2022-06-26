@@ -156,11 +156,15 @@ export default {
         },
         emitSubForm() {
             for (const key in this.isolationChoice) {
-                if (this.isolationChoice[key].step !== -1)
-                    this.$store.commit(
-                        'reviFormState/setChauffageData',
-                        this.chauffageChoice[key].formData
-                    )
+                if (this.isolationChoice[key].step !== -1) {
+                    for (const formData in this.isolationChoice[key]
+                        .formDatas) {
+                        this.$store.commit(
+                            'reviFormState/setChauffageData',
+                            this.isolationChoice[key].formDatas[formData]
+                        )
+                    }
+                }
             }
         }
     }

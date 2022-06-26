@@ -1,103 +1,124 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="isolationFenetresStep">
-                <v-container>
+    <v-container class="text-left pa-0">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="isolationSurPlace"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearIsolationSurPlace()"
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        isolationSurPlaceLabel
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-container v-if="isolationSurPlace">
+                <v-container
+                    v-for="(type, i) in isolationSurPlaceValues"
+                    :key="i"
+                    class="field-container pa-0"
+                >
                     <v-checkbox
-                        v-model="isolationSurPlace"
-                        :label="isolationSurPlaceLabel"
-                        :value="true"
-                        required
-                        @click="clearIsolationSurPlace()"
-                    >
-                    </v-checkbox>
-                    <v-radio-group
-                        v-if="isolationSurPlace"
                         v-model="isolationSurPlaceType"
-                    >
-                        <v-container
-                            v-for="(type, i) in isolationSurPlaceValues"
-                            :key="i"
-                        >
-                            <v-radio
-                                :label="type"
-                                :value="type"
-                                required
-                                @click="
-                                    isolationSurPlaceNbFenetres = 0
-                                    isolationSurPlaceSurface = 0
-                                "
-                            ></v-radio>
-                            <v-container>
-                                <v-text-field
-                                    v-if="
-                                        isolationSurPlaceType ===
-                                            isolationSurPlaceValues[0] &&
-                                        isolationSurPlaceType === type
-                                    "
-                                    v-model="isolationSurPlaceNbFenetres"
-                                    :rules="rulesFenetresNbFenetres"
-                                    onkeydown="return event.keyCode !== 69"
-                                    outlined
-                                    required
-                                    type="number"
-                                ></v-text-field>
-                                <v-text-field
-                                    v-else-if="
-                                        isolationSurPlaceType !==
-                                            isolationSurPlaceValues[1] &&
-                                        isolationSurPlaceType === type
-                                    "
-                                    v-model="isolationSurPlaceSurface"
-                                    :rules="rulesFenetresSurface"
-                                    onkeydown="return event.keyCode !== 69"
-                                    outlined
-                                    required
-                                    type="number"
-                                ></v-text-field>
-                            </v-container>
-                        </v-container>
-                    </v-radio-group>
-
-                    <v-checkbox
-                        v-model="isolationRefection"
-                        :label="isolationRefectionLabel"
-                        :value="true"
+                        :value="type"
+                        color="primaryPressed"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
                         required
-                        @click="clearIsolationRefection()"
+                        @click="
+                            isolationSurPlaceNbFenetres = 0
+                            isolationSurPlaceSurface = 0
+                        "
                     >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
                     </v-checkbox>
-                    <v-radio-group
-                        v-if="isolationRefection"
-                        v-model="isolationRefectionType"
-                    >
-                        <v-container
-                            v-for="(type, i) in isolationRefectionValues"
-                            :key="i"
-                        >
-                            <v-radio
-                                :label="type"
-                                :value="type"
-                                required
-                                @click="isolationRefectionSurface = 0"
-                            ></v-radio>
-                            <v-container>
-                                <v-text-field
-                                    v-if="isolationRefectionType === type"
-                                    v-model="isolationRefectionSurface"
-                                    :rules="rulesFenetresSurface"
-                                    onkeydown="return event.keyCode !== 69"
-                                    outlined
-                                    required
-                                    type="number"
-                                ></v-text-field>
-                            </v-container>
-                        </v-container>
-                    </v-radio-group>
+                    <v-container>
+                        <v-text-field
+                            v-if="
+                                isolationSurPlaceType ===
+                                    isolationSurPlaceValues[0] &&
+                                isolationSurPlaceType === type
+                            "
+                            v-model="isolationSurPlaceNbFenetres"
+                            :rules="rulesFenetresNbFenetres"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                        <v-text-field
+                            v-else-if="
+                                isolationSurPlaceType !==
+                                    isolationSurPlaceValues[1] &&
+                                isolationSurPlaceType === type
+                            "
+                            v-model="isolationSurPlaceSurface"
+                            :rules="rulesFenetresSurface"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                    </v-container>
                 </v-container>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="isolationRefection"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearIsolationRefection()"
+            >
+                <template #label>
+                    <label class="radio-label">{{
+                        isolationRefectionLabel
+                    }}</label>
+                </template>
+            </v-checkbox>
+            <v-container v-if="isolationRefection">
+                <v-container
+                    v-for="(type, i) in isolationRefectionValues"
+                    :key="i"
+                    class="field-container pa-0"
+                >
+                    <v-checkbox
+                        v-model="isolationRefectionType"
+                        :value="type"
+                        color="primaryPressed"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
+                        required
+                        @click="isolationRefectionSurface = 0"
+                    >
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
+                    </v-checkbox>
+                    <v-container>
+                        <v-text-field
+                            v-if="isolationRefectionType === type"
+                            v-model="isolationRefectionSurface"
+                            :rules="rulesFenetresSurface"
+                            onkeydown="return event.keyCode !== 69"
+                            outlined
+                            required
+                            type="number"
+                        ></v-text-field>
+                    </v-container>
+                </v-container>
+            </v-container>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
