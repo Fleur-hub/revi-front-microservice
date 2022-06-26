@@ -1,51 +1,60 @@
 <template>
-    <v-stepper v-model="stepState" :class="emitIsValid()">
-        <v-stepper-items>
-            <v-stepper-content step="isolationCombesStep">
-                <v-container>
-                    <v-checkbox
-                        v-model="combesPerdues"
-                        :label="combesPerduesLabel"
-                        :value="true"
+    <v-container class="text-left pa-0">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="combesPerdues"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearCombesPerdues()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ combesPerduesLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="combesPerdues"
+                        v-model="combesPerduesSurface"
+                        :rules="rulesCombesSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearCombesPerdues()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="combesPerdues"
-                            v-model="combesPerduesSurface"
-                            :rules="rulesCombesSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-
-                    <v-checkbox
-                        v-model="combesAmenages"
-                        :label="combesAmenagesLabel"
-                        :value="true"
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="combesAmenages"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearCombesAmenages()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ combesAmenagesLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="combesAmenages"
+                        v-model="combesAmenagesSurface"
+                        :rules="rulesCombesSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearCombesAmenages()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="combesAmenages"
-                            v-model="combesAmenagesSurface"
-                            :rules="rulesCombesSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-                </v-container>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
@@ -73,6 +82,23 @@ export default {
 
         rulesCombesSurface: [(v) => !!v || 'Veuillez ajouter une surface']
     }),
+    mounted() {
+        this.$watch(
+            (vm) => [
+                vm.combesPerdues,
+                vm.combesAmenages,
+                vm.combesPerduesSurface,
+                vm.combesAmenagesSurface
+            ],
+            () => {
+                this.emitIsValid()
+            },
+            {
+                immediate: true,
+                deep: true
+            }
+        )
+    },
 
     methods: {
         clearCombesPerdues() {

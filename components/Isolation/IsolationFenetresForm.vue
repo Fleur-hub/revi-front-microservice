@@ -1,10 +1,7 @@
 <template>
     <v-stepper v-model="stepState">
         <v-stepper-items>
-            <v-stepper-content
-                step="isolationFenetresStep"
-                :class="emitIsValid()"
-            >
+            <v-stepper-content step="isolationFenetresStep">
                 <v-container>
                     <v-checkbox
                         v-model="isolationSurPlace"
@@ -148,7 +145,26 @@ export default {
             (v) => !!v || 'Veuillez ajouter un nombre de fenêtres'
         ]
     }),
-
+    mounted() {
+        this.$watch(
+            (vm) => [
+                vm.isolationSurPlace,
+                vm.isolationRefection,
+                vm.isolationSurPlaceType,
+                vm.isolationRefectionType,
+                vm.isolationSurPlaceNbFenetres,
+                vm.isolationSurPlaceSurface,
+                vm.isolationRefectionSurface
+            ],
+            () => {
+                this.emitIsValid()
+            },
+            {
+                immediate: true,
+                deep: true
+            }
+        )
+    },
     methods: {
         clearIsolationSurPlace() {
             this.isolationSurPlaceType = ''

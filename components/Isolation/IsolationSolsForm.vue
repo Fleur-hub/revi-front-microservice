@@ -1,91 +1,114 @@
 <template>
-    <v-stepper v-model="stepState">
-        <v-stepper-items>
-            <v-stepper-content step="isolationSolsStep">
-                <v-container>
-                    <v-checkbox
-                        v-model="solsLocal"
-                        :label="solsLocalLabel"
-                        :value="true"
+    <v-container class="text-left pa-0">
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="solsLocal"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearSolsLocal()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ solsLocalLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="solsLocal"
+                        v-model="solsLocalSurface"
+                        :rules="rulesSolsSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearSolsLocal()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="solsLocal"
-                            v-model="solsLocalSurface"
-                            :rules="rulesSolsSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-
-                    <v-checkbox
-                        v-model="solsTerrePlein"
-                        :label="solsTerrePleinLabel"
-                        :value="true"
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="solsTerrePlein"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearSolsTerrePlein()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ solsTerrePleinLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="solsTerrePlein"
+                        v-model="solsTerrePleinSurface"
+                        :rules="rulesSolsSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearSolsTerrePlein()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="solsTerrePlein"
-                            v-model="solsTerrePleinSurface"
-                            :rules="rulesSolsSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-
-                    <v-checkbox
-                        v-model="solsSanitaire"
-                        :label="solsSanitaireLabel"
-                        :value="true"
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="solsSanitaire"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearSolsSanitaire()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ solsSanitaireLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="solsSanitaire"
+                        v-model="solsSanitaireSurface"
+                        :rules="rulesSolsSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearSolsSanitaire()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="solsSanitaire"
-                            v-model="solsSanitaireSurface"
-                            :rules="rulesSolsSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-
-                    <v-checkbox
-                        v-model="solsPlancher"
-                        :label="solsPlancherLabel"
-                        :value="true"
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+        <v-container class="field-container spaced-container">
+            <v-checkbox
+                v-model="solsPlancher"
+                :value="true"
+                color="primaryPressed"
+                class="field-title"
+                required
+                @click="clearSolsPlancher()"
+            >
+                <template #label>
+                    <label class="radio-label">{{ solsPlancherLabel }}</label>
+                </template>
+            </v-checkbox>
+            <v-container>
+                <v-expand-transition>
+                    <v-text-field
+                        v-if="solsPlancher"
+                        v-model="solsPlancherSurface"
+                        :rules="rulesSolsSurface"
+                        onkeydown="return event.keyCode !== 69"
+                        outlined
                         required
-                        @click="clearSolsPlancher()"
-                    >
-                    </v-checkbox>
-                    <v-container>
-                        <v-text-field
-                            v-if="solsPlancher"
-                            v-model="solsPlancherSurface"
-                            :rules="rulesSolsSurface"
-                            onkeydown="return event.keyCode !== 69"
-                            outlined
-                            required
-                            type="number"
-                        ></v-text-field>
-                    </v-container>
-                </v-container>
-            </v-stepper-content>
-        </v-stepper-items>
-    </v-stepper>
+                        type="number"
+                    ></v-text-field>
+                </v-expand-transition>
+            </v-container>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
@@ -102,6 +125,7 @@ export default {
     },
     data: () => ({
         stepState: 'isolationSolsStep',
+
         solsLocal: false,
         solsLocalLabel: 'Local chauffé',
         solsTerrePlein: false,
@@ -118,7 +142,27 @@ export default {
 
         rulesSolsSurface: [(v) => !!v || 'Veuillez ajouter une surface']
     }),
-
+    mounted() {
+        this.$watch(
+            (vm) => [
+                vm.solsLocal,
+                vm.solsTerrePlein,
+                vm.solsSanitaire,
+                vm.solsPlancher,
+                vm.solsLocalSurface,
+                vm.solsTerrePleinSurface,
+                vm.solsSanitaireSurface,
+                vm.solsPlancherSurface
+            ],
+            () => {
+                this.emitIsValid()
+            },
+            {
+                immediate: true,
+                deep: true
+            }
+        )
+    },
     methods: {
         clearSolsLocal() {
             if (!this.solsLocal) {
