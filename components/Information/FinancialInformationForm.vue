@@ -27,16 +27,25 @@
                 <label class="field-title"
                     >Quel propriétaire êtes-vous ?
                 </label>
-                <v-radio-group v-model="formData.housingPeopleType">
-                    <v-radio
-                        v-for="(type, i) in housingPeopleTypes"
-                        :key="i"
-                        :label="type"
+                <v-container
+                    v-for="(type, i) in housingPeopleTypes"
+                    :key="i"
+                    class="field-container pa-0"
+                >
+                    <v-checkbox
+                        v-model="formData.housingPeopleType"
                         :value="type"
+                        color="primaryPressed"
+                        class="field-title"
+                        off-icon="mdi-radiobox-blank"
+                        on-icon="mdi-radiobox-marked"
                         required
                     >
-                    </v-radio>
-                </v-radio-group>
+                        <template #label>
+                            <label class="sub-radio-label">{{ type }}</label>
+                        </template>
+                    </v-checkbox>
+                </v-container>
             </v-window-item>
         </v-window>
         <v-card-actions style="padding-right: 0">
