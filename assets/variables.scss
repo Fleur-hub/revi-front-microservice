@@ -166,10 +166,6 @@ legend {
     margin: auto;
 }
 
-.v-main__wrap {
-    top: 10%;
-}
-
 .stepper-title {
     color: $grayScale90;
     font-weight: bold;
@@ -294,10 +290,6 @@ legend {
 
 .container-stepper {
     top: 0;
-    transform: translateY(0);
+    transform: translateY(35%);
     margin: auto;
-}
-
-.v-main__wrap {
-    top: 10%;
 }
