@@ -120,7 +120,7 @@ export const getters = {
             financialData: state.financialData,
             personalData: state.personalData
         }
-        const url = process.env.apiUrl + 'set/' + uuidv4()
+        const url = process.env.apiUrl + '/set/' + uuidv4()
         const jsonData = JSON.stringify(globalData)
         axios
             .post(url, jsonData, {
