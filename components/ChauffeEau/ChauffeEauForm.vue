@@ -169,17 +169,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.radio-label {
-    color: $primaryPressed !important;
-}
-
-.spaced-container {
-    margin-bottom: 24px !important;
-}
-
-.mdi-radiobox-blank {
-    color: $grayScale70 !important;
-}
-</style>

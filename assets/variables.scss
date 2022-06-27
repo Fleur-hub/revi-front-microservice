@@ -293,3 +293,19 @@ legend {
     transform: translateY(35%);
     margin: auto;
 }
+
+.v-input--selection-controls {
+    margin-top: 0 !important;
+}
+
+.v-messages {
+    min-height: 0 !important;
+}
+
+.v-main__wrap {
+    transform: translateY(10%);
+}
+
+.v-main {
+    overflow: hidden;
+}

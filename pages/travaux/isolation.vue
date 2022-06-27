@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-stepper">
+    <v-container>
         <p class="stepper-title">Quel type d'isolation ?</p>
         <IsolationForm @done-event="goToNextStep()" />
     </v-container>

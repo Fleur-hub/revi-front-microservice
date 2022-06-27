@@ -171,9 +171,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.mdi-checkbox-blank-outline {
-    color: $grayScale70 !important;
-}
-</style>

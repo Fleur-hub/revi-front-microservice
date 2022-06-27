@@ -1,4 +1,6 @@
+import axios from 'axios'
 import * as tm from '~/store/TravauxModule'
+import { uuidv4 } from '~/store/TravauxModule'
 
 export const state = () => ({
     housingId: null,
@@ -109,6 +111,25 @@ export const getters = {
         return result
     },
     getTravauxMeta(state) {
+        if (state.financialData == null) {
+            return null
+        }
+        const globalData = {
+            housingData: state.housingData,
+            travauxMetaData: state.travauxMeta,
+            financialData: state.financialData,
+            personalData: state.personalData
+        }
+        const url = process.env.apiUrl + 'set/' + uuidv4()
+        const jsonData = JSON.stringify(globalData)
+        axios
+            .post(url, jsonData, {
+                headers: {
+                    Authorization: `Bearer ` + process.env.apiToken
+                }
+            })
+            // eslint-disable-next-line no-console
+            .then((r) => console.log(r.status))
         return state.travauxMeta
     }
 }

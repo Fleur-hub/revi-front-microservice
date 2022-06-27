@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-stepper">
+    <v-container>
         <p class="stepper-title">Votre type de chauffe-eau ?</p>
         <ChauffeEauForm class="text-center" @done-event="goToNextStep()" />
     </v-container>
@@ -22,19 +22,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.form-no-left-padding {
-    padding-left: 0 !important;
-}
-
-.container-stepper {
-    top: 0;
-    transform: translateY(0);
-    margin: auto;
-}
-
-.v-main__wrap {
-    top: 10%;
-}
-</style>

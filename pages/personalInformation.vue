@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-stepper">
+    <v-container>
         <p class="stepper-title">Mes informations personnelles</p>
         <PersonalInformationForm
             class="text-center"

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-stepper">
+    <v-container>
         <p class="stepper-title">Votre type de ventilation ?</p>
         <VentilationForm
             class="text-center form-no-left-padding"
@@ -25,9 +25,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.form-no-left-padding {
-    padding-left: 0 !important;
-}
-</style>

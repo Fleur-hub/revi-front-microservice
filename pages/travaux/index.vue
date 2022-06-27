@@ -1,10 +1,7 @@
 <template>
-    <v-container class="container-stepper">
+    <v-container>
         <p class="stepper-title">Quel(s) travaux souhaitez-vous effectuer ?</p>
-        <v-container
-            class="container-stepper"
-            style="justify-content: center; display: flex"
-        >
+        <v-container style="justify-content: center; display: flex">
             <v-item-group v-model="selected" multiple>
                 <v-item class="row-item">
                     <v-row>

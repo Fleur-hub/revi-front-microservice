@@ -1,5 +1,11 @@
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
+
+    env: {
+        apiUrl: process.env.UPSTASH_REDIS_REST_URL,
+        apiToken: process.env.UPSTASH_REDIS_REST_TOKEN
+    },
+
     head: {
         titleTemplate: '%s',
         title: 'REVI',
