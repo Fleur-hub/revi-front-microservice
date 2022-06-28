@@ -22,16 +22,6 @@
             </v-window-item>
 
             <v-window-item :value="3">
-                <label class="field-title">Adresse</label>
-                <v-text-field
-                    v-model.number="formData.address"
-                    :rules="rulesAddress"
-                    outlined
-                    required
-                ></v-text-field>
-            </v-window-item>
-
-            <v-window-item :value="4">
                 <label class="field-title">Téléphone</label>
                 <v-text-field
                     v-model="formData.personalPhone"
@@ -44,7 +34,7 @@
                 ></v-text-field>
             </v-window-item>
 
-            <v-window-item :value="5">
+            <v-window-item :value="4">
                 <label class="field-title">Adresse mail</label>
                 <v-text-field
                     v-model="formData.email"
@@ -82,7 +72,6 @@ export default {
         formData: {
             lastName: '',
             firstName: '',
-            address: '',
             personalPhone: '',
             email: ''
         },
@@ -90,10 +79,6 @@ export default {
         rulesLastName: [(v) => !!v || 'Veuillez indiquer votre nom de famille'],
 
         rulesFirstName: [(v) => !!v || 'Veuillez indiquer votre prénom'],
-
-        rulesAddress: [
-            (v) => !!v || 'Veuillez indiquer votre adresse personnelle'
-        ],
 
         rulesPersonalPhone: [
             (v) => !!v || 'Veuillez indiquer votre numéro de téléphone'
@@ -108,9 +93,6 @@ export default {
         },
         isFirstNameValid() {
             return this.formData.firstName !== ''
-        },
-        isAddressValid() {
-            return this.formData.adresse !== ''
         },
         isPersonalPhoneValid() {
             return (
@@ -128,10 +110,8 @@ export default {
                 case 2:
                     return this.isFirstNameValid()
                 case 3:
-                    return this.isAddressValid()
-                case 4:
                     return this.isPersonalPhoneValid()
-                case 5:
+                case 4:
                     return this.isEmailValid()
             }
         },
@@ -141,7 +121,7 @@ export default {
                     this.stepState -= 1
                 }
             } else if (this.isValid()) {
-                if (this.stepState === 5) {
+                if (this.stepState === 4) {
                     this.submit()
                     this.$emit('done-event')
                 } else {

@@ -168,6 +168,20 @@
             <v-window-item :value="7">
                 <v-container class="field-container">
                     <label class="field-title"
+                        >Quel est la note DPE de votre logement ?</label
+                    >
+                    <v-select
+                        v-model="formData.dpe"
+                        :items="dpeValues"
+                        :rules="rulesDateConstruction"
+                        outlined
+                    ></v-select>
+                </v-container>
+            </v-window-item>
+
+            <v-window-item :value="8">
+                <v-container class="field-container">
+                    <label class="field-title"
                         >Quel est votre budget pour ces travaux ?</label
                     >
                     <v-text-field
@@ -213,6 +227,7 @@ export default {
             superficie: '',
             consomationElectrique: 0,
             dateConstruction: '',
+            dpe: '',
             budget: ''
         },
         fake: {
@@ -271,6 +286,41 @@ export default {
                 'Veuillez rentrer la consomation electrique annuel du bien en kWh'
         ],
 
+        dpeValues: [
+            {
+                text: 'A',
+                value: 'A'
+            },
+            {
+                text: 'B',
+                value: 'B'
+            },
+            {
+                text: 'C',
+                value: 'C'
+            },
+            {
+                text: 'D',
+                value: 'D'
+            },
+            {
+                text: 'E',
+                value: 'E'
+            },
+            {
+                text: 'F',
+                value: 'F'
+            },
+            {
+                text: 'G',
+                value: 'G'
+            },
+            {
+                text: 'inconnue',
+                value: 'INCONNUE'
+            }
+        ],
+
         dateConstructions: [
             {
                 text: 'Moins de 2 ans',
@@ -314,6 +364,9 @@ export default {
         isDateConstructionValid() {
             return this.formData.dateConstruction !== ''
         },
+        isDPEValid() {
+            return this.formData.dateConstruction !== ''
+        },
         isConsomationValid() {
             return this.formData.consomationElectrique > 0
         },
@@ -335,6 +388,8 @@ export default {
                 case 6:
                     return this.isDateConstructionValid()
                 case 7:
+                    return this.isDPEValid()
+                case 8:
                     return this.isBudgetValid()
             }
         },
