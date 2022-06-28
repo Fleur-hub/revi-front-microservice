@@ -145,6 +145,10 @@ body{
     cursor: pointer;
 }
 
+.btn-simulation a{
+    text-decoration: none;
+    color:#fff;
+}
 
 /*Screen 2 - Intro Text*/
 
