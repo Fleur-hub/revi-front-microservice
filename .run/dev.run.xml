@@ -6,7 +6,10 @@
       <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="UPSTASH_REDIS_REST_TOKEN" value="AZIGASQgY2Q1Yjc1YTctMjE3MS00ZDIwLThlMzUtMTI1OTg1ZDZmZDI5NWMxZDA3MDQwNDhiNGU5ZDg3MzRmOTFiY2MxMDg0YzU=" />
+      <env name="UPSTASH_REDIS_REST_URL" value="https://eu1-integral-rodent-37382.upstash.io/" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

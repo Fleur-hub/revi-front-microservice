@@ -1,83 +1,72 @@
 <!-- eslint-disable -->
 <template>
-    <v-row align="center" justify="center">
-        <v-col cols="12" md="6" sm="8">
-            <v-card class="logo py-4 d-flex justify-center">
-                <NuxtLogo />
-                <VuetifyLogo />
-            </v-card>
-            <v-card>
-                <v-card-title class="headline">
-                    Welcome to the Vuetify + Nuxt.js template
-                </v-card-title>
-                <v-card-text>
-                    <p>
-                        Vuetify is a progressive Material Design component
-                        framework for Vue.js. It was designed to empower
-                        developers to create amazing applications.
-                    </p>
-                    <p>
-                        For more information on Vuetify, check out the
-                        <a
-                            href="https://vuetifyjs.com"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            documentation </a
-                        >.
-                    </p>
-                    <p>
-                        If you have questions, please join the official
-                        <a
-                            href="https://chat.vuetifyjs.com/"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            title="chat"
-                        >
-                            discord </a
-                        >.
-                    </p>
-                    <p>
-                        Find a bug? Report it on the github
-                        <a
-                            href="https://github.com/vuetifyjs/vuetify/issues"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            title="contribute"
-                        >
-                            issue board </a
-                        >.
-                    </p>
-                    <p>
-                        Thank you for developing with Vuetify and I look forward
-                        to bringing more exciting features in the future.
-                    </p>
-                    <div class="text-xs-right">
-                        <em><small>&mdash; John Leider</small></em>
-                    </div>
-                    <hr class="my-3" />
-                    <a
-                        href="https://nuxtjs.org/"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        Nuxt Documentation
-                    </a>
-                    <br />
-                    <a
-                        href="https://github.com/nuxt/nuxt.js"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        Nuxt GitHub
-                    </a>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn color="primary" nuxt to="/reviForm"> Continue</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-col>
-        <Nuxt />
-    </v-row>
+    <v-app>
+        <v-img class="v-overlay" src="/topIndexBackground.png" />
+        <v-app-bar
+            class="top-app-bar"
+            color="grayScale10"
+            absolute
+            elevation="0"
+        >
+            <v-app-bar-title>
+                <img
+                    src="/reviLogo.svg"
+                    alt="revi logo icon"
+                    height="55"
+                    width="55"
+                />
+            </v-app-bar-title>
+            <v-spacer></v-spacer>
+            <v-btn class="top-text" text> Notre simulateur </v-btn>
+            <v-btn class="top-text" text> Qu’est ce que la rénovation ? </v-btn>
+            <v-btn class="top-text" text> A propos de nous </v-btn>
+            <v-btn class="top-text" text> Nos partenaires </v-btn>
+            <v-btn
+                class="btn-style"
+                color="primaryMain"
+                style="margin-top: 0 !important"
+            >
+                Contactez nous
+            </v-btn>
+        </v-app-bar>
+    </v-app>
 </template>
+
+<script>
+export default {
+    name: 'IndexPage',
+    layout: 'empty'
+}
+</script>
+
+<style lang="scss">
+.top-app-bar {
+    padding-top: 28px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn-style {
+    color: $grayScale10 !important;
+}
+
+.v-btn {
+    text-transform: none;
+}
+
+.v-main {
+    overflow: auto;
+}
+
+.v-main__wrap {
+    transform: translateY(0) !important;
+}
+
+.top-text {
+    color: #000 !important;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    font-size: 14px !important;
+    margin-top: 0 !important;
+}
+</style>
