@@ -90,7 +90,7 @@ export default {
                 eventKey: 'comble'
             },
             mur: {
-                label: 'Isolation des mur',
+                label: 'Isolation des murs',
                 step: -1,
                 component: IsolationMursForm,
                 formDatas: {},
