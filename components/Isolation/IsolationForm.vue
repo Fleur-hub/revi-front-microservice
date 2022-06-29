@@ -160,7 +160,7 @@ export default {
                     for (const formData in this.isolationChoice[key]
                         .formDatas) {
                         this.$store.commit(
-                            'reviFormState/setChauffageData',
+                            'reviFormState/setIsolationData',
                             this.isolationChoice[key].formDatas[formData]
                         )
                     }

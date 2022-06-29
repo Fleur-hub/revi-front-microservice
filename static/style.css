@@ -1,257 +1,244 @@
 /*All fonts*/
 @font-face {
-    font-family: "Source Sans Pro Semi Bold";
-    src: url("font/SourceSansPro-SemiBold.ttf");
+    font-family: 'Source Sans Pro Semi Bold';
+    src: url('font/SourceSansPro-SemiBold.ttf');
 }
 @font-face {
-    font-family: "Source Sans Pro Black";
-    src: url("font/SourceSansPro-Black.ttf");
+    font-family: 'Source Sans Pro Black';
+    src: url('font/SourceSansPro-Black.ttf');
 }
 @font-face {
-    font-family: "Source Sans Pro Regular";
-    src: url("font/SourceSansPro-Regular.ttf");
+    font-family: 'Source Sans Pro Regular';
+    src: url('font/SourceSansPro-Regular.ttf');
 }
 @font-face {
-    font-family: "Source Sans Pro Bold";
-    src: url("font/SourceSansPro-Bold.ttf");
+    font-family: 'Source Sans Pro Bold';
+    src: url('font/SourceSansPro-Bold.ttf');
 }
 @font-face {
-    font-family: "Sora Regular";
-    src: url("font-2/Sora-Regular.ttf");
+    font-family: 'Sora Regular';
+    src: url('font-2/Sora-Regular.ttf');
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
-    margin:0;
+body {
+    margin: 0;
 }
 /*Scroll smooth*/
 .scroller {
-    height:100vh;
+    height: 100vh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
-    overflow-x:hidden;
-
+    overflow-x: hidden;
 }
 
 .scroller section {
     scroll-snap-align: start;
 }
 
-
-
-.section{
+.section {
     height: 100vh;
 }
 
-
-
 /*Screen 1 - Menu*/
-.btn-contact{
-    font-family: "Source Sans Pro Semi Bold";
+.btn-contact {
+    font-family: 'Source Sans Pro Semi Bold';
     font-size: 14px;
-    width:162px;
-    height:36px;
-    vertical-align:middle;
+    width: 162px;
+    height: 36px;
+    vertical-align: middle;
     line-height: 36px;
     text-align: center;
-    background-color: #694DF9;
-    color:#FFFFFF;
-    padding:5px;
+    background-color: #694df9;
+    color: #ffffff;
+    padding: 5px;
     border-radius: 8px;
 }
 
-.menu{
-    display:flex;
+.menu {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left:120px;
-    margin-right:120px;
+    margin-left: 120px;
+    margin-right: 120px;
 }
-.intro{
+.intro {
     background-color: transparent;
     min-height: 100vh;
-    position:relative;
+    position: relative;
 }
 
-.submenu{
-    display:flex;
+.submenu {
+    display: flex;
     align-items: center;
 }
-.submenu li{
-    font-family: "Source Sans Pro Semi Bold";
+.submenu li {
+    font-family: 'Source Sans Pro Semi Bold';
     font-size: 14px;
     list-style: none;
-    margin-right:30px;
+    margin-right: 30px;
     cursor: pointer;
 }
 .submenu a {
     text-decoration: none;
-    color:#000000;
+    color: #000000;
 }
 
-.btn-contact a{
-    color:#FFF !important;
+.btn-contact a {
+    color: #fff !important;
 }
 /*Screen 1 - Visuel*/
 
-.visuel-intro{
+.visuel-intro {
     max-width: 100%;
-    max-height:100%;
-    position:absolute;
+    max-height: 100%;
+    position: absolute;
     z-index: -1;
-    top:0;
-    right:0;
-    
+    top: 0;
+    right: 0;
 }
 
 /*Screen 1 - Text*/
-.presentation{
-    margin-left:120px;
-    width:50%;
+.presentation {
+    margin-left: 120px;
+    width: 50%;
 }
 
-.presentation .enlightened{
-    color:#694DF9;
+.presentation .enlightened {
+    color: #694df9;
 }
-.presentation .title{
-    font-family: "Source Sans Pro Black";
-    font-size:63px;
+.presentation .title {
+    font-family: 'Source Sans Pro Black';
+    font-size: 63px;
 }
-.presentation .text{
-    font-family: "Sora Regular";
-    font-size:16px;
-    color:#000000;
+.presentation .text {
+    font-family: 'Sora Regular';
+    font-size: 16px;
+    color: #000000;
     opacity: 70%;
     line-height: 30px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
-.btn-simulation{
-    font-family: "Source Sans Pro Semi Bold";
+.btn-simulation {
+    font-family: 'Source Sans Pro Semi Bold';
     font-size: 18px;
-    width:225px;
-    height:36px;
-    vertical-align:middle;
+    width: 225px;
+    height: 36px;
+    vertical-align: middle;
     line-height: 36px;
     text-align: center;
-    background-color: #694DF9;
-    color:#FFFFFF;
-    padding:10px;
+    background-color: #694df9;
+    color: #ffffff;
+    padding: 10px;
     border-radius: 8px;
-    margin-top:20px;
+    margin-top: 20px;
     cursor: pointer;
 }
 
-.btn-simulation a{
+.btn-simulation a {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
 }
 
 /*Screen 2 - Intro Text*/
 
-.simulateur-step-mob{
-    display:none;
+.simulateur-step-mob {
+    display: none;
 }
-.simulateur-step{
-    display:flex;
+.simulateur-step {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position:relative;
-    background-color: #FAF9FF;
+    position: relative;
+    background-color: #faf9ff;
     min-height: 100vh;
 }
 
-
-.intro-simulateur{
-    width:35%;
-    margin-left:120px;
-    padding-top:50px;
+.intro-simulateur {
+    width: 35%;
+    margin-left: 120px;
+    padding-top: 50px;
 }
-.cartouche-simulateur{
-    font-family: "Source Sans Pro Regular";
-    font-size:17px;
+.cartouche-simulateur {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 17px;
     text-transform: uppercase;
-    color:#164C3F;
+    color: #164c3f;
 }
 
-.title-simulateur{
-    font-family: "Source Sans Pro Black";
-    font-size:40px;
+.title-simulateur {
+    font-family: 'Source Sans Pro Black';
+    font-size: 40px;
 }
 
-.text-simulateur{
-    font-family: "Source Sans Pro Regular";
-    font-size:16px;
-    color:#64607D;
-    padding-top:10px;
+.text-simulateur {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 16px;
+    color: #64607d;
+    padding-top: 10px;
 }
 
 /*Screen 2 - Visuel*/
-.simulateur-step img{
+.simulateur-step img {
     max-width: 100%;
     max-height: 100%;
-    position:absolute;
-    top:30px;
-    
+    position: absolute;
+    top: 30px;
 }
 
 /*Screen 2 - Steps*/
 
-.steps{
-    display:flex;
+.steps {
+    display: flex;
     align-items: center;
-    margin-left:140px;
-
+    margin-left: 140px;
 }
 
-
-.title-step{
-    font-family: "Source Sans Pro Bold";
-    font-size:16px;
-    width:30%;
+.title-step {
+    font-family: 'Source Sans Pro Bold';
+    font-size: 16px;
+    width: 30%;
 }
-.text-step{
-    font-family: "Source Sans Pro Regular";
-    font-size:16px;
-    color:#64607D;
-    width:30%; 
-    line-height:25px;
-    
+.text-step {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 16px;
+    color: #64607d;
+    width: 30%;
+    line-height: 25px;
 }
 
-.projets .title-step{
-    width:50% !important;
+.projets .title-step {
+    width: 50% !important;
 }
 
-.projets .text-step{
-    width:50% !important;
+.projets .text-step {
+    width: 50% !important;
 }
 
-
-
-.renseignements, .aides, .projets{
-    position:absolute;
+.renseignements,
+.aides,
+.projets {
+    position: absolute;
 }
 
 .renseignements {
-    bottom:30px;
-    left:200px;
-    
+    bottom: 30px;
+    left: 200px;
 }
 
-.aides{
+.aides {
     bottom: 150px;
     left: 600px;
 }
 
-.projets{
-    bottom:370px;
-    left:950px;
+.projets {
+    bottom: 370px;
+    left: 950px;
 }
-
 
 /*
 .renseignements{
@@ -282,229 +269,226 @@ body{
 */
 
 /*Screen 3*/
-.renovation-energetique{
+.renovation-energetique {
     min-height: 100vh;
     background-color: transparent;
 }
 
 /*Screen 3 Intro*/
 
-.intro-renovation{
-    display:flex;
+.intro-renovation {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding:50px;
+    padding: 50px;
 }
-.cartouche-renovation{
-    font-family: "Source Sans Pro Regular";
-    font-size:17px;
+.cartouche-renovation {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 17px;
     text-transform: uppercase;
-    color:#164C3F;
+    color: #164c3f;
 }
 
-.title-renovation{
-    font-family: "Source Sans Pro Black";
-    font-size:40px;
+.title-renovation {
+    font-family: 'Source Sans Pro Black';
+    font-size: 40px;
     text-align: center;
 }
 
-.text-renovation{
-    font-family: "Source Sans Pro Regular";
-    font-size:16px;
-    color:#64607D;
-    padding-top:10px;
+.text-renovation {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 16px;
+    color: #64607d;
+    padding-top: 10px;
     text-align: center;
 }
 
 /*Screen 3 visuels and text*/
 
-.container-infos{
-    display:flex;
-    margin-left:120px; 
+.container-infos {
+    display: flex;
+    margin-left: 120px;
 }
 
-.lil-title{
-    display:flex;
+.lil-title {
+    display: flex;
     align-items: center;
 }
 
-.lil-title .number{
-    font-family: "Source Sans Pro Bold";
-    font-size:16px;
-    color:#5E47D2;
-    background-color:#F0EBFF;
+.lil-title .number {
+    font-family: 'Source Sans Pro Bold';
+    font-size: 16px;
+    color: #5e47d2;
+    background-color: #f0ebff;
     border-radius: 100%;
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
     line-height: 30px;
     text-align: center;
 }
 
-
-.lil-title .title-infos{
-    font-family: "Source Sans Pro Semi Bold";
-    font-size:16px;
-    color:#5E47D2;
-    padding-left:10px;
+.lil-title .title-infos {
+    font-family: 'Source Sans Pro Semi Bold';
+    font-size: 16px;
+    color: #5e47d2;
+    padding-left: 10px;
 }
 
-.text-infos{
-    font-family: "Source Sans Pro Semi Bold";
-    font-size:16px;
-    width:70%;
-    margin:0 !important;
+.text-infos {
+    font-family: 'Source Sans Pro Semi Bold';
+    font-size: 16px;
+    width: 70%;
+    margin: 0 !important;
 }
 
 /*Screen 4 HETIC*/
-.hetic{
+.hetic {
     min-height: 100vh;
     background-color: transparent;
     position: relative;
-    display:flex;
+    display: flex;
 }
-.bg-grey{
-    position:absolute;
-    width:100%;
-    height:225px;
-    background-color: #FAF9FF;
-    top:0;
+.bg-grey {
+    position: absolute;
+    width: 100%;
+    height: 225px;
+    background-color: #faf9ff;
+    top: 0;
     z-index: -1;
 }
 
 /*Screen 4 Image*/
-.hetic-photo{
-    margin-top:50px;
-    margin-left:120px;
-    width:50%;
-    height:50%;
+.hetic-photo {
+    margin-top: 50px;
+    margin-left: 120px;
+    width: 50%;
+    height: 50%;
 }
 /*Screen 4 Text*/
-.hetic-infos{
-    margin-top:50px;
-    margin-left:100px;
+.hetic-infos {
+    margin-top: 50px;
+    margin-left: 100px;
 }
-.cartouche-hetic{
-    font-family: "Source Sans Pro Regular";
-    font-size:17px;
+.cartouche-hetic {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 17px;
     text-transform: uppercase;
-    color:#164C3F;
+    color: #164c3f;
 }
 
-.title-hetic{
-    font-family: "Source Sans Pro Black";
-    font-size:40px;
-    padding-top:10px;
+.title-hetic {
+    font-family: 'Source Sans Pro Black';
+    font-size: 40px;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
-.text-hetic{
-    font-family: "Source Sans Pro Semi Bold";
-    font-size:16px;
-    width:70%;
-    padding-top:10px;
+.text-hetic {
+    font-family: 'Source Sans Pro Semi Bold';
+    font-size: 16px;
+    width: 70%;
+    padding-top: 10px;
 }
 
 /*Screen 5 Contact*/
-.contact-form{
+.contact-form {
     min-height: 100vh;
-    background-color:#E2DCFF;
-    position : relative;
+    background-color: #e2dcff;
+    position: relative;
 }
 
-.container-form{
-    display:flex;
+.container-form {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
 }
 
-.title-contact{
-    font-family: "Source Sans Pro Bold";
+.title-contact {
+    font-family: 'Source Sans Pro Bold';
     font-size: 24px;
-    color:#220F80;
-    margin-top:50px; 
+    color: #220f80;
+    margin-top: 50px;
 }
 
-form{
-    display:flex;
+form {
+    display: flex;
     flex-direction: column;
-    width:50%;
-    margin-top:25px;
+    width: 50%;
+    margin-top: 25px;
 }
 
-form label{
-    font-family: "Source Sans Pro Regular";
-    color:#220F80;
-    font-size:16px;
-    padding-top:15px;
-    padding-bottom:7px;
+form label {
+    font-family: 'Source Sans Pro Regular';
+    color: #220f80;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 7px;
 }
 
-input{
-    border:none;
+input {
+    border: none;
     border-radius: 6px;
 }
 
-input.name{
-    height:36px;
-    padding:5px;
+input.name {
+    height: 36px;
+    padding: 5px;
 }
 
-input.message{
-    height:110px;
-    padding:5px;
+input.message {
+    height: 110px;
+    padding: 5px;
 }
 
-.btn-send{
-    font-family: "Source Sans Pro Semi Bold";
-    color:#FFFFFF;
-    background-color: #694DF9;
+.btn-send {
+    font-family: 'Source Sans Pro Semi Bold';
+    color: #ffffff;
+    background-color: #694df9;
     border-radius: 6px;
-    padding:10px 25px;
+    padding: 10px 25px;
     cursor: pointer;
-    margin-top:15px;
-    width:100px;
+    margin-top: 15px;
+    width: 100px;
     margin-left: auto;
-   
 }
 
-footer{
-    position:absolute;
-    bottom:0;
-    display:flex;
+footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FAF9FF;
-    width:100%;
+    background-color: #faf9ff;
+    width: 100%;
 }
 
-.credit, .group{
-    font-family: "Source Sans Pro Regular";
-    font-size:14px;
+.credit,
+.group {
+    font-family: 'Source Sans Pro Regular';
+    font-size: 14px;
     text-transform: uppercase;
-    padding:10px 50px;
-    color:#757575;
-    
+    padding: 10px 50px;
+    color: #757575;
 }
 
-.navigation-mob{
-    display:none;
+.navigation-mob {
+    display: none;
 }
 
-.container-valorisation{
-    display:flex;
-    margin-left:120px;
-    margin-right:120px;
+.container-valorisation {
+    display: flex;
+    margin-left: 120px;
+    margin-right: 120px;
 }
 
-.container-valorisation p{
-    font-family: "Source Sans Pro Regular";
-    padding-left:50px;
-
+.container-valorisation p {
+    font-family: 'Source Sans Pro Regular';
+    padding-left: 50px;
 }
 
-#info-equipe{
+#info-equipe {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -513,37 +497,34 @@ footer{
 
 /* Responsive */
 @media (max-width: 768px) {
-    .title-simulateur-mob{
+    .title-simulateur-mob {
         font-size: 32px !important;
     }
 
-    .title-renovation{
-        font-size:32px !important;
-    }
-
-    .title-hetic{
+    .title-renovation {
         font-size: 32px !important;
     }
 
-    
+    .title-hetic {
+        font-size: 32px !important;
+    }
 }
 
-@media (max-width: 950px){
-    nav.menu{
-        display:none;
+@media (max-width: 950px) {
+    nav.menu {
+        display: none;
     }
 
-    .navigation-mob{
-        display:block;
+    .navigation-mob {
+        display: block;
     }
 
     nav {
         background-color: transparent;
         height: 65px;
-      }
-      
-      
-      #menuToggle {
+    }
+
+    #menuToggle {
         display: flex;
         flex-direction: column;
         position: relative;
@@ -552,10 +533,9 @@ footer{
         z-index: 1;
         -webkit-user-select: none;
         user-select: none;
-      }
-      
-      #menuToggle input
-      {
+    }
+
+    #menuToggle input {
         display: flex;
         width: 40px;
         height: 32px;
@@ -563,10 +543,9 @@ footer{
         cursor: pointer;
         opacity: 0;
         z-index: 2;
-      }
-      
-      #menuToggle span
-      {
+    }
+
+    #menuToggle span {
         display: flex;
         width: 29px;
         height: 2px;
@@ -576,303 +555,282 @@ footer{
         border-radius: 3px;
         z-index: 1;
         transform-origin: 5px 0px;
-        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-                    background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-                    opacity 0.55s ease;
-      }
-      
-      #menuToggle span:first-child
-      {
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+            background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+    }
+
+    #menuToggle span:first-child {
         transform-origin: 0% 0%;
-      }
-      
-      #menuToggle span:nth-last-child(2)
-      {
+    }
+
+    #menuToggle span:nth-last-child(2) {
         transform-origin: 0% 100%;
-      }
-      
-      #menuToggle input:checked ~ span
-      {
+    }
+
+    #menuToggle input:checked ~ span {
         opacity: 1;
         transform: rotate(45deg) translate(-3px, -1px);
-        background: #36383F;
-      }
-      #menuToggle input:checked ~ span:nth-last-child(3)
-      {
+        background: #36383f;
+    }
+    #menuToggle input:checked ~ span:nth-last-child(3) {
         opacity: 0;
         transform: rotate(0deg) scale(0.2, 0.2);
-      }
-      
-      #menuToggle input:checked ~ span:nth-last-child(2)
-      {
+    }
+
+    #menuToggle input:checked ~ span:nth-last-child(2) {
         transform: rotate(-45deg) translate(0, -1px);
-      }
-      
-      #menu
-      {
+    }
+
+    #menu {
         position: absolute;
         width: 180px;
         height: 400px;
-        box-shadow: 0 0 10px #85888C;
+        box-shadow: 0 0 10px #85888c;
         margin: -50px 0 0 -50px;
         padding: 50px;
         padding-top: 125px;
-        background-color: #F5F6FA;
+        background-color: #f5f6fa;
         -webkit-font-smoothing: antialiased;
         transform-origin: 0% 0%;
         transform: translate(-100%, 0);
-        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-      }
-      
-      #menu li
-      {
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    }
+
+    #menu li {
         padding: 10px 0;
         transition-delay: 2s;
-        font-family: "Source Sans Pro Semi Bold";
+        font-family: 'Source Sans Pro Semi Bold';
         font-size: 16px;
         list-style: none;
         cursor: pointer;
-        margin-bottom:10px;
-      }
+        margin-bottom: 10px;
+    }
 
-      #menu li a{
-        text-decoration:none;
-        color:#000000;
-      }
-      
-      #menuToggle input:checked ~ ul
-      {
+    #menu li a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    #menuToggle input:checked ~ ul {
         transform: none;
-      }
+    }
 
-      .btn-contact{
-        width:108px !important;
-      }
+    .btn-contact {
+        width: 108px !important;
+    }
 }
 
 @media (max-width: 600px) {
-
-    .presentation .title{
-        padding : 50px;
+    .presentation .title {
+        padding: 50px;
     }
-    .intro-simulateur-mob{
-        padding:50px !important;
-    }
-
-    .intro-renovation{
-        padding : 50px;
+    .intro-simulateur-mob {
+        padding: 50px !important;
     }
 
-    .container-infos{
-        margin-left:50px !important;
-        margin-right:50px !important;
+    .intro-renovation {
+        padding: 50px;
     }
 
-    .text-infos{
+    .container-infos {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+
+    .text-infos {
         font-size: 14px;
     }
-
-
 }
 
-@media (max-width : 500px ){
-    .intro-simulateur-mob{
-        padding:50px !important;
+@media (max-width: 500px) {
+    .intro-simulateur-mob {
+        padding: 50px !important;
     }
 
-    .intro-renovation{
-        padding:50px;
+    .intro-renovation {
+        padding: 50px;
     }
 
-    .presentation .title{
-        padding : 50px;
+    .presentation .title {
+        padding: 50px;
     }
 
-    .title-contact{
-        margin-left:50px;
-        margin-right:50px;
+    .title-contact {
+        margin-left: 50px;
+        margin-right: 50px;
     }
 }
 
-@media (max-width : 400px ){
-    .intro-simulateur-mob{
-        padding:20px !important;
+@media (max-width: 400px) {
+    .intro-simulateur-mob {
+        padding: 20px !important;
     }
 
-    .intro-renovation{
-        padding:20px;
+    .intro-renovation {
+        padding: 20px;
     }
 
-    .presentation .title{
-        padding : 20px;
+    .presentation .title {
+        padding: 20px;
     }
 }
 
 @media (max-width: 1040px) {
-/*Screen 1*/
+    /*Screen 1*/
 
-    .presentation{
+    .presentation {
         margin-left: 0px;
-        width:100%;
+        width: 100%;
     }
-    .presentation .title{
-        font-size:32px !important;
-        padding : 20px;
-        text-align: center;
-    }
-    .presentation .text{
-        font-size:14px;
+    .presentation .title {
+        font-size: 32px !important;
         padding: 20px;
-        margin-top :0;
         text-align: center;
     }
-    .visuel-intro{
-        display:none;
+    .presentation .text {
+        font-size: 14px;
+        padding: 20px;
+        margin-top: 0;
+        text-align: center;
+    }
+    .visuel-intro {
+        display: none;
     }
 
-    .btn-simulation{
+    .btn-simulation {
         margin-left: auto !important;
         margin-right: auto;
     }
 
-
-
     /*Screen 2*/
-    .intro-simulateur-mob{
-        padding:20px; 
+    .intro-simulateur-mob {
+        padding: 20px;
     }
 
     /*Screen 3*/
-    .container-infos .infos img{
-        display:none;
+    .container-infos .infos img {
+        display: none;
     }
 
-    .container-infos{
+    .container-infos {
         text-align: center;
         display: block;
         margin-left: 100px;
-        margin-right: 100px
+        margin-right: 100px;
     }
 
-    .lil-title{
+    .lil-title {
         justify-content: center;
     }
 
-    .text-infos{
-        width:100%;
+    .text-infos {
+        width: 100%;
     }
-    
+
     /*Screen 4*/
-    .hetic-photo{
-        display:none !important;
+    .hetic-photo {
+        display: none !important;
     }
 
-    
-
-    .cartouche-hetic{
+    .cartouche-hetic {
         text-align: center;
     }
 
-    .title-hetic{
+    .title-hetic {
         text-align: center;
     }
 
-    .text-hetic{
+    .text-hetic {
         text-align: center;
-        width:100%;
+        width: 100%;
     }
 
-    .hetic-infos{
+    .hetic-infos {
         margin-left: 50px !important;
-        margin-right:50px;
+        margin-right: 50px;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .container-valorisation img{
-        display:none;
+    .container-valorisation img {
+        display: none;
     }
 }
 
 @media (max-width: 1259px) {
-
     /*Screen 1*/
 
-    .presentation .title{
-        font-size:48px;
-        
+    .presentation .title {
+        font-size: 48px;
     }
-    .presentation .text{
-        font-size:14px;
+    .presentation .text {
+        font-size: 14px;
         padding: 20px;
-        margin-top :0;
+        margin-top: 0;
     }
 
-    .btn-simulation{
-        margin-left:20px;
+    .btn-simulation {
+        margin-left: 20px;
     }
 
     /*Screen2*/
 
-    .simulateur-step-mob{
-        display:block;
+    .simulateur-step-mob {
+        display: block;
     }
-    .simulateur-step img{
-        display:none;
+    .simulateur-step img {
+        display: none;
     }
-    .simulateur-step{
-        display:none;
+    .simulateur-step {
+        display: none;
     }
 
-    .cartouche-simulateur-mob{
-        font-family: "Source Sans Pro Regular";
-        font-size:17px;
+    .cartouche-simulateur-mob {
+        font-family: 'Source Sans Pro Regular';
+        font-size: 17px;
         text-transform: uppercase;
-        color:#164C3F;
+        color: #164c3f;
         text-align: center;
     }
 
-    .intro-simulateur-mob{
-        margin-bottom:20px;
-        padding:50px;
+    .intro-simulateur-mob {
+        margin-bottom: 20px;
+        padding: 50px;
     }
-    
-    .title-simulateur-mob{
-        font-family: "Source Sans Pro Black";
-        font-size:40px;
+
+    .title-simulateur-mob {
+        font-family: 'Source Sans Pro Black';
+        font-size: 40px;
         text-align: center;
-        
     }
-    
-    .text-simulateur-mob{
-        font-family: "Source Sans Pro Regular";
-        font-size:16px;
-        color:#64607D;
+
+    .text-simulateur-mob {
+        font-family: 'Source Sans Pro Regular';
+        font-size: 16px;
+        color: #64607d;
         text-align: center;
         padding-top: 20px;
     }
 
-    .steps-mob{
+    .steps-mob {
         text-align: center;
     }
 
-    .title-step-mob{
-        font-family: "Source Sans Pro Bold";
-        font-size:16px;
+    .title-step-mob {
+        font-family: 'Source Sans Pro Bold';
+        font-size: 16px;
         margin-bottom: 10px;
     }
-    .text-step-mob{
-        font-family: "Source Sans Pro Regular";
-        font-size:16px;
-        color:#64607D;
-        
+    .text-step-mob {
+        font-family: 'Source Sans Pro Regular';
+        font-size: 16px;
+        color: #64607d;
     }
 
-    .renseignements-mob, .aides-mob, .projets-mob{
-        padding:20px;
+    .renseignements-mob,
+    .aides-mob,
+    .projets-mob {
+        padding: 20px;
     }
-
-
-
 }

@@ -54,7 +54,13 @@
                                 </v-card-text>
                             </v-col>
                             <v-col>
-                                <v-card-text> wip </v-card-text>
+                                <v-card-text
+                                    >{{
+                                        (subTravaux.cost.minCost *
+                                            subTravaux.cost.valorization) /
+                                        100
+                                    }}€</v-card-text
+                                >
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -101,7 +107,13 @@
                                 </v-card-text>
                             </v-col>
                             <v-col>
-                                <v-card-text> wip </v-card-text>
+                                <v-card-text
+                                    >{{
+                                        (subTravaux.cost.minCost *
+                                            subTravaux.cost.valorization) /
+                                        100
+                                    }}€</v-card-text
+                                >
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -148,7 +160,13 @@
                                 </v-card-text>
                             </v-col>
                             <v-col>
-                                <v-card-text> wip </v-card-text>
+                                <v-card-text
+                                    >{{
+                                        (subTravaux.cost.minCost *
+                                            subTravaux.cost.valorization) /
+                                        100
+                                    }}€</v-card-text
+                                >
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
@@ -195,7 +213,13 @@
                                 </v-card-text>
                             </v-col>
                             <v-col>
-                                <v-card-text> wip </v-card-text>
+                                <v-card-text
+                                    >{{
+                                        (subTravaux.cost.minCost *
+                                            subTravaux.cost.valorization) /
+                                        100
+                                    }}€</v-card-text
+                                >
                             </v-col>
                         </v-row>
                     </v-expansion-panel-content>
