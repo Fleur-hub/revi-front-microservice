@@ -7,7 +7,7 @@ export default {
     },
 
     head: {
-        titleTemplate: '%s',
+        titleTemplate: '%s - APP',
         title: 'REVI',
         htmlAttrs: {
             lang: 'fr'
