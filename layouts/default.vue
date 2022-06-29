@@ -30,7 +30,13 @@
             </v-container>
             <v-list class="navigation-drawer-element" dense>
                 <v-list-item-group active-class="active-item" multiple>
-                    <v-list-item :to="info.to" color="primaryMain" exact router>
+                    <v-list-item
+                        :to="info.to"
+                        color="primaryMain"
+                        exact
+                        router
+                        disabled
+                    >
                         <v-list-item-action class="menu-step-item">
                             <img
                                 :src="info.icon"
@@ -53,6 +59,7 @@
                         color="primaryMain"
                         exact
                         router
+                        disabled
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
@@ -80,6 +87,7 @@
                                 color="primaryMain"
                                 exact
                                 router
+                                disabled
                             >
                                 <v-list-item-action class="menu-step-item">
                                     <img
@@ -102,6 +110,7 @@
                         color="primaryMain"
                         exact
                         router
+                        disabled
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
@@ -123,6 +132,7 @@
                         color="primaryMain"
                         exact
                         router
+                        disabled
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
@@ -144,6 +154,7 @@
                         color="primaryMain"
                         exact
                         router
+                        disabled
                     >
                         <v-list-item-action class="menu-step-item">
                             <img
@@ -195,12 +206,6 @@ export default {
                 to: '/travaux'
             },
             choosedTravaux: {
-                isolation: {
-                    icon: '/icon/Menu_horizontal_icone_isolation.svg',
-                    title: 'Isolation',
-                    to: '/travaux/isolation',
-                    choosed: true
-                },
                 chauffage: {
                     icon: '/icon/Menu_horizontal_icone_chauffage.svg',
                     title: 'Chauffage',
@@ -211,6 +216,12 @@ export default {
                     icon: '/icon/Menu_horizontal_icone_chauffe-eau.svg',
                     title: 'Chauffe-eau',
                     to: '/travaux/chauffeEau',
+                    choosed: true
+                },
+                isolation: {
+                    icon: '/icon/Menu_horizontal_icone_isolation.svg',
+                    title: 'Isolation',
+                    to: '/travaux/isolation',
                     choosed: true
                 },
                 ventilation: {

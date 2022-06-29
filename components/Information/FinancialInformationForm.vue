@@ -31,6 +31,7 @@
                     v-for="(type, i) in housingPeopleTypes"
                     :key="i"
                     class="field-container pa-0"
+                    style='padding-top: 8px !important; padding-left: 8px !important;'
                 >
                     <v-checkbox
                         v-model="formData.housingPeopleType"

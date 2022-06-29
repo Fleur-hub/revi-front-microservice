@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <p class="stepper-title">Votre type de chauffe-eau ?</p>
+        <p class="stepper-title">Quel type de chauffe-eau ?</p>
         <ChauffeEauForm class="text-center" @done-event="goToNextStep()" />
     </v-container>
 </template>

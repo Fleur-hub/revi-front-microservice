@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <p class="stepper-title">Quel type de chauffage ?</p>
+        <p class="stepper-title">Quel(s) type(s) de chauffage ?</p>
         <ChauffageForm @done-event="goToNextStep()" />
     </v-container>
 </template>

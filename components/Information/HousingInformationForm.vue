@@ -107,15 +107,28 @@
             <v-window-item :value="3">
                 <v-container class="field-container">
                     <label class="field-title"
-                        >Êtes-vous dans une copropriété ?</label
+                    >Êtes-vous dans une copropriété ?</label
                     >
-                    <v-select
-                        v-model="formData.copropriete"
-                        :items="coproprieteValues"
-                        :rules="rulesCopropriete"
-                        outlined
-                        required
-                    ></v-select>
+                    <v-container
+                        v-for="(type, i) in coproprieteValues"
+                        :key="i"
+                        class="field-container pa-0"
+                        style='padding-top: 8px !important; padding-left: 8px !important;'
+                    >
+                        <v-checkbox
+                            v-model="formData.copropriete"
+                            :value="type.value"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            required
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{ type.text }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
                 </v-container>
             </v-window-item>
 
@@ -153,29 +166,53 @@
 
             <v-window-item :value="6">
                 <v-container class="field-container">
-                    <label class="field-title"
-                        >Quand a été construit votre logement ?</label
+                    <label class="field-title">Quand a été construit votre logement ?</label>
+                    <v-container
+                        v-for="(type, i) in dateConstructions"
+                        :key="i"
+                        class="field-container pa-0"
+                        style='padding-top: 8px !important; padding-left: 8px !important;'
                     >
-                    <v-select
-                        v-model="formData.dateConstruction"
-                        :items="dateConstructions"
-                        :rules="rulesDateConstruction"
-                        outlined
-                    ></v-select>
+                        <v-checkbox
+                            v-model="formData.dateConstruction"
+                            :value="type.value"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            required
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{ type.text }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
                 </v-container>
             </v-window-item>
 
             <v-window-item :value="7">
                 <v-container class="field-container">
-                    <label class="field-title"
-                        >Quel est la note DPE de votre logement ?</label
+                    <label class="field-title">Quel est la note DPE de votre logement ?</label>
+                    <v-container
+                        v-for="(type, i) in dpeValues"
+                        :key="i"
+                        class="field-container pa-0"
+                        style='padding-top: 8px !important; padding-left: 8px !important;'
                     >
-                    <v-select
-                        v-model="formData.dpe"
-                        :items="dpeValues"
-                        :rules="rulesDateConstruction"
-                        outlined
-                    ></v-select>
+                        <v-checkbox
+                            v-model="formData.dpe"
+                            :value="type.value"
+                            color="primaryPressed"
+                            class="field-title"
+                            off-icon="mdi-radiobox-blank"
+                            on-icon="mdi-radiobox-marked"
+                            required
+                        >
+                            <template #label>
+                                <label class="sub-radio-label">{{ type.text }}</label>
+                            </template>
+                        </v-checkbox>
+                    </v-container>
                 </v-container>
             </v-window-item>
 
@@ -225,19 +262,10 @@ export default {
             typeLogement: '',
             copropriete: '',
             superficie: '',
-            consomationElectrique: 0,
+            consomationElectrique: null,
             dateConstruction: '',
             dpe: '',
             budget: ''
-        },
-        fake: {
-            adresse: '120',
-            typeLogement: 'MAISON',
-            copropriete: true,
-            superficie: '150',
-            consomationElectrique: 150,
-            dateConstruction: 'PLUS_15_ANS',
-            budget: '150'
         },
         rulesAdresse: [
             (v) => !!v || "Veuillez rentrer l'adresse de votre logement"
@@ -261,12 +289,12 @@ export default {
         coproprieteValues: [
             {
                 text: 'Oui',
-                value: true,
+                value: 'true',
                 disabled: false
             },
             {
                 text: 'Non',
-                value: false,
+                value: 'false',
                 disabled: false
             }
         ],
@@ -316,8 +344,8 @@ export default {
                 value: 'G'
             },
             {
-                text: 'inconnue',
-                value: 'INCONNUE'
+                text: 'Ne sait pas',
+                value: 'NE_SAIT_PAS'
             }
         ],
 

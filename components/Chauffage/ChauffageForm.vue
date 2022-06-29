@@ -94,13 +94,6 @@ export default {
                 component: ChauffageElectriqueForm,
                 formData: {}
             },
-            fioul: {
-                eventKey: 'fioul',
-                label: 'Fioul',
-                step: -1,
-                component: ChauffageFioulForm,
-                formData: {}
-            },
             gaz: {
                 eventKey: 'gaz',
                 label: 'Gaz',
@@ -122,7 +115,15 @@ export default {
                 component: ChauffageSolaireForm,
                 formData: {}
             }
-        }
+        },
+
+        fioul: {
+            eventKey: 'fioul',
+            label: 'Fioul',
+            step: -1,
+            component: ChauffageFioulForm,
+            formData: {}
+        },
     }),
     methods: {
         isValid() {

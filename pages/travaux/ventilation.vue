@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <p class="stepper-title">Votre type de ventilation ?</p>
+        <p class="stepper-title">Quel type de ventilation ?</p>
         <VentilationForm
             class="text-center form-no-left-padding"
             @done-event="goToNextStep()"

@@ -20,8 +20,16 @@
                     required
                 ></v-text-field>
             </v-window-item>
-
             <v-window-item :value="3">
+                <label class="field-title">Adresse mail</label>
+                <v-text-field
+                    v-model="formData.email"
+                    :rules="rulesEmail"
+                    outlined
+                    required
+                ></v-text-field>
+            </v-window-item>
+            <v-window-item :value="4">
                 <label class="field-title">Téléphone</label>
                 <v-text-field
                     v-model="formData.personalPhone"
@@ -29,16 +37,6 @@
                     maxlength="10"
                     minlength="10"
                     onkeydown="return event.keyCode !== 69"
-                    outlined
-                    required
-                ></v-text-field>
-            </v-window-item>
-
-            <v-window-item :value="4">
-                <label class="field-title">Adresse mail</label>
-                <v-text-field
-                    v-model="formData.email"
-                    :rules="rulesEmail"
                     outlined
                     required
                 ></v-text-field>
@@ -110,9 +108,9 @@ export default {
                 case 2:
                     return this.isFirstNameValid()
                 case 3:
-                    return this.isPersonalPhoneValid()
-                case 4:
                     return this.isEmailValid()
+                case 4:
+                    return this.isPersonalPhoneValid()
             }
         },
         computeStep(direction) {
