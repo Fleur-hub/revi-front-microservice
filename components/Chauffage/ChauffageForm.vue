@@ -123,7 +123,7 @@ export default {
             step: -1,
             component: ChauffageFioulForm,
             formData: {}
-        },
+        }
     }),
     methods: {
         isValid() {

@@ -107,13 +107,16 @@
             <v-window-item :value="3">
                 <v-container class="field-container">
                     <label class="field-title"
-                    >Êtes-vous dans une copropriété ?</label
+                        >Êtes-vous dans une copropriété ?</label
                     >
                     <v-container
                         v-for="(type, i) in coproprieteValues"
                         :key="i"
                         class="field-container pa-0"
-                        style='padding-top: 8px !important; padding-left: 8px !important;'
+                        style="
+                            padding-top: 8px !important;
+                            padding-left: 8px !important;
+                        "
                     >
                         <v-checkbox
                             v-model="formData.copropriete"
@@ -125,7 +128,9 @@
                             required
                         >
                             <template #label>
-                                <label class="sub-radio-label">{{ type.text }}</label>
+                                <label class="sub-radio-label">{{
+                                    type.text
+                                }}</label>
                             </template>
                         </v-checkbox>
                     </v-container>
@@ -166,12 +171,17 @@
 
             <v-window-item :value="6">
                 <v-container class="field-container">
-                    <label class="field-title">Quand a été construit votre logement ?</label>
+                    <label class="field-title"
+                        >Quand a été construit votre logement ?</label
+                    >
                     <v-container
                         v-for="(type, i) in dateConstructions"
                         :key="i"
                         class="field-container pa-0"
-                        style='padding-top: 8px !important; padding-left: 8px !important;'
+                        style="
+                            padding-top: 8px !important;
+                            padding-left: 8px !important;
+                        "
                     >
                         <v-checkbox
                             v-model="formData.dateConstruction"
@@ -183,7 +193,9 @@
                             required
                         >
                             <template #label>
-                                <label class="sub-radio-label">{{ type.text }}</label>
+                                <label class="sub-radio-label">{{
+                                    type.text
+                                }}</label>
                             </template>
                         </v-checkbox>
                     </v-container>
@@ -192,12 +204,17 @@
 
             <v-window-item :value="7">
                 <v-container class="field-container">
-                    <label class="field-title">Quel est la note DPE de votre logement ?</label>
+                    <label class="field-title"
+                        >Quel est la note DPE de votre logement ?</label
+                    >
                     <v-container
                         v-for="(type, i) in dpeValues"
                         :key="i"
                         class="field-container pa-0"
-                        style='padding-top: 8px !important; padding-left: 8px !important;'
+                        style="
+                            padding-top: 8px !important;
+                            padding-left: 8px !important;
+                        "
                     >
                         <v-checkbox
                             v-model="formData.dpe"
@@ -209,7 +226,9 @@
                             required
                         >
                             <template #label>
-                                <label class="sub-radio-label">{{ type.text }}</label>
+                                <label class="sub-radio-label">{{
+                                    type.text
+                                }}</label>
                             </template>
                         </v-checkbox>
                     </v-container>
