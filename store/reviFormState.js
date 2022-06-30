@@ -40,7 +40,7 @@ export const mutations = {
         state.navigationTree = navTree
     },
     setChauffageData(state, chauffage) {
-        const cost = tm.computeChauffageCost(chauffage)
+        const cost = tm.computeChauffageCost(chauffage, state.housingData)
         const travaux = new tm.Travaux(
             chauffage.type,
             cost,

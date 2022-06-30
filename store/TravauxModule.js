@@ -375,12 +375,11 @@ export function computeVentilationCost(ventilationData) {
     const maxCost =
         ventilationData.ventilationSimpleNumber * 3000 +
         ventilationData.ventilationDoubleNumber * 8000
-    let valorization;
-    if(ventilationData.ventilationSimpleNumber !== 0){
+    let valorization
+    if (ventilationData.ventilationSimpleNumber !== 0) {
         valorization = 60
-    }
-    else{
-        valorization = 70;
+    } else {
+        valorization = 70
     }
     return new Cost(minCost, maxCost, valorization)
 }
@@ -450,9 +449,16 @@ export function computeChauffeEauAideGroupe(
     return new AideGroup(renov, serenite, createZero(1), pouce)
 }
 
+export function computePanneauxSolaireCost(housingData) {
+    const panneauxNecessaire = Math.ceil(
+        (housingData.consomationElectrique * 115) / 100 / 1000
+    )
+    return new Cost(2000 * panneauxNecessaire, 3000 * panneauxNecessaire, 250)
+}
+
 // CHAUFFAGE
 
-export function computeChauffageCost(chauffageData) {
+export function computeChauffageCost(chauffageData, housingData) {
     const quantity = chauffageData.quantity
     switch (chauffageData.type) {
         // BOIS
@@ -526,13 +532,17 @@ export function computeChauffageCost(chauffageData) {
             return new Cost(160 * quantity, 240 * quantity, 250)
         }
         case 'Système solaire combiné (SSC)': {
-            return new Cost(13000 * quantity/10, 20000 * quantity/10, 250)
+            return new Cost(
+                (13000 * quantity) / 10,
+                (20000 * quantity) / 10,
+                250
+            )
         }
         case 'Panneaux solaires aerovoltaiques': {
-            return new Cost(0, 0, 250)
+            return computePanneauxSolaireCost(housingData)
         }
         case 'Panneaux solaires photovoltaiques': {
-            return new Cost(0, 0, 250)
+            return computePanneauxSolaireCost(housingData)
         }
         // ELECTRIQUE
         case 'Murale': {
