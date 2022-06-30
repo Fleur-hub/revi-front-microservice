@@ -375,7 +375,14 @@ export function computeVentilationCost(ventilationData) {
     const maxCost =
         ventilationData.ventilationSimpleNumber * 3000 +
         ventilationData.ventilationDoubleNumber * 8000
-    return new Cost(minCost, maxCost, 2)
+    let valorization;
+    if(ventilationData.ventilationSimpleNumber !== 0){
+        valorization = 60
+    }
+    else{
+        valorization = 70;
+    }
+    return new Cost(minCost, maxCost, valorization)
 }
 
 // CHAUFFE-EAU
@@ -383,31 +390,31 @@ export function computeVentilationCost(ventilationData) {
 export function computeChauffeEauCost(chauffeEauData) {
     switch (chauffeEauData.chauffeEauSubType) {
         case 'Monobloc': {
-            return new Cost(1400, 4000, 12)
+            return new Cost(1400, 4000, 130)
         }
         case 'Thermosiphon': {
-            return new Cost(2000, 8000, 12)
+            return new Cost(2000, 8000, 130)
         }
         case 'Circulation forcée': {
-            return new Cost(2500, 5500, 12)
+            return new Cost(2500, 5500, 130)
         }
         case 'Système PVT': {
-            return new Cost(7000, 9000, 12)
+            return new Cost(7000, 9000, 130)
         }
         case 'Capteurs solaires': {
-            return new Cost(1500, 3500, 12)
+            return new Cost(1500, 3500, 130)
         }
         case 'Split': {
-            return new Cost(1500, 3000, 9)
+            return new Cost(1500, 3000, 175)
         }
         case 'Air ambiant': {
-            return new Cost(2000, 4000, 9)
+            return new Cost(2000, 4000, 175)
         }
         case 'Air extrait': {
-            return new Cost(3000, 4500, 9)
+            return new Cost(3000, 4500, 175)
         }
         case 'Air extérieur': {
-            return new Cost(2500, 3500, 9)
+            return new Cost(2500, 3500, 175)
         }
         default: {
             return new Cost(0, 0, 0)
@@ -450,101 +457,101 @@ export function computeChauffageCost(chauffageData) {
     switch (chauffageData.type) {
         // BOIS
         case 'Modèle à bûches': {
-            return new Cost(6500, 9000, 5)
+            return new Cost(6500, 9000, 140)
         }
         case 'Modèle à granulés': {
-            return new Cost(13000, 15500, 5)
+            return new Cost(13000, 15500, 140)
         }
         case 'Modèle à plaquettes de bois': {
-            return new Cost(17500, 20000, 5)
+            return new Cost(17500, 20000, 140)
         }
         case 'Modèle mixte': {
-            return new Cost(11500, 14000, 5)
+            return new Cost(11500, 14000, 140)
         }
         case 'Foyer fermé': {
-            return new Cost(4250, 4750, 5)
+            return new Cost(4250, 4750, 140)
         }
         case 'Insert à bûches': {
-            return new Cost(2250, 3250, 5)
+            return new Cost(2250, 3250, 140)
         }
         case 'Insert à granulés': {
-            return new Cost(5750, 7750, 5)
+            return new Cost(5750, 7750, 140)
         }
         case 'Poêle à bois suspendu': {
-            return new Cost(900, 5000, 5)
+            return new Cost(900, 5000, 140)
         }
         case "Poêle à bois d'angle": {
-            return new Cost(550, 1500, 5)
+            return new Cost(550, 1500, 140)
         }
         case 'Poêle à bois à double combustion': {
-            return new Cost(400, 3500, 5)
+            return new Cost(400, 3500, 140)
         }
         case 'Poêle à bois encastrable': {
-            return new Cost(250, 5000, 5)
+            return new Cost(250, 5000, 140)
         }
         // GAZ
         case 'Chaudière à condensation gaz': {
-            return new Cost(3500, 8500, 6)
+            return new Cost(3500, 8500, 125)
         }
         case 'Chaudière classique gaz': {
-            return new Cost(1000, 4000, 6)
+            return new Cost(1000, 4000, 125)
         }
         case 'Radiateur au gaz': {
-            return new Cost(500 * quantity, 2000 * quantity, 6)
+            return new Cost(500 * quantity, 2000 * quantity, 125)
         }
         case 'Poêle au gaz': {
-            return new Cost(2500, 6500, 6)
+            return new Cost(2500, 6500, 125)
         }
         // POMPE CHALEUR
         case 'Pompe à chaleur Sol/Eau': {
-            return new Cost(75 * quantity, 120 * quantity, 4)
+            return new Cost(75 * quantity, 120 * quantity, 110)
         }
         case 'Pompe à chaleur Sol/Air': {
-            return new Cost(90 * quantity, 150 * quantity, 4)
+            return new Cost(90 * quantity, 150 * quantity, 110)
         }
         case 'Pompe à chaleur Air/Air': {
-            return new Cost(45 * quantity, 100 * quantity, 4)
+            return new Cost(45 * quantity, 100 * quantity, 110)
         }
         case 'Pompe à chaleur Air/Eau': {
-            return new Cost(60 * quantity, 130 * quantity, 4)
+            return new Cost(60 * quantity, 130 * quantity, 110)
         }
         case 'Pompe à chaleur Eau/Eau': {
-            return new Cost(60 * quantity, 120 * quantity, 4)
+            return new Cost(60 * quantity, 120 * quantity, 110)
         }
         // SOLAIRE
         case 'Plancher solaire direct (PSD)': {
-            return new Cost(100 * quantity, 300 * quantity, 10)
+            return new Cost(100 * quantity, 300 * quantity, 250)
         }
         case 'Plancher solaire combiné (PSC)': {
-            return new Cost(160 * quantity, 240 * quantity, 10)
+            return new Cost(160 * quantity, 240 * quantity, 250)
         }
         case 'Système solaire combiné (SSC)': {
-            return new Cost(13000 * quantity, 20000 * quantity, 10)
+            return new Cost(13000 * quantity/10, 20000 * quantity/10, 250)
         }
         case 'Panneaux solaires aerovoltaiques': {
-            return new Cost(0, 0, 10)
+            return new Cost(0, 0, 250)
         }
         case 'Panneaux solaires photovoltaiques': {
-            return new Cost(0, 0, 10)
+            return new Cost(0, 0, 250)
         }
         // ELECTRIQUE
         case 'Murale': {
-            return new Cost(800 * quantity, 4500 * quantity, 8)
+            return new Cost(800 * quantity, 4500 * quantity, 200)
         }
         case 'Au sol': {
-            return new Cost(6500, 20500, 8)
+            return new Cost(6500, 20500, 200)
         }
         case 'Ionique': {
-            return new Cost(11500, 25500, 8)
+            return new Cost(11500, 25500, 200)
         }
         case 'A basse température': {
-            return new Cost(9500, 23500, 8)
+            return new Cost(9500, 23500, 200)
         }
         case 'Plafonds ou planchers chauffants': {
-            return new Cost(75 * quantity, 105 * quantity, 8)
+            return new Cost(75 * quantity, 105 * quantity, 200)
         }
         case 'Radiateurs électriques': {
-            return new Cost(3000 * quantity, 5000 * quantity, 8)
+            return new Cost(3000 * quantity, 5000 * quantity, 200)
         }
         // FIOUL
         case 'Chaudière à condensation fioul': {
@@ -984,94 +991,94 @@ export function computeIsolationCost(isolationData) {
         // COMBLE
 
         case 'Combles perdues': {
-            return new Cost(18 * quantity, 53 * quantity, 5)
+            return new Cost(18 * quantity, 53 * quantity, 80)
         }
         case 'Combles aménagées': {
-            return new Cost(20 * quantity, 50 * quantity, 5)
+            return new Cost(20 * quantity, 50 * quantity, 80)
         }
 
         // FENETRES
 
         case 'Joint de calfeutrage': {
-            return new Cost(20 * quantity, 50 * quantity, 2)
+            return new Cost(20 * quantity, 50 * quantity, 105)
         }
         case 'Plastique isolant': {
-            return new Cost(10, 30)
+            return new Cost(10, 30, 105)
         }
         case 'Survitrage': {
-            return new Cost(70 * quantity, 120 * quantity, 2)
+            return new Cost(70 * quantity, 120 * quantity, 105)
         }
         case 'Changement vitrage': {
-            return new Cost(40 * quantity, 80 * quantity, 2)
+            return new Cost(40 * quantity, 80 * quantity, 105)
         }
         case 'Volets': {
-            return new Cost(120 * quantity, 800 * quantity, 2)
+            return new Cost(120 * quantity, 800 * quantity, 105)
         }
         case 'Pose volet': {
-            return new Cost(100 * quantity, 250 * quantity, 2)
+            return new Cost(100 * quantity, 250 * quantity, 105)
         }
         case "Remplacement de l'ouvrant": {
-            return new Cost(150 * quantity, 750 * quantity, 2)
+            return new Cost(150 * quantity, 750 * quantity, 105)
         }
         case "Pose d'une fenêtre devant une fenêtre existante": {
-            return new Cost(350 * quantity, 800 * quantity, 2)
+            return new Cost(350 * quantity, 800 * quantity, 105)
         }
         case 'Réfection totale de la fenêtre': {
-            return new Cost(150 * quantity, 800 * quantity, 2)
+            return new Cost(150 * quantity, 800 * quantity, 105)
         }
 
         // MURS
 
         case 'Murs intérieurs': {
-            return new Cost(50 * quantity, 90 * quantity, 5)
+            return new Cost(50 * quantity, 90 * quantity, 120)
         }
         case 'Murs extérieurs': {
-            return new Cost(100 * quantity, 180 * quantity, 5)
+            return new Cost(100 * quantity, 180 * quantity, 120)
         }
 
         // SOL
 
         case 'Local chauffé': {
-            return new Cost(20 * quantity, 40 * quantity, 4)
+            return new Cost(20 * quantity, 40 * quantity, 85)
         }
         case 'Terre-plein': {
-            return new Cost(30 * quantity, 50 * quantity, 4)
+            return new Cost(30 * quantity, 50 * quantity, 85)
         }
         case 'Vide sanitaire non accessible': {
-            return new Cost(30 * quantity, 50 * quantity, 4)
+            return new Cost(30 * quantity, 50 * quantity, 85)
         }
         case 'Plancher en étage': {
-            return new Cost(20 * quantity, 50 * quantity, 4)
+            return new Cost(20 * quantity, 50 * quantity, 85)
         }
 
         // TOITURE-TERRASSE
 
         case 'Bitume ou caoutchouc': {
-            return new Cost(180 * quantity, 210 * quantity, 3)
+            return new Cost(180 * quantity, 210 * quantity, 95)
         }
         case 'Toiture accessible Végetalisation': {
-            return new Cost(310 * quantity, 430 * quantity, 3)
+            return new Cost(310 * quantity, 430 * quantity, 95)
         }
         case 'Gravier': {
-            return new Cost(200 * quantity, 290 * quantity, 3)
+            return new Cost(200 * quantity, 290 * quantity, 95)
         }
         case 'Bois': {
-            return new Cost(280 * quantity, 390 * quantity, 3)
+            return new Cost(280 * quantity, 390 * quantity, 95)
         }
         case 'Carrelage': {
-            return new Cost(280 * quantity, 390 * quantity, 3)
+            return new Cost(280 * quantity, 390 * quantity, 95)
         }
         case 'Dalle gravillonée': {
-            return new Cost(260 * quantity, 360 * quantity, 3)
+            return new Cost(260 * quantity, 360 * quantity, 95)
         }
         case 'Toiture non-accessible Végetalisation': {
-            return new Cost(310 * quantity, 430 * quantity, 3)
+            return new Cost(310 * quantity, 430 * quantity, 95)
         }
         case 'Béton': {
-            return new Cost(260 * quantity, 360 * quantity, 3)
+            return new Cost(260 * quantity, 360 * quantity, 95)
         }
         case 'Pierre naturelle': {
-            return new Cost(280 * quantity, 390 * quantity, 3)
+            return new Cost(280 * quantity, 390 * quantity, 95)
         }
         default: {
             return new Cost(0, 0, 0)
